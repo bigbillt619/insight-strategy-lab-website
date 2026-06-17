@@ -1,0 +1,1 @@
+- [Supabase RLS + env pitfalls](supabase-rls-and-env.md) — browser-direct app: scope admin to app_admins/is_admin(), not 'authenticated'; VITE_ env baked at boot (restart after change); DB secrets are placeholders (run DDL in SQL editor).

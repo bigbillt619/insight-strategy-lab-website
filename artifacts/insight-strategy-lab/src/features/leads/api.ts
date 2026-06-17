@@ -28,11 +28,19 @@ export function useCreateLead() {
         .insert({ id, ...input, status: "New" });
       if (error) throw error;
 
-      await supabase.from("lead_events").insert({
+      const { error: eventError } = await supabase.from("lead_events").insert({
         lead_id: id,
         event_type: "created",
         to_status: "New",
       });
+      // The lead itself is saved; the timeline event is best-effort, so surface
+      // failures in logs rather than failing the visitor's submission.
+      if (eventError) {
+        console.error(
+          "Lead created but initial timeline event failed:",
+          eventError.message,
+        );
+      }
 
       const lead: Lead = {
         id,

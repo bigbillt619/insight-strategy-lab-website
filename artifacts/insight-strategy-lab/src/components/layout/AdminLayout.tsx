@@ -30,7 +30,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   return (
     <div className="min-h-screen flex flex-col bg-muted/20">
       <header className="border-b border-border bg-card px-6 py-4 flex items-center justify-between sticky top-0 z-10">
-        <Link href="/admin" className="flex items-center gap-3">
+        <Link href="/" className="flex items-center gap-3">
           <img src={logo} alt="Logo" className="h-6 w-auto" />
           <div className="h-4 w-px bg-border hidden sm:block" />
           <span className="font-semibold text-sm hidden sm:block">Command Center</span>

@@ -15,6 +15,7 @@ import { ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
 export default function Diagnostic() {
   const [step, setStep] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
+  const [submitError, setSubmitError] = useState<string | null>(null);
   
   const { data: mapData = [], isLoading: mapLoading } = useRecommendationMap();
   const saveResult = useSaveDiagnosticResult();
@@ -47,11 +48,12 @@ export default function Diagnostic() {
     setTimeout(() => setStep(s => s + 1), 300); // Auto advance
   };
 
-  const handleLeadSubmit = (data: z.infer<typeof leadSchema>) => {
+  const handleLeadSubmit = async (data: z.infer<typeof leadSchema>) => {
     if (!recommendation) return;
+    setSubmitError(null);
 
-    createLead.mutate(
-      {
+    try {
+      const lead = await createLead.mutateAsync({
         ...data,
         source: "diagnostic",
         business_type: answers.business_type,
@@ -59,18 +61,26 @@ export default function Diagnostic() {
         biggest_bottleneck: answers.biggest_bottleneck,
         current_tools: answers.current_tools,
         revenue_range: answers.revenue_range
-      },
-      {
-        onSuccess: (lead) => {
-          saveResult.mutate({
-            lead_id: lead.id,
-            answers,
-            recommended_systems: recommendation
-          });
-          setStep(s => s + 1); // Move to finished state
-        }
+      });
+
+      // The lead is the critical capture; persisting the diagnostic detail is
+      // best-effort, so don't block the confirmation on it.
+      try {
+        await saveResult.mutateAsync({
+          lead_id: lead.id,
+          answers,
+          recommended_systems: recommendation
+        });
+      } catch (err) {
+        console.error("Failed to save diagnostic result (lead was captured):", err);
       }
-    );
+
+      setStep(s => s + 1); // Move to finished state
+    } catch {
+      setSubmitError(
+        "Something went wrong submitting your audit. Please try again, or reach out to us directly."
+      );
+    }
   };
 
   // 1. Loading state
@@ -169,8 +179,13 @@ export default function Diagnostic() {
                       </FormItem>
                     )}
                   />
-                  <Button type="submit" size="lg" className="w-full h-14 text-lg" disabled={createLead.isPending}>
-                    {createLead.isPending ? "Submitting..." : "Submit & Schedule Call"}
+                  {submitError && (
+                    <p className="flex items-center gap-2 text-sm font-medium text-destructive">
+                      <AlertCircle className="h-4 w-4 shrink-0" /> {submitError}
+                    </p>
+                  )}
+                  <Button type="submit" size="lg" className="w-full h-14 text-lg" disabled={createLead.isPending || saveResult.isPending}>
+                    {createLead.isPending || saveResult.isPending ? "Submitting..." : "Submit & Schedule Call"}
                   </Button>
                 </form>
               </Form>

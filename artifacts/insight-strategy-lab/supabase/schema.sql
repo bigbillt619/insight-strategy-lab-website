@@ -78,6 +78,13 @@ create table if not exists public.reviews (
   created_at timestamptz not null default now()
 );
 
+-- Owner allowlist. Membership here (not merely "is logged in") is what grants
+-- admin access, so the site stays safe even if public signups are enabled.
+create table if not exists public.app_admins (
+  user_id uuid primary key references auth.users(id) on delete cascade,
+  created_at timestamptz not null default now()
+);
+
 -- ---------------------------------------------------------------------------
 -- Row Level Security
 -- ---------------------------------------------------------------------------
@@ -88,6 +95,21 @@ alter table public.diagnostic_results enable row level security;
 alter table public.recommendation_map enable row level security;
 alter table public.apps enable row level security;
 alter table public.reviews enable row level security;
+alter table public.app_admins enable row level security;
+-- app_admins intentionally has NO policies: it is unreadable by anon/authenticated
+-- directly. is_admin() is SECURITY DEFINER so it can still check membership.
+
+create or replace function public.is_admin()
+returns boolean
+language sql
+stable
+security definer
+set search_path = public
+as $$
+  select exists (select 1 from public.app_admins where user_id = auth.uid());
+$$;
+revoke all on function public.is_admin() from public, anon, authenticated;
+grant execute on function public.is_admin() to anon, authenticated;
 
 -- Reset policies (idempotent)
 drop policy if exists leads_anon_insert on public.leads;
@@ -103,41 +125,46 @@ drop policy if exists apps_admin_all on public.apps;
 drop policy if exists reviews_public_read on public.reviews;
 drop policy if exists reviews_admin_all on public.reviews;
 
--- leads: public can submit (no read); admin (authenticated) full access
+-- leads: public can submit (no read); only an owner can read/manage
 create policy leads_anon_insert on public.leads
   for insert to anon with check (true);
 create policy leads_admin_all on public.leads
-  for all to authenticated using (true) with check (true);
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- lead_events: public can write only the initial 'created' event; admin full
+-- lead_events: public can write only the initial 'created' event; owner full
 create policy lead_events_anon_insert on public.lead_events
   for insert to anon with check (event_type = 'created');
 create policy lead_events_admin_all on public.lead_events
-  for all to authenticated using (true) with check (true);
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- diagnostic_results: public can submit (no read); admin full
+-- diagnostic_results: public can submit (no read); owner full
 create policy diag_anon_insert on public.diagnostic_results
   for insert to anon with check (true);
 create policy diag_admin_all on public.diagnostic_results
-  for all to authenticated using (true) with check (true);
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- recommendation_map: public read (drives the diagnostic); admin full
+-- recommendation_map: public read (drives the diagnostic); owner full
 create policy recmap_public_read on public.recommendation_map
   for select to anon, authenticated using (true);
 create policy recmap_admin_all on public.recommendation_map
-  for all to authenticated using (true) with check (true);
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- apps: public reads published only; admin full
+-- apps: public reads published only; owner sees/edits all
 create policy apps_public_read on public.apps
-  for select to anon, authenticated using (published = true or auth.role() = 'authenticated');
+  for select to anon, authenticated using (published = true or public.is_admin());
 create policy apps_admin_all on public.apps
-  for all to authenticated using (true) with check (true);
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- reviews: public reads published only; admin full
+-- reviews: public reads published only; owner sees/edits all
 create policy reviews_public_read on public.reviews
-  for select to anon, authenticated using (published = true or auth.role() = 'authenticated');
+  for select to anon, authenticated using (published = true or public.is_admin());
 create policy reviews_admin_all on public.reviews
-  for all to authenticated using (true) with check (true);
+  for all to authenticated using (public.is_admin()) with check (public.is_admin());
+
+-- Seed the site owner into the allowlist (project-specific auth.users id; this
+-- is a random uuid, not a secret). Add more ids here to grant other owners.
+insert into public.app_admins (user_id) values ('5154898f-69c4-4531-82f7-e063b80876e2')
+  on conflict do nothing;
 
 -- ---------------------------------------------------------------------------
 -- Seed: recommendation map (aligned to the diagnostic answer values)
