@@ -35,7 +35,7 @@ function Router() {
       </Route>
 
       {/* Public Routes wrapped in Layout */}
-      <Route path="/:rest*">
+      <Route>
         <PublicLayout>
           <Switch>
             <Route path="/" component={Home} />
