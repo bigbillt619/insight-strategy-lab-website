@@ -1,8 +1,14 @@
 import { Link, useLocation } from "wouter";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Facebook, Linkedin, Youtube } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/logo.png";
+
+const socials = [
+  { href: "https://www.facebook.com/InsightStrategyLab", label: "Facebook", icon: Facebook },
+  { href: "https://www.linkedin.com/in/billtamayo/", label: "LinkedIn", icon: Linkedin },
+  { href: "https://www.youtube.com/@InsightStrategyLab", label: "YouTube", icon: Youtube },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,9 +24,9 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between">
+      <div className="container mx-auto px-4 flex h-20 items-center justify-between">
         <Link href="/">
-          <img src={logo} alt="Insight Strategy Lab" className="h-8 w-auto" />
+          <img src={logo} alt="Insight Strategy Lab" className="h-12 md:h-14 w-auto" />
         </Link>
 
         {/* Desktop Nav */}
@@ -36,7 +42,23 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Button asChild variant="default" size="sm" className="ml-4">
+
+          <div className="flex items-center gap-3 pl-2 border-l border-border/60">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={s.label}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <s.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+
+          <Button asChild variant="default" size="sm" className="ml-2">
             <Link href="/diagnostic">Free Strategy Call</Link>
           </Button>
         </div>
@@ -65,6 +87,22 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+
+          <div className="flex items-center gap-4 pt-2">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={s.label}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <s.icon className="h-5 w-5" />
+              </a>
+            ))}
+          </div>
+
           <Button asChild variant="default" className="w-full mt-4" onClick={() => setIsOpen(false)}>
             <Link href="/diagnostic">Free Strategy Call</Link>
           </Button>
