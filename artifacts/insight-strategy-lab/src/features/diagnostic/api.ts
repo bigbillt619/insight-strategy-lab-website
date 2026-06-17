@@ -70,13 +70,12 @@ export function useSaveDiagnosticResult() {
       answers: DiagnosticAnswers;
       recommended_systems: RecommendationOutput;
     }) => {
-      const { data, error } = await supabase
+      // No .select() so the public (anon) flow needs INSERT only, never a
+      // readable SELECT policy on diagnostic_results.
+      const { error } = await supabase
         .from("diagnostic_results")
-        .insert(input)
-        .select()
-        .single();
+        .insert(input);
       if (error) throw error;
-      return data;
     },
   });
 }

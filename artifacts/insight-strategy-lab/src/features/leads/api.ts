@@ -19,20 +19,37 @@ export const leadEventsKey = (leadId: string) =>
 export function useCreateLead() {
   return useMutation({
     mutationFn: async (input: LeadInput): Promise<Lead> => {
-      const { data, error } = await supabase
+      // Generate the id client-side so the public (anon) flow never needs a
+      // SELECT policy on leads. Anonymous visitors can submit but never read
+      // the leads table.
+      const id = crypto.randomUUID();
+      const { error } = await supabase
         .from("leads")
-        .insert({ ...input, status: "New" })
-        .select()
-        .single();
+        .insert({ id, ...input, status: "New" });
       if (error) throw error;
-      const lead = data as Lead;
 
       await supabase.from("lead_events").insert({
-        lead_id: lead.id,
+        lead_id: id,
         event_type: "created",
         to_status: "New",
       });
 
+      const lead: Lead = {
+        id,
+        name: input.name,
+        email: input.email,
+        phone: input.phone ?? null,
+        business_type: input.business_type ?? null,
+        company_size: input.company_size ?? null,
+        biggest_bottleneck: input.biggest_bottleneck ?? null,
+        current_tools: input.current_tools ?? null,
+        revenue_range: input.revenue_range ?? null,
+        message: input.message ?? null,
+        source: input.source,
+        status: "New",
+        notes: null,
+        created_at: new Date().toISOString(),
+      };
       return lead;
     },
   });
