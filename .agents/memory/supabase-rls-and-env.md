@@ -22,10 +22,15 @@ policies for the public funnel. `app_admins` itself has RLS enabled and NO
 policies (only `is_admin()` / service_role can read it).
 
 # Applying DDL
-The `SUPABASE_DB_URL` and `SUPABASE_POOLER_URL` secrets contain placeholder /
-wrong passwords (DB_URL host is a template `abcd1234`; pooler password is wrong),
-so psql DDL fails. Schema/RLS migrations currently have to be run by the user in
-the Supabase SQL editor, or after the DB connection secret is fixed.
+`SUPABASE_DB_URL` is the working transaction-pooler connection
+(`postgres.<ref>@aws-1-us-west-1.pooler.supabase.com:5432/postgres`), but its
+password contains special characters that break libpq's URI parser (psql reports
+a bogus host like `789!@aws-...`). To run DDL: parse the URL in Node
+(`new URL(...)`, `decodeURIComponent(password)`) and either use the `pg` driver
+with explicit `{host,user,password,port,database,ssl}` OR shell out to `psql -h
+-U -p -d` with `PGPASSWORD`/`PGSSLMODE=require`. Never feed the raw URI to psql.
+Note: `pg` is NOT installed in the code_execution sandbox, and that sandbox has no
+`process.env` — run such scripts via bash `node`, not code_execution.
 
 # Vite env is baked at server start
 `VITE_SUPABASE_*` are inlined when the Vite server boots; HMR does NOT replace the
