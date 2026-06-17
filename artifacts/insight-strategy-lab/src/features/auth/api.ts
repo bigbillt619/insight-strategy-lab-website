@@ -25,6 +25,38 @@ export function useSession() {
   return { session, loading, isAuthenticated: !!session };
 }
 
+/**
+ * Verifies the current session belongs to an owner/admin by calling the
+ * SECURITY DEFINER `is_admin()` RPC (gated on the app_admins allowlist).
+ * A valid Supabase session alone is NOT sufficient for admin access.
+ */
+export function useIsAdmin() {
+  const { session, loading: sessionLoading } = useSession();
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [checking, setChecking] = useState(true);
+
+  useEffect(() => {
+    if (sessionLoading) return;
+    if (!session) {
+      setIsAdmin(false);
+      setChecking(false);
+      return;
+    }
+    let active = true;
+    setChecking(true);
+    supabase.rpc("is_admin").then(({ data, error }) => {
+      if (!active) return;
+      setIsAdmin(!error && data === true);
+      setChecking(false);
+    });
+    return () => {
+      active = false;
+    };
+  }, [session, sessionLoading]);
+
+  return { isAdmin, loading: sessionLoading || checking };
+}
+
 export async function signIn(email: string, password: string) {
   const { data, error } = await supabase.auth.signInWithPassword({
     email,

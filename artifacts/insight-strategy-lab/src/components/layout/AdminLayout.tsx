@@ -1,18 +1,20 @@
-import { useSession, signOut } from "@/features/auth/api";
+import { useIsAdmin, signOut } from "@/features/auth/api";
 import { useLocation, Link } from "wouter";
 import { useEffect } from "react";
 import { LogOut } from "lucide-react";
 import logo from "@/assets/logo.png";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const { isAuthenticated, loading } = useSession();
+  const { isAdmin, loading } = useIsAdmin();
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    if (!loading && !isAuthenticated) {
-      setLocation("/admin/login");
+    // A session alone is not enough — only owners on the app_admins allowlist
+    // may enter the admin shell. Sign out any non-owner session to avoid loops.
+    if (!loading && !isAdmin) {
+      signOut().finally(() => setLocation("/admin/login"));
     }
-  }, [loading, isAuthenticated, setLocation]);
+  }, [loading, isAdmin, setLocation]);
 
   if (loading) {
     return (
@@ -25,7 +27,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     );
   }
 
-  if (!isAuthenticated) return null;
+  if (!isAdmin) return null;
 
   return (
     <div className="min-h-screen flex flex-col bg-muted/20">

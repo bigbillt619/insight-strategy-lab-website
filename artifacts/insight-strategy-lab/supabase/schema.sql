@@ -237,3 +237,15 @@ insert into public.apps (title, description, category, use_case, results_summary
    'Organize athletes, sessions, and programs without the spreadsheet sprawl.',
    'Streamlined academy operations so coaches could focus on player development.',
    6, true);
+
+-- reviews seed (carried over from the owner's existing Google reviews; edit/manage in admin)
+insert into public.reviews (name, rating, text, source, published, sort_order) values
+  ('Marcus R.', 5,
+   'Bill built us a facility operations system that replaced a tangle of spreadsheets and group texts. Our coaches finally spend their time coaching instead of doing admin.',
+   'google', true, 1),
+  ('Danielle P.', 5,
+   'The fitness CRM he built keeps our memberships, sessions, and follow-ups in one place. Client communication has never been this consistent.',
+   'google', true, 2),
+  ('Anthony G.', 5,
+   'He took our messy delivery data and turned it into a dashboard leadership actually uses to make decisions. Professional, sharp, and genuinely invested in the outcome.',
+   'google', true, 3);

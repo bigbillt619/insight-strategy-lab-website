@@ -9,8 +9,21 @@ import { useCreateLead } from "@/features/leads/api";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle2, AlertCircle } from "lucide-react";
+import { CheckCircle2, AlertCircle } from "lucide-react";
+
+const optionsFor = (key: string) =>
+  DIAGNOSTIC_QUESTIONS.find((q) => q.key === key)?.options ?? [];
+
+const QUALIFIERS: { key: DiagnosticQuestion["key"]; label: string }[] = [
+  { key: "business_type", label: "Business type" },
+  { key: "company_size", label: "Team size" },
+  { key: "biggest_bottleneck", label: "Biggest bottleneck" },
+  { key: "current_tools", label: "Current tools" },
+  { key: "revenue_range", label: "Annual revenue" },
+];
 
 export default function Diagnostic() {
   const [step, setStep] = useState(0);
@@ -31,16 +44,33 @@ export default function Diagnostic() {
     return computeRecommendation(answers, mapData);
   }, [isComplete, showLeadForm, isFinished, answers, mapData]);
 
-  // Lead Form schema
+  // Structured intake schema — qualifiers are prefilled from the diagnostic
+  // answers (and remain editable) so the lead carries the full context.
   const leadSchema = z.object({
     name: z.string().min(2, "Name is required"),
     email: z.string().email("Valid email is required"),
-    phone: z.string().optional()
+    phone: z.string().optional(),
+    business_type: z.string().optional(),
+    company_size: z.string().optional(),
+    biggest_bottleneck: z.string().optional(),
+    current_tools: z.string().optional(),
+    revenue_range: z.string().optional(),
+    message: z.string().min(10, "Please share a little more detail"),
   });
 
   const form = useForm<z.infer<typeof leadSchema>>({
     resolver: zodResolver(leadSchema),
-    defaultValues: { name: "", email: "", phone: "" },
+    values: {
+      name: "",
+      email: "",
+      phone: "",
+      business_type: answers.business_type ?? "",
+      company_size: answers.company_size ?? "",
+      biggest_bottleneck: answers.biggest_bottleneck ?? "",
+      current_tools: answers.current_tools ?? "",
+      revenue_range: answers.revenue_range ?? "",
+      message: "",
+    },
   });
 
   const handleAnswer = (key: string, value: string) => {
@@ -52,15 +82,19 @@ export default function Diagnostic() {
     if (!recommendation) return;
     setSubmitError(null);
 
+    const emptyToNull = (v?: string) => (v && v.length > 0 ? v : null);
     try {
       const lead = await createLead.mutateAsync({
-        ...data,
+        name: data.name,
+        email: data.email,
+        phone: emptyToNull(data.phone),
+        message: data.message,
         source: "diagnostic",
-        business_type: answers.business_type,
-        company_size: answers.company_size,
-        biggest_bottleneck: answers.biggest_bottleneck,
-        current_tools: answers.current_tools,
-        revenue_range: answers.revenue_range
+        business_type: emptyToNull(data.business_type),
+        company_size: emptyToNull(data.company_size),
+        biggest_bottleneck: emptyToNull(data.biggest_bottleneck),
+        current_tools: emptyToNull(data.current_tools),
+        revenue_range: emptyToNull(data.revenue_range),
       });
 
       // The lead is the critical capture; persisting the diagnostic detail is
@@ -142,7 +176,10 @@ export default function Diagnostic() {
           <div className="bg-background border border-border rounded-3xl p-8 md:p-12">
             <div className="max-w-xl mx-auto">
               <h2 className="text-2xl font-bold text-foreground mb-2">Claim Your Strategy Call</h2>
-              <p className="text-muted-foreground mb-8">Lock in these insights and book your deep-dive with Bill Tamayo.</p>
+              <p className="text-muted-foreground mb-8">
+                We've prefilled your audit answers below — review or adjust anything, add any
+                detail, and book your deep-dive with Bill Tamayo.
+              </p>
               
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(handleLeadSubmit)} className="space-y-6">
@@ -157,24 +194,72 @@ export default function Diagnostic() {
                       </FormItem>
                     )}
                   />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Email Address</FormLabel>
+                          <FormControl><Input type="email" {...field} /></FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="phone"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Phone Number (Optional)</FormLabel>
+                          <FormControl><Input {...field} /></FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {QUALIFIERS.map((q) => (
+                      <FormField
+                        key={q.key}
+                        control={form.control}
+                        name={q.key}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{q.label}</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value || undefined}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select..." />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {optionsFor(q.key).map((o) => (
+                                  <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ))}
+                  </div>
+
                   <FormField
                     control={form.control}
-                    name="email"
+                    name="message"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel>Email Address</FormLabel>
-                        <FormControl><Input type="email" {...field} /></FormControl>
-                        <FormMessage />
-                      </FormItem>
-                    )}
-                  />
-                  <FormField
-                    control={form.control}
-                    name="phone"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel>Phone Number (Optional)</FormLabel>
-                        <FormControl><Input {...field} /></FormControl>
+                        <FormLabel>Anything else we should know?</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Tell us about your current systems and the bottleneck you most want solved..."
+                            className="min-h-[120px]"
+                            {...field}
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
