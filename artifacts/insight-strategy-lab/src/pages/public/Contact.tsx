@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { DIAGNOSTIC_QUESTIONS } from "@/features/diagnostic/questions";
 import { ReviewsSection } from "@/components/ReviewsSection";
+import { useContent } from "@/features/content/api";
 
 const optionsFor = (key: string) =>
   DIAGNOSTIC_QUESTIONS.find((q) => q.key === key)?.options ?? [];
@@ -39,6 +40,14 @@ const QUALIFIERS: { name: keyof ContactFormValues; label: string }[] = [
 export default function Contact() {
   const { toast } = useToast();
   const createLead = useCreateLead();
+  const { get } = useContent("contact");
+  const { get: getGlobal } = useContent("global");
+
+  const socialLinks = [
+    { href: getGlobal("social_linkedin"), label: "LinkedIn" },
+    { href: getGlobal("social_youtube"), label: "YouTube" },
+    { href: getGlobal("social_facebook"), label: "Facebook" },
+  ].filter((s) => s.href);
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(contactSchema),
@@ -89,30 +98,41 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
             <div>
               <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
-                Contact Us
+                {get("hero_title")}
               </h1>
               <p className="text-lg text-muted-foreground mb-10">
-                Tell us about your business and where the friction is. The more you
-                share, the sharper the system we can scope for you.
+                {get("intro")}
               </p>
 
               <div className="space-y-8">
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Location</h3>
-                  <p className="text-foreground font-medium text-lg">Murrieta, CA 92563</p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Phone</h3>
-                  <p className="text-foreground font-medium text-lg">(951) 528-1192</p>
-                </div>
-                <div>
-                  <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Connect</h3>
-                  <div className="flex gap-4">
-                    <a href="https://www.linkedin.com/in/billtamayo/" target="_blank" rel="noreferrer" className="text-accent hover:underline font-medium">LinkedIn</a>
-                    <a href="https://www.youtube.com/@InsightStrategyLab" target="_blank" rel="noreferrer" className="text-accent hover:underline font-medium">YouTube</a>
-                    <a href="https://www.facebook.com/InsightStrategyLab" target="_blank" rel="noreferrer" className="text-accent hover:underline font-medium">Facebook</a>
+                {getGlobal("contact_address") && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Location</h3>
+                    <p className="text-foreground font-medium text-lg">{getGlobal("contact_address")}</p>
                   </div>
-                </div>
+                )}
+                {getGlobal("contact_phone") && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Phone</h3>
+                    <p className="text-foreground font-medium text-lg">{getGlobal("contact_phone")}</p>
+                  </div>
+                )}
+                {getGlobal("contact_email") && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Email</h3>
+                    <p className="text-foreground font-medium text-lg">{getGlobal("contact_email")}</p>
+                  </div>
+                )}
+                {socialLinks.length > 0 && (
+                  <div>
+                    <h3 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-4">Connect</h3>
+                    <div className="flex gap-4">
+                      {socialLinks.map((s) => (
+                        <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="text-accent hover:underline font-medium">{s.label}</a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 

@@ -2,17 +2,22 @@ import { Link, useLocation } from "wouter";
 import { Menu, X, Facebook, Linkedin, Youtube } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/features/content/api";
 import logo from "@/assets/logo.png";
-
-const socials = [
-  { href: "https://www.facebook.com/InsightStrategyLab", label: "Facebook", icon: Facebook },
-  { href: "https://www.linkedin.com/in/billtamayo/", label: "LinkedIn", icon: Linkedin },
-  { href: "https://www.youtube.com/@InsightStrategyLab", label: "YouTube", icon: Youtube },
-];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [location] = useLocation();
+  const { get } = useContent("global");
+
+  const socials = [
+    { href: get("social_facebook"), label: "Facebook", icon: Facebook },
+    { href: get("social_linkedin"), label: "LinkedIn", icon: Linkedin },
+    { href: get("social_youtube"), label: "YouTube", icon: Youtube },
+  ].filter((s) => s.href);
+
+  const logoScale = Number(get("logo_scale")) || 1;
+  const logoStyle = { height: `${3.5 * logoScale}rem` };
 
   const links = [
     { href: "/", label: "Home" },
@@ -26,7 +31,7 @@ export default function Navbar() {
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4 flex h-20 items-center justify-between">
         <Link href="/">
-          <img src={logo} alt="Insight Strategy Lab" className="h-12 md:h-14 w-auto" />
+          <img src={logo} alt="Insight Strategy Lab" className="w-auto" style={logoStyle} />
         </Link>
 
         {/* Desktop Nav */}

@@ -6,6 +6,7 @@ import NotFound from "@/pages/not-found";
 
 import PublicLayout from "@/components/layout/PublicLayout";
 import AdminLayout from "@/components/layout/AdminLayout";
+import BrandStyle from "@/features/content/BrandStyle";
 
 import Home from "@/pages/public/Home";
 import Apps from "@/pages/public/Apps";
@@ -56,6 +57,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <BrandStyle />
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
           <Router />
         </WouterRouter>

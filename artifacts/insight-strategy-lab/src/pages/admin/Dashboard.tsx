@@ -9,6 +9,8 @@ import { LeadManager } from "./LeadManager";
 import { AppManager } from "./AppManager";
 import { ReviewManager } from "./ReviewManager";
 import { RecommendationManager } from "./RecommendationManager";
+import { SiteSettingsManager } from "./SiteSettingsManager";
+import { PageContentManager } from "./PageContentManager";
 
 export default function Dashboard() {
   const { data: leads = [], isLoading: leadsLoading } = useLeads();
@@ -70,6 +72,8 @@ export default function Dashboard() {
           <TabsTrigger value="apps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Apps Manager</TabsTrigger>
           <TabsTrigger value="reviews" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Reviews Manager</TabsTrigger>
           <TabsTrigger value="recmap" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Recommendation Map</TabsTrigger>
+          <TabsTrigger value="pages" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Page Content</TabsTrigger>
+          <TabsTrigger value="settings" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Site Settings</TabsTrigger>
         </TabsList>
 
         <TabsContent value="leads" className="m-0">
@@ -86,6 +90,14 @@ export default function Dashboard() {
 
         <TabsContent value="recmap" className="m-0">
           <RecommendationManager />
+        </TabsContent>
+
+        <TabsContent value="pages" className="m-0">
+          <PageContentManager />
+        </TabsContent>
+
+        <TabsContent value="settings" className="m-0">
+          <SiteSettingsManager />
         </TabsContent>
 
       </Tabs>

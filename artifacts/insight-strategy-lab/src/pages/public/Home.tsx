@@ -3,10 +3,24 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ShieldCheck, Cog, BarChart, Zap, LayoutDashboard, Database } from "lucide-react";
 import { usePublishedApps } from "@/features/apps/api";
 import { usePublishedReviews } from "@/features/reviews/api";
+import { useContent } from "@/features/content/api";
+import { VideoEmbed } from "@/components/MediaEmbed";
 
 export default function Home() {
   const { data: apps = [], isLoading: appsLoading } = usePublishedApps();
   const { data: reviews = [], isLoading: reviewsLoading } = usePublishedReviews();
+  const { get } = useContent("home");
+
+  const steps = [
+    { title: get("step1_title"), desc: get("step1_desc"), icon: BarChart },
+    { title: get("step2_title"), desc: get("step2_desc"), icon: LayoutDashboard },
+    { title: get("step3_title"), desc: get("step3_desc"), icon: Cog },
+    { title: get("step4_title"), desc: get("step4_desc"), icon: Zap },
+  ];
+
+  const whoBullets = get("who_bullets").split("\n").map((s) => s.trim()).filter(Boolean);
+  const whoImage = get("who_image");
+  const whoVideo = get("who_video");
 
   return (
     <div className="flex flex-col min-h-screen">
@@ -17,23 +31,23 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-4 animate-in fade-in slide-in-from-bottom-4 duration-700">
               <ShieldCheck className="h-4 w-4 text-accent" />
-              <span>Veteran Owned · Secure · Proven</span>
+              <span>{get("hero_badge")}</span>
             </div>
-            
+
             <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-foreground animate-in fade-in slide-in-from-bottom-8 duration-700 delay-150">
-              Small Business Owners, Get Custom Systems Tailored to Your Workflow
+              {get("hero_title")}
             </h1>
-            
+
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-in fade-in slide-in-from-bottom-8 duration-700 delay-300">
-              CRMs · Automations · Dashboards · AI
+              {get("hero_subtitle")}
             </p>
-            
+
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-8 animate-in fade-in slide-in-from-bottom-8 duration-700 delay-500">
               <Button asChild size="lg" className="w-full sm:w-auto text-lg h-14 px-8">
-                <Link href="/diagnostic">Schedule your free strategy call</Link>
+                <Link href="/diagnostic">{get("hero_cta_primary")}</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="w-full sm:w-auto text-lg h-14 px-8">
-                <Link href="/apps">See how it works</Link>
+                <Link href="/apps">{get("hero_cta_secondary")}</Link>
               </Button>
             </div>
           </div>
@@ -44,17 +58,12 @@ export default function Home() {
       <section className="py-24 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">How It Works</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">We don't force you into generic templates. We build for how you actually operate.</p>
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{get("how_heading")}</h2>
+            <p className="text-muted-foreground max-w-2xl mx-auto">{get("how_subtitle")}</p>
           </div>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
-            {[
-              { title: "Diagnose", desc: "Identify your biggest operational bottlenecks and time-sinks.", icon: BarChart },
-              { title: "Design", desc: "Map out a custom workflow and system architecture.", icon: LayoutDashboard },
-              { title: "Build", desc: "Develop the tailored solution with secure, reliable tools.", icon: Cog },
-              { title: "Deploy", desc: "Launch into your operations and provide ongoing support.", icon: Zap }
-            ].map((step, i) => (
+            {steps.map((step, i) => (
               <div key={i} className="relative flex flex-col items-center text-center p-6 bg-card rounded-2xl border border-border shadow-sm hover:shadow-md transition-all">
                 <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center mb-4 text-primary">
                   <step.icon className="h-6 w-6" />
@@ -73,17 +82,12 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-16 items-center max-w-6xl mx-auto">
             <div className="space-y-6">
-              <h2 className="text-3xl md:text-5xl font-bold text-foreground">Built for operators buried in manual work.</h2>
+              <h2 className="text-3xl md:text-5xl font-bold text-foreground">{get("who_heading")}</h2>
               <p className="text-lg text-muted-foreground">
-                Insight Strategy Lab partners with gym & training-facility owners, property managers, and service businesses who are hitting an operational ceiling.
+                {get("who_body")}
               </p>
               <ul className="space-y-4">
-                {[
-                  "Stop chasing leads through scattered spreadsheets",
-                  "Automate repetitive admin and follow-ups",
-                  "Get clear visibility into your metrics and KPIs",
-                  "Scale your capacity without doubling your headcount"
-                ].map((item, i) => (
+                {whoBullets.map((item, i) => (
                   <li key={i} className="flex items-start gap-3 text-foreground">
                     <CheckCircle2 className="h-6 w-6 text-accent shrink-0" />
                     <span>{item}</span>
@@ -92,23 +96,30 @@ export default function Home() {
               </ul>
               <div className="pt-6">
                 <Button asChild variant="default" size="lg">
-                  <Link href="/services">View Our Services <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                  <Link href="/services">{get("who_cta")} <ArrowRight className="ml-2 h-4 w-4" /></Link>
                 </Button>
               </div>
             </div>
-            <div className="relative rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] border border-border bg-card shadow-xl">
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent z-0" />
-              {/* Fallback pattern */}
-              <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
-              <div className="relative z-10 h-full flex items-center justify-center p-12">
-                 <div className="grid grid-cols-2 gap-4 w-full opacity-80">
+            {whoVideo ? (
+              <VideoEmbed url={whoVideo} className="border border-border shadow-xl" />
+            ) : whoImage ? (
+              <div className="relative rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] border border-border bg-card shadow-xl">
+                <img src={whoImage} alt="" className="h-full w-full object-cover" />
+              </div>
+            ) : (
+              <div className="relative rounded-2xl overflow-hidden aspect-square md:aspect-auto md:h-[600px] border border-border bg-card shadow-xl">
+                <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 to-transparent z-0" />
+                <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '24px 24px' }}></div>
+                <div className="relative z-10 h-full flex items-center justify-center p-12">
+                  <div className="grid grid-cols-2 gap-4 w-full opacity-80">
                     <div className="h-32 rounded-lg bg-primary/20 animate-pulse" />
                     <div className="h-32 rounded-lg bg-accent/20 animate-pulse delay-75" />
                     <div className="h-48 rounded-lg bg-muted animate-pulse delay-150" />
                     <div className="h-48 rounded-lg bg-primary/10 animate-pulse delay-300" />
-                 </div>
+                  </div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </section>
@@ -118,8 +129,8 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Systems in Production</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl">Real tools built for real businesses. See what's possible when you move beyond generic software.</p>
+              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{get("systems_heading")}</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl">{get("systems_subtitle")}</p>
             </div>
             <Button asChild variant="outline">
               <Link href="/apps">View All Apps</Link>
@@ -155,16 +166,18 @@ export default function Home() {
           )}
         </div>
       </section>
-      
+
       {/* Testimonials preview */}
       {!reviewsLoading && reviews.length > 0 && (
          <section className="py-24 bg-background">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-16 text-foreground">Trusted by Operators</h2>
+            <h2 className="text-3xl font-bold text-center mb-16 text-foreground">{get("testimonials_heading")}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {reviews.slice(0,3).map(review => (
                 <div key={review.id} className="p-8 bg-card border border-border rounded-2xl relative">
-                  <div className="text-accent mb-4 text-2xl">★★★★★</div>
+                  <div className="text-accent mb-4 text-2xl" aria-hidden>
+                    {"\u2605".repeat(Math.max(1, Math.min(5, review.rating)))}
+                  </div>
                   <p className="text-muted-foreground mb-6 italic">"{review.text}"</p>
                   <p className="font-bold text-foreground">{review.name}</p>
                 </div>

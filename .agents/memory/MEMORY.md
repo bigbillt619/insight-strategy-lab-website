@@ -1,1 +1,2 @@
 - [Supabase RLS + env pitfalls](supabase-rls-and-env.md) — browser-direct app: scope admin to app_admins/is_admin() not 'authenticated'; VITE_ env baked at boot; DB password breaks libpq URI (use pg components).
+- [Content-override CMS pattern](content-overrides-cms.md) — DB content_blocks = overrides only over in-code defaults; apply empty rows (else can't clear); save changed-or-existing keys; defaults must match prior copy exactly.
