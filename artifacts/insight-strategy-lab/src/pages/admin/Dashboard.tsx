@@ -7,6 +7,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Database, Star, GitMerge } from "lucide-react";
 import { LeadManager } from "./LeadManager";
 import { AppManager } from "./AppManager";
+import { ReviewManager } from "./ReviewManager";
+import { RecommendationManager } from "./RecommendationManager";
 
 export default function Dashboard() {
   const { data: leads = [], isLoading: leadsLoading } = useLeads();
@@ -63,10 +65,11 @@ export default function Dashboard() {
       </div>
 
       <Tabs defaultValue="leads" className="w-full">
-        <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-6">
+        <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-6 flex-wrap">
           <TabsTrigger value="leads" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Leads Pipeline</TabsTrigger>
           <TabsTrigger value="apps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Apps Manager</TabsTrigger>
           <TabsTrigger value="reviews" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Reviews Manager</TabsTrigger>
+          <TabsTrigger value="recmap" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Recommendation Map</TabsTrigger>
         </TabsList>
 
         <TabsContent value="leads" className="m-0">
@@ -78,12 +81,11 @@ export default function Dashboard() {
         </TabsContent>
 
         <TabsContent value="reviews" className="m-0">
-          <Card className="border-border shadow-sm">
-            <CardContent className="p-8 text-center text-muted-foreground">
-              <Star className="h-8 w-8 mx-auto mb-3 opacity-20" />
-              <p>Reviews configuration UI available via backend hooks (useCreateReview, etc). Not fully implemented in this prototype layer for brevity.</p>
-            </CardContent>
-          </Card>
+          <ReviewManager />
+        </TabsContent>
+
+        <TabsContent value="recmap" className="m-0">
+          <RecommendationManager />
         </TabsContent>
 
       </Tabs>
