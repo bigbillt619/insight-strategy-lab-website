@@ -4,24 +4,50 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 
-const queryClient = new QueryClient();
+import PublicLayout from "@/components/layout/PublicLayout";
+import AdminLayout from "@/components/layout/AdminLayout";
 
-function Home() {
-  return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold text-gray-900">Replit Agent is building...</h1>
-        <p className="mt-2 text-sm text-gray-600">Your app will appear here once it's ready.</p>
-      </div>
-    </div>
-  );
-}
+import Home from "@/pages/public/Home";
+import Apps from "@/pages/public/Apps";
+import Services from "@/pages/public/Services";
+import About from "@/pages/public/About";
+import Contact from "@/pages/public/Contact";
+import Diagnostic from "@/pages/public/Diagnostic";
+
+import Login from "@/pages/admin/Login";
+import Dashboard from "@/pages/admin/Dashboard";
+
+const queryClient = new QueryClient();
 
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
-      <Route component={NotFound} />
+      <Route path="/admin/login" component={Login} />
+      
+      {/* Admin Routes wrapped in Layout */}
+      <Route path="/admin" nest>
+        <AdminLayout>
+          <Switch>
+            <Route path="/" component={Dashboard} />
+            <Route component={NotFound} />
+          </Switch>
+        </AdminLayout>
+      </Route>
+
+      {/* Public Routes wrapped in Layout */}
+      <Route path="/:rest*">
+        <PublicLayout>
+          <Switch>
+            <Route path="/" component={Home} />
+            <Route path="/apps" component={Apps} />
+            <Route path="/services" component={Services} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/diagnostic" component={Diagnostic} />
+            <Route component={NotFound} />
+          </Switch>
+        </PublicLayout>
+      </Route>
     </Switch>
   );
 }
