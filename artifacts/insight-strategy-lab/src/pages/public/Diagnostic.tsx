@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Link } from "wouter";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -60,18 +60,40 @@ export default function Diagnostic() {
 
   const form = useForm<z.infer<typeof leadSchema>>({
     resolver: zodResolver(leadSchema),
-    values: {
+    defaultValues: {
       name: "",
       email: "",
       phone: "",
-      business_type: answers.business_type ?? "",
-      company_size: answers.company_size ?? "",
-      biggest_bottleneck: answers.biggest_bottleneck ?? "",
-      current_tools: answers.current_tools ?? "",
-      revenue_range: answers.revenue_range ?? "",
+      business_type: "",
+      company_size: "",
+      biggest_bottleneck: "",
+      current_tools: "",
+      revenue_range: "",
       message: "",
     },
   });
+
+  // Prefill the qualifier selects from the diagnostic answers exactly once when
+  // the intake step is reached. Using reset (rather than the controlled `values`
+  // prop) seeds the fields without re-syncing over the user's subsequent edits.
+  const prefilled = useRef(false);
+  const onIntakeStep = isComplete || showLeadForm;
+  useEffect(() => {
+    if (onIntakeStep && !prefilled.current) {
+      prefilled.current = true;
+      form.reset({
+        name: "",
+        email: "",
+        phone: "",
+        message: "",
+        business_type: answers.business_type ?? "",
+        company_size: answers.company_size ?? "",
+        biggest_bottleneck: answers.biggest_bottleneck ?? "",
+        current_tools: answers.current_tools ?? "",
+        revenue_range: answers.revenue_range ?? "",
+      });
+    }
+  }, [onIntakeStep, answers, form]);
 
   const handleAnswer = (key: string, value: string) => {
     setAnswers(prev => ({ ...prev, [key]: value }));
