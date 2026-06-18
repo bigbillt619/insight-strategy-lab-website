@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { Link } from "wouter";
+import { ArrowRight } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateLead } from "@/features/leads/api";
@@ -136,8 +138,19 @@ export default function Contact() {
               </div>
             </div>
 
-            <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
-              <h2 className="text-2xl font-bold text-foreground mb-6">Tell us about your business</h2>
+            <div>
+              <div className="bg-primary/5 border border-border rounded-2xl p-6 mb-6">
+                <h2 className="text-lg font-bold text-foreground mb-2">{get("diagnostic_cta_heading")}</h2>
+                <p className="text-muted-foreground mb-4">{get("diagnostic_cta_body")}</p>
+                <Button asChild variant="outline">
+                  <Link href="/diagnostic">
+                    {get("diagnostic_cta_button")} <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="bg-card border border-border p-8 rounded-2xl shadow-sm">
+              <h2 className="text-2xl font-bold text-foreground mb-6">{get("form_heading")}</h2>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
@@ -226,10 +239,11 @@ export default function Contact() {
                   />
 
                   <Button type="submit" className="w-full" size="lg" disabled={createLead.isPending}>
-                    {createLead.isPending ? "Sending..." : "Send Message"}
+                    {createLead.isPending ? "Sending..." : get("form_submit")}
                   </Button>
                 </form>
               </Form>
+              </div>
             </div>
           </div>
         </div>

@@ -326,6 +326,26 @@ export default function Diagnostic() {
           </div>
         </div>
 
+        {/* Intro framing (first step only) */}
+        {step === 0 && (
+          <div className="mb-10">
+            <p className="text-sm font-bold uppercase tracking-widest text-accent mb-3">{get("wizard_intro_eyebrow")}</p>
+            <p className="text-lg text-muted-foreground mb-6">{get("wizard_intro_body")}</p>
+            {get("wizard_outcome_items").trim() && (
+              <div className="bg-secondary/50 rounded-xl p-6 border border-border">
+                <h2 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">{get("wizard_outcome_heading")}</h2>
+                <ul className="space-y-2">
+                  {get("wizard_outcome_items").split("\n").filter((s) => s.trim()).map((item, i) => (
+                    <li key={i} className="flex items-start gap-3 text-muted-foreground font-medium">
+                      <CheckCircle2 className="h-4 w-4 text-accent mt-1 shrink-0" /> {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Question */}
         <div className="animate-in fade-in slide-in-from-right-4 duration-300">
           <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{currentQ.question}</h1>

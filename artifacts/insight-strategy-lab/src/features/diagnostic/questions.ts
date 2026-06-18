@@ -19,15 +19,15 @@ export interface DiagnosticQuestion {
 export const DIAGNOSTIC_QUESTIONS: DiagnosticQuestion[] = [
   {
     key: "business_type",
-    question: "What kind of business do you run?",
-    helper: "This helps us tailor the right systems to your world.",
+    question: "What type of operation are we designing a system for?",
+    helper: "This helps us tailor the system architecture to your operations.",
     options: [
       { value: "fitness_facility", label: "Gym / Fitness Facility" },
       { value: "sports_academy", label: "Sports Training Academy" },
       { value: "property_management", label: "Property Management" },
       {
         value: "service_business",
-        label: "Service Business (landscaping, delivery, trades)",
+        label: "Service-Based Business (landscaping, delivery, trades)",
       },
       { value: "other", label: "Something else" },
     ],

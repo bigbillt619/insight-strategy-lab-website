@@ -170,17 +170,27 @@ export const ABOUT_GROUP: ContentGroup = {
 export const CONTACT_GROUP: ContentGroup = {
   page: "contact",
   title: "Contact Page",
+  description: "The contact page is the secondary path. The System Diagnostic is the primary funnel, so this page points people there first.",
   fields: [
-    { key: "hero_title", label: "Page title", type: "text", default: "Contact Us" },
-    { key: "intro", label: "Intro paragraph", type: "textarea", default: "Tell us about your business and where the friction is. The more you share, the sharper the system we can scope for you." },
+    { key: "hero_title", label: "Page title", type: "text", default: "Direct Contact & Inquiries" },
+    { key: "intro", label: "Intro paragraph", type: "textarea", default: "For referrals, direct connections, or anything that doesn't fit the diagnostic, reach us here. If you want a scoped system recommendation, start with the System Diagnostic first." },
+    { key: "diagnostic_cta_heading", label: "Diagnostic redirect - heading", type: "text", default: "Looking to improve your systems?" },
+    { key: "diagnostic_cta_body", label: "Diagnostic redirect - body", type: "textarea", default: "Start with our System Diagnostic so we can better understand your operations before we speak." },
+    { key: "diagnostic_cta_button", label: "Diagnostic redirect - button", type: "text", default: "Start System Diagnostic" },
+    { key: "form_heading", label: "Inquiry form - heading", type: "text", default: "General Inquiry / Direct Request" },
+    { key: "form_submit", label: "Inquiry form - submit button", type: "text", default: "Submit Inquiry" },
   ],
 };
 
 export const DIAGNOSTIC_GROUP: ContentGroup = {
   page: "diagnostic",
   title: "Free Strategy Call Page",
-  description: "Copy on the diagnostic / free strategy call flow (the report, intake form, and confirmation). The audit questions are managed separately.",
+  description: "Copy on the diagnostic / free strategy call flow (the intro framing, report, intake form, and confirmation). The audit questions are managed separately.",
   fields: [
+    { key: "wizard_intro_eyebrow", label: "Wizard intro - eyebrow", type: "text", default: "System Diagnostic", help: "Small label shown above the first question." },
+    { key: "wizard_intro_body", label: "Wizard intro - body", type: "textarea", default: "We'll map your current operations so we can design the right system for your business." },
+    { key: "wizard_outcome_heading", label: "Wizard intro - outcome heading", type: "text", default: "At the end of this, you'll have a clear picture of:" },
+    { key: "wizard_outcome_items", label: "Wizard intro - outcome items", type: "list", default: "Where your current system is breaking down\nWhat should be built first\nWhat a working system would look like for your business", help: "One item per line." },
     { key: "report_label", label: "Report - label", type: "text", default: "Insight Report" },
     { key: "report_opportunity_prefix", label: "Report - opportunity prefix", type: "text", default: "Your Primary Opportunity:", help: "Shown before the recommended system name." },
     { key: "report_also_consider", label: "Report - 'also consider' heading", type: "text", default: "Also Consider:" },
