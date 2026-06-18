@@ -5,6 +5,7 @@ import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
 import { VideoEmbed } from "@/components/MediaEmbed";
 import { ReviewsSection } from "@/components/ReviewsSection";
+import { FeaturedReview } from "@/components/FeaturedReview";
 
 export default function Home() {
   const { data: apps = [], isLoading: appsLoading } = usePublishedApps();
@@ -52,6 +53,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Featured client review */}
+      <FeaturedReview className="bg-background" />
 
       {/* How it works */}
       <section className="py-24 bg-secondary/50">

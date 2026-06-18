@@ -76,6 +76,11 @@ export const HOME_GROUP: ContentGroup = {
     { key: "systems_heading", label: "Systems section - heading", type: "text", default: "Systems in Production" },
     { key: "systems_subtitle", label: "Systems section - subtitle", type: "textarea", default: "Real tools built for real businesses. See what's possible when you move beyond generic software." },
     { key: "testimonials_heading", label: "Testimonials heading", type: "text", default: "Trusted by Operators" },
+    { key: "review_quote", label: "Featured review - quote", type: "textarea", default: "", help: "The review text to feature below the hero. Leave empty to hide the section." },
+    { key: "review_author", label: "Featured review - author name", type: "text", default: "" },
+    { key: "review_role", label: "Featured review - author title / location", type: "text", default: "" },
+    { key: "review_rating", label: "Featured review - star rating (1-5)", type: "number", default: "5" },
+    { key: "review_link", label: "Featured review - Google link", type: "url", default: "https://maps.app.goo.gl/fbzCAdZQJHdtRAnJ8", help: "Where 'Read on Google' opens." },
   ],
 };
 
