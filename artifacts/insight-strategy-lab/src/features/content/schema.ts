@@ -114,6 +114,18 @@ export const SERVICES_GROUP: ContentGroup = {
   ],
 };
 
+export const APPS_GROUP: ContentGroup = {
+  page: "apps",
+  title: "Apps in Production Page",
+  description: "Text sections on the Apps in Production page. The app gallery itself is managed in the Apps tab.",
+  fields: [
+    { key: "hero_title", label: "Page title", type: "text", default: "Systems in Production" },
+    { key: "hero_subtitle", label: "Page subtitle", type: "textarea", default: "A gallery of real tools built for real businesses. See what's possible when you stop fighting generic software and start building around your actual operations." },
+    { key: "empty_heading", label: "Empty state - heading", type: "text", default: "Showcase updating", help: "Shown when no apps are published yet." },
+    { key: "empty_body", label: "Empty state - body", type: "textarea", default: "We are currently compiling our latest case studies and production systems." },
+  ],
+};
+
 export const ABOUT_GROUP: ContentGroup = {
   page: "about",
   title: "About Page",
@@ -162,6 +174,7 @@ export const CONTENT_GROUPS: ContentGroup[] = [
   GLOBAL_GROUP,
   HOME_GROUP,
   SERVICES_GROUP,
+  APPS_GROUP,
   ABOUT_GROUP,
   CONTACT_GROUP,
 ];
@@ -169,6 +182,7 @@ export const CONTENT_GROUPS: ContentGroup[] = [
 export const PAGE_GROUPS: ContentGroup[] = [
   HOME_GROUP,
   SERVICES_GROUP,
+  APPS_GROUP,
   ABOUT_GROUP,
   CONTACT_GROUP,
 ];

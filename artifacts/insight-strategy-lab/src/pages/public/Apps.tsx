@@ -1,19 +1,21 @@
 import { usePublishedApps } from "@/features/apps/api";
+import { useContent } from "@/features/content/api";
 import { VideoEmbed } from "@/components/MediaEmbed";
 import { Database } from "lucide-react";
 
 export default function Apps() {
   const { data: apps = [], isLoading } = usePublishedApps();
+  const { get } = useContent("apps");
 
   return (
     <div className="py-24 bg-background">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="mb-16 max-w-3xl">
           <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
-            Systems in Production
+            {get("hero_title")}
           </h1>
           <p className="text-xl text-muted-foreground">
-            A gallery of real tools built for real businesses. See what's possible when you stop fighting generic software and start building around your actual operations.
+            {get("hero_subtitle")}
           </p>
         </div>
 
@@ -69,8 +71,8 @@ export default function Apps() {
         ) : (
           <div className="text-center py-24 bg-card border border-border rounded-2xl">
             <Database className="h-12 w-12 text-muted-foreground/50 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-foreground mb-2">Showcase updating</h3>
-            <p className="text-muted-foreground">We are currently compiling our latest case studies and production systems.</p>
+            <h3 className="text-xl font-bold text-foreground mb-2">{get("empty_heading")}</h3>
+            <p className="text-muted-foreground">{get("empty_body")}</p>
           </div>
         )}
       </div>
