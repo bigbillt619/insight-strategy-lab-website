@@ -1,3 +1,4 @@
 - [Supabase RLS + env pitfalls](supabase-rls-and-env.md) — browser-direct app: scope admin via is_admin(); VITE_ env baked at boot; DB password breaks libpq URI.
 - [Content-override CMS pattern](content-overrides-cms.md) — content_blocks = overrides over in-code defaults; apply empty rows so clears stick; save changed-or-existing keys.
+- [Secret propagation restart race](secret-propagation-restart-race.md) — restart workflows only AFTER the secret-added confirmation; restarts fired before it run with stale env.
 - [Wouter nested routes](wouter-nested-routes.md) — setLocation inside a `<Route nest>` (admin shell) needs the `~` prefix to escape the nested base, else blank/redirect loop.
