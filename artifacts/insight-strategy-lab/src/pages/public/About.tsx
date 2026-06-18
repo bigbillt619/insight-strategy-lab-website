@@ -1,5 +1,5 @@
 import { useContent } from "@/features/content/api";
-import { Award } from "lucide-react";
+import { Award, FileText } from "lucide-react";
 
 function isImageUrl(url: string) {
   return (
@@ -24,6 +24,13 @@ export default function About() {
       };
     })
     .filter((b) => b.image || b.link);
+
+  const publications = [1, 2, 3, 4]
+    .map((n) => ({
+      title: get(`pub_${n}_title`).trim(),
+      link: get(`pub_${n}_link`).trim(),
+    }))
+    .filter((p) => p.title || p.link);
 
   return (
     <div className="py-24 bg-background">
@@ -103,6 +110,39 @@ export default function About() {
                   );
                 })}
               </div>
+            </>
+          )}
+
+          {publications.length > 0 && (
+            <>
+              <h3 className="text-2xl font-bold text-foreground mt-12 mb-6">{get("pubs_heading")}</h3>
+              <ul className="space-y-3 list-none pl-0 not-prose">
+                {publications.map((p, i) => {
+                  const label = p.title || "View publication";
+                  const content = (
+                    <>
+                      <FileText className="h-5 w-5 shrink-0 text-accent" />
+                      <span className="font-medium text-foreground">{label}</span>
+                    </>
+                  );
+                  return p.link ? (
+                    <li key={i}>
+                      <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-4 border border-border p-4 rounded-lg bg-card transition-colors hover:border-accent"
+                      >
+                        {content}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={i} className="flex items-center gap-4 border border-border p-4 rounded-lg bg-card">
+                      {content}
+                    </li>
+                  );
+                })}
+              </ul>
             </>
           )}
         </div>

@@ -132,6 +132,15 @@ export const ABOUT_GROUP: ContentGroup = {
     { key: "badge_5_link", label: "Badge 5 link", type: "url", default: "" },
     { key: "badge_6", label: "Badge 6 image", type: "image", default: "" },
     { key: "badge_6_link", label: "Badge 6 link", type: "url", default: "" },
+    { key: "pubs_heading", label: "Publications - heading", type: "text", default: "Publications" },
+    { key: "pub_1_title", label: "Publication 1 title", type: "text", default: "", help: "Optional. e.g. the title of a thesis or paper." },
+    { key: "pub_1_link", label: "Publication 1 URL", type: "url", default: "", help: "Optional. Link to read the publication." },
+    { key: "pub_2_title", label: "Publication 2 title", type: "text", default: "" },
+    { key: "pub_2_link", label: "Publication 2 URL", type: "url", default: "" },
+    { key: "pub_3_title", label: "Publication 3 title", type: "text", default: "" },
+    { key: "pub_3_link", label: "Publication 3 URL", type: "url", default: "" },
+    { key: "pub_4_title", label: "Publication 4 title", type: "text", default: "" },
+    { key: "pub_4_link", label: "Publication 4 URL", type: "url", default: "" },
   ],
 };
 
