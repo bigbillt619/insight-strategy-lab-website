@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DIAGNOSTIC_QUESTIONS, type DiagnosticQuestion } from "@/features/diagnostic/questions";
 import { useRecommendationMap, computeRecommendation, useSaveDiagnosticResult } from "@/features/diagnostic/api";
 import { useCreateLead } from "@/features/leads/api";
+import { useContent } from "@/features/content/api";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
@@ -33,6 +34,7 @@ export default function Diagnostic() {
   const { data: mapData = [], isLoading: mapLoading } = useRecommendationMap();
   const saveResult = useSaveDiagnosticResult();
   const createLead = useCreateLead();
+  const { get } = useContent("diagnostic");
 
   const isComplete = step === DIAGNOSTIC_QUESTIONS.length;
   const showLeadForm = step === DIAGNOSTIC_QUESTIONS.length + 1;
@@ -154,12 +156,12 @@ export default function Diagnostic() {
           <div className="h-20 w-20 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
             <CheckCircle2 className="h-10 w-10 text-accent" />
           </div>
-          <h2 className="text-3xl font-bold mb-4 text-foreground">Audit Received</h2>
+          <h2 className="text-3xl font-bold mb-4 text-foreground">{get("finished_heading")}</h2>
           <p className="text-muted-foreground mb-8">
-            Your results and intake have been saved. Bill will review your answers and reach out to schedule your free strategy call.
+            {get("finished_body")}
           </p>
           <Button asChild variant="outline">
-            <Link href="/">Return to Home</Link>
+            <Link href="/">{get("finished_button")}</Link>
           </Button>
         </div>
       </div>
@@ -174,17 +176,17 @@ export default function Diagnostic() {
           
           <div className="bg-card border border-border rounded-3xl p-8 md:p-12 mb-8 shadow-sm">
             <h2 className="text-sm font-bold uppercase tracking-widest text-accent mb-4 flex items-center gap-2">
-              <AlertCircle className="h-4 w-4" /> Insight Report
+              <AlertCircle className="h-4 w-4" /> {get("report_label")}
             </h2>
             <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Your Primary Opportunity: {recommendation?.primary}
+              {get("report_opportunity_prefix")} {recommendation?.primary}
             </h1>
             <p className="text-lg text-muted-foreground mb-10 leading-relaxed border-l-4 border-accent pl-6">
               "{recommendation?.why}"
             </p>
             
             <div className="bg-secondary/50 rounded-xl p-6">
-               <h4 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">Also Consider:</h4>
+               <h4 className="text-sm font-bold text-foreground uppercase tracking-wider mb-4">{get("report_also_consider")}</h4>
                <ul className="space-y-2">
                  {recommendation?.also_consider.map((sys, i) => (
                    <li key={i} className="flex items-center gap-3 text-muted-foreground font-medium">
@@ -197,10 +199,9 @@ export default function Diagnostic() {
 
           <div className="bg-background border border-border rounded-3xl p-8 md:p-12">
             <div className="max-w-xl mx-auto">
-              <h2 className="text-2xl font-bold text-foreground mb-2">Claim Your Strategy Call</h2>
+              <h2 className="text-2xl font-bold text-foreground mb-2">{get("form_heading")}</h2>
               <p className="text-muted-foreground mb-8">
-                We've prefilled your audit answers below — review or adjust anything, add any
-                detail, and book your deep-dive with Bill Tamayo.
+                {get("form_body")}
               </p>
               
               <Form {...form}>
@@ -277,7 +278,7 @@ export default function Diagnostic() {
                         <FormLabel>Anything else we should know?</FormLabel>
                         <FormControl>
                           <Textarea
-                            placeholder="Tell us about your current systems and the bottleneck you most want solved..."
+                            placeholder={get("form_message_placeholder")}
                             className="min-h-[120px]"
                             {...field}
                           />
@@ -292,7 +293,7 @@ export default function Diagnostic() {
                     </p>
                   )}
                   <Button type="submit" size="lg" className="w-full h-14 text-lg" disabled={createLead.isPending || saveResult.isPending}>
-                    {createLead.isPending || saveResult.isPending ? "Submitting..." : "Submit & Schedule Call"}
+                    {createLead.isPending || saveResult.isPending ? "Submitting..." : get("form_submit")}
                   </Button>
                 </form>
               </Form>

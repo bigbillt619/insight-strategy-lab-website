@@ -176,6 +176,24 @@ export const CONTACT_GROUP: ContentGroup = {
   ],
 };
 
+export const DIAGNOSTIC_GROUP: ContentGroup = {
+  page: "diagnostic",
+  title: "Free Strategy Call Page",
+  description: "Copy on the diagnostic / free strategy call flow (the report, intake form, and confirmation). The audit questions are managed separately.",
+  fields: [
+    { key: "report_label", label: "Report - label", type: "text", default: "Insight Report" },
+    { key: "report_opportunity_prefix", label: "Report - opportunity prefix", type: "text", default: "Your Primary Opportunity:", help: "Shown before the recommended system name." },
+    { key: "report_also_consider", label: "Report - 'also consider' heading", type: "text", default: "Also Consider:" },
+    { key: "form_heading", label: "Intake form - heading", type: "text", default: "Claim Your Strategy Call" },
+    { key: "form_body", label: "Intake form - body", type: "textarea", default: "We've prefilled your audit answers below \u2014 review or adjust anything, add any detail, and book your deep-dive with Bill Tamayo." },
+    { key: "form_message_placeholder", label: "Intake form - message placeholder", type: "text", default: "Tell us about your current systems and the bottleneck you most want solved..." },
+    { key: "form_submit", label: "Intake form - submit button", type: "text", default: "Submit & Schedule Call" },
+    { key: "finished_heading", label: "Confirmation - heading", type: "text", default: "Audit Received" },
+    { key: "finished_body", label: "Confirmation - body", type: "textarea", default: "Your results and intake have been saved. Bill will review your answers and reach out to schedule your free strategy call." },
+    { key: "finished_button", label: "Confirmation - button", type: "text", default: "Return to Home" },
+  ],
+};
+
 export const CONTENT_GROUPS: ContentGroup[] = [
   GLOBAL_GROUP,
   HOME_GROUP,
@@ -183,6 +201,7 @@ export const CONTENT_GROUPS: ContentGroup[] = [
   APPS_GROUP,
   ABOUT_GROUP,
   CONTACT_GROUP,
+  DIAGNOSTIC_GROUP,
 ];
 
 export const PAGE_GROUPS: ContentGroup[] = [
@@ -191,6 +210,7 @@ export const PAGE_GROUPS: ContentGroup[] = [
   APPS_GROUP,
   ABOUT_GROUP,
   CONTACT_GROUP,
+  DIAGNOSTIC_GROUP,
 ];
 
 /** Flatten all defaults for a page into a key -> default map. */
