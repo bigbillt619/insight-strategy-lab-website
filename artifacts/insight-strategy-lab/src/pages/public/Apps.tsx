@@ -1,6 +1,7 @@
 import { Link } from "wouter";
 import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { VideoEmbed } from "@/components/MediaEmbed";
 import { Button } from "@/components/ui/button";
 import { Database, CheckCircle2 } from "lucide-react";
@@ -8,6 +9,7 @@ import { Database, CheckCircle2 } from "lucide-react";
 export default function Apps() {
   const { data: apps = [], isLoading } = usePublishedApps();
   const { get } = useContent("apps");
+  usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
   const includesHeading = get("includes_heading");
   const includesItems = get("includes_items").split("\n").map((s) => s.trim()).filter(Boolean);

@@ -52,6 +52,8 @@ export const HOME_GROUP: ContentGroup = {
   page: "home",
   title: "Home Page",
   fields: [
+    { key: "seo_title", label: "SEO page title", type: "text", default: "AI Systems for Small Businesses in Murrieta, Menifee, Temecula, Wildomar, and Lake Elsinore | Insight Strategy Lab", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "We build AI-powered systems that help small businesses in Murrieta, Menifee, Temecula, Wildomar, and Lake Elsinore automate operations, scale smarter, and make better decisions.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
     { key: "hero_badge", label: "Hero badge", type: "text", default: "Veteran Owned · Secure · Proven" },
     { key: "hero_title", label: "Hero headline", type: "textarea", default: "Small Business Owners, Get Custom Systems Tailored to Your Workflow" },
     { key: "hero_subtitle", label: "Hero subtitle", type: "text", default: "CRMs · Automations · Dashboards · AI" },
@@ -89,6 +91,8 @@ export const SERVICES_GROUP: ContentGroup = {
   title: "Services & Pricing Page",
   description: "Framed as a system-build engagement, not a services menu. Components are presented as system layers and every section bridges into the System Diagnostic funnel.",
   fields: [
+    { key: "seo_title", label: "SEO page title", type: "text", default: "AI Automation & Business Systems in Murrieta & Temecula Area | Insight Strategy Lab", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "AI system design and implementation for small and service businesses across Murrieta, Temecula, Menifee, and surrounding areas to streamline operations and scale efficiently.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
     { key: "hero_title", label: "Page title", type: "text", default: "How We Build Your System" },
     { key: "hero_subtitle", label: "Page subtitle", type: "textarea", default: "Every system is designed around how your business actually operates \u2014 not forced into templates or prebuilt tools." },
     { key: "banner_heading", label: "Diagnostic banner - heading", type: "text", default: "Most clients begin with a short system diagnostic.", help: "Shown near the top of the page. Leave empty to hide." },
@@ -134,6 +138,8 @@ export const APPS_GROUP: ContentGroup = {
   title: "Apps in Production Page",
   description: "Text sections on the Apps in Production page. The systems themselves (including 'What it does', 'Problem solved', and 'Outcome') are managed per-app in the Apps tab.",
   fields: [
+    { key: "seo_title", label: "SEO page title", type: "text", default: "AI Tools & Applications | Insight Strategy Lab", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Explore custom-built AI tools and applications designed to automate workflows and improve business operations.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
     { key: "hero_title", label: "Page title", type: "text", default: "Real Systems Running Inside Businesses" },
     { key: "hero_subtitle", label: "Page subtitle", type: "textarea", default: "These aren't prototypes or templates. These are production systems actively used to run operations, manage clients, and drive decisions." },
     { key: "gallery_label", label: "Label above the systems", type: "text", default: "See the systems in action", help: "Small heading shown directly above the gallery. Leave empty to hide." },
@@ -152,6 +158,8 @@ export const ABOUT_GROUP: ContentGroup = {
   title: "About Page",
   description: "Positioning page for the founder. Leads with capability (systems builder), backs it with credentials, and bridges into the System Diagnostic funnel.",
   fields: [
+    { key: "seo_title", label: "SEO page title", type: "text", default: "About Bill Tamayo Jr. | Digital Transformation Architect", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Meet Bill Tamayo Jr., founder of Insight Strategy Lab, helping small businesses implement practical AI systems that drive real results.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
     { key: "hero_title", label: "Page title", type: "text", default: "The Architect Behind the Systems" },
     { key: "photo", label: "Founder photo", type: "image", default: "", help: "Optional. Shows at the top of the page when set." },
     { key: "lead", label: "Lead paragraph", type: "textarea", default: "I design and build operational systems that help service-based businesses run more efficiently, scale their capacity, and eliminate manual friction.\n\nWith over 25 years of experience in high-performance environments, I bring a systems-first approach to solving business problems \u2014 combining strategy, technology, and execution into one integrated solution.", help: "Leave a blank line between paragraphs to create separate paragraphs." },
@@ -198,6 +206,8 @@ export const CONTACT_GROUP: ContentGroup = {
   title: "Contact Page",
   description: "The contact page is the secondary path. The System Diagnostic is the primary funnel, so this page points people there first.",
   fields: [
+    { key: "seo_title", label: "SEO page title", type: "text", default: "Contact Insight Strategy Lab | Start Your AI Transformation", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Get in touch to explore how AI systems can improve your workflows, scale your business, and reduce manual effort.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
     { key: "hero_title", label: "Page title", type: "text", default: "Direct Contact & Inquiries" },
     { key: "intro", label: "Intro paragraph", type: "textarea", default: "For referrals, direct connections, or anything that doesn't fit the diagnostic, reach us here. If you want a scoped system recommendation, start with the System Diagnostic first." },
     { key: "diagnostic_cta_heading", label: "Diagnostic redirect - heading", type: "text", default: "Looking to improve your systems?" },
@@ -213,6 +223,8 @@ export const DIAGNOSTIC_GROUP: ContentGroup = {
   title: "Free Strategy Call Page",
   description: "Copy on the diagnostic / free strategy call flow (the intro framing, report, intake form, and confirmation). The audit questions are managed separately.",
   fields: [
+    { key: "seo_title", label: "SEO page title", type: "text", default: "AI Business Diagnostic | Identify Opportunities to Automate & Scale", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Discover where AI can improve your business operations with a structured diagnostic designed for small and service-based businesses.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
     { key: "wizard_intro_eyebrow", label: "Wizard intro - eyebrow", type: "text", default: "System Diagnostic", help: "Small label shown above the first question." },
     { key: "wizard_intro_body", label: "Wizard intro - body", type: "textarea", default: "We'll map your current operations so we can design the right system for your business." },
     { key: "wizard_outcome_heading", label: "Wizard intro - outcome heading", type: "text", default: "At the end of this, you'll have a clear picture of:" },

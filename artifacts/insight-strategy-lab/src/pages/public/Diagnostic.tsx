@@ -7,6 +7,7 @@ import { DIAGNOSTIC_QUESTIONS, type DiagnosticQuestion } from "@/features/diagno
 import { useRecommendationMap, computeRecommendation, useSaveDiagnosticResult } from "@/features/diagnostic/api";
 import { useCreateLead } from "@/features/leads/api";
 import { useContent } from "@/features/content/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Input } from "@/components/ui/input";
@@ -35,6 +36,7 @@ export default function Diagnostic() {
   const saveResult = useSaveDiagnosticResult();
   const createLead = useCreateLead();
   const { get } = useContent("diagnostic");
+  usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
   const isComplete = step === DIAGNOSTIC_QUESTIONS.length;
   const showLeadForm = step === DIAGNOSTIC_QUESTIONS.length + 1;

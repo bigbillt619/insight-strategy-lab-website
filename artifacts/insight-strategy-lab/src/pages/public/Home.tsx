@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ShieldCheck, Cog, BarChart, Zap, LayoutDashboard, Database } from "lucide-react";
 import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { VideoEmbed, youTubeThumb } from "@/components/MediaEmbed";
 import { Play } from "lucide-react";
 import { ReviewsSection } from "@/components/ReviewsSection";
@@ -55,6 +56,7 @@ function AppPreviewCard({ app }: { app: AppItem }) {
 export default function Home() {
   const { data: apps = [], isLoading: appsLoading } = usePublishedApps();
   const { get } = useContent("home");
+  usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
   const steps = [
     { title: get("step1_title"), desc: get("step1_desc"), icon: BarChart },

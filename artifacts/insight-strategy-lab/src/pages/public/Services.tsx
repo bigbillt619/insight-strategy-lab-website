@@ -2,9 +2,11 @@ import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { useContent } from "@/features/content/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 export default function Services() {
   const { get } = useContent("services");
+  usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
   const toPoints = (key: string) => get(key).split("\n").map((s) => s.trim()).filter(Boolean);
   const paragraphs = (key: string) => get(key).split(/\n\s*\n/).map((s) => s.trim()).filter(Boolean);

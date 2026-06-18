@@ -1,4 +1,5 @@
 import { useContent } from "@/features/content/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 import { Link } from "wouter";
 import { Award, FileText, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,6 +17,7 @@ function paragraphs(text: string) {
 
 export default function About() {
   const { get } = useContent("about");
+  usePageMeta({ title: get("seo_title"), description: get("seo_description") });
   const photo = get("photo");
   const lead = paragraphs(get("lead"));
   const body = paragraphs(get("body"));

@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { DIAGNOSTIC_QUESTIONS } from "@/features/diagnostic/questions";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { useContent } from "@/features/content/api";
+import { usePageMeta } from "@/lib/usePageMeta";
 
 const optionsFor = (key: string) =>
   DIAGNOSTIC_QUESTIONS.find((q) => q.key === key)?.options ?? [];
@@ -44,6 +45,7 @@ export default function Contact() {
   const createLead = useCreateLead();
   const { get } = useContent("contact");
   const { get: getGlobal } = useContent("global");
+  usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
   const socialLinks = [
     { href: getGlobal("social_linkedin"), label: "LinkedIn" },
