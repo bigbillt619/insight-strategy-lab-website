@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Facebook, Linkedin, Youtube } from "lucide-react";
 import { useContent } from "@/features/content/api";
 import logo from "@/assets/logo.png";
+import sdvosbBadge from "@assets/SDVOSB_1781742094429.jpg";
 
 export default function Footer() {
   const { get } = useContent("global");
@@ -27,6 +28,11 @@ export default function Footer() {
             <p className="text-muted-foreground text-sm max-w-sm">
               {get("footer_tagline")}
             </p>
+            <img
+              src={sdvosbBadge}
+              alt="Service-Disabled Veteran-Owned Small Business Certified by the U.S. Small Business Administration"
+              className="h-28 w-auto object-contain"
+            />
           </div>
 
           <div>
