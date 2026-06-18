@@ -1,4 +1,5 @@
 import { useContent } from "@/features/content/api";
+import sdvosbBadge from "@assets/SDVOSB_1781742094429.jpg";
 
 export default function About() {
   const { get } = useContent("about");
@@ -19,6 +20,11 @@ export default function About() {
               className="mx-auto mb-8 h-72 w-72 md:h-96 md:w-96 rounded-2xl object-cover border border-border"
             />
           )}
+          <img
+            src={sdvosbBadge}
+            alt="Service-Disabled Veteran-Owned Small Business Certified by the U.S. Small Business Administration"
+            className="mx-auto mb-8 h-40 w-auto object-contain"
+          />
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
             {get("hero_title")}
           </h1>
