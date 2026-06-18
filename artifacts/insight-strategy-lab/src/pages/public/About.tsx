@@ -12,9 +12,18 @@ export default function About() {
   const { get } = useContent("about");
   const photo = get("photo");
   const creds = get("creds").split("\n").map((s) => s.trim()).filter(Boolean);
-  const badges = ["badge_1", "badge_2", "badge_3", "badge_4", "badge_5", "badge_6"]
-    .map((k) => get(k))
-    .filter(Boolean);
+  const badges = [1, 2, 3, 4, 5, 6]
+    .map((n) => {
+      const raw = get(`badge_${n}`).trim();
+      const link = get(`badge_${n}_link`).trim();
+      const hasImage = isImageUrl(raw);
+      return {
+        image: hasImage ? raw : "",
+        // If the image field actually holds a (non-image) link, treat it as the link.
+        link: link || (!hasImage ? raw : ""),
+      };
+    })
+    .filter((b) => b.image || b.link);
 
   return (
     <div className="py-24 bg-background">
@@ -57,27 +66,42 @@ export default function About() {
             <>
               <h3 className="text-2xl font-bold text-foreground mt-12 mb-6">{get("badges_heading")}</h3>
               <div className="flex flex-wrap items-center gap-6 not-prose">
-                {badges.map((src, i) =>
-                  isImageUrl(src) ? (
-                    <img
-                      key={i}
-                      src={src}
-                      alt=""
-                      className="h-24 w-auto object-contain rounded-lg border border-border bg-card p-3"
-                    />
-                  ) : (
+                {badges.map((b, i) => {
+                  if (b.image) {
+                    const img = (
+                      <img
+                        src={b.image}
+                        alt=""
+                        className="h-24 w-auto object-contain rounded-lg border border-border bg-card p-3 transition-transform duration-300 ease-out hover:scale-110"
+                      />
+                    );
+                    return b.link ? (
+                      <a
+                        key={i}
+                        href={b.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="block"
+                      >
+                        {img}
+                      </a>
+                    ) : (
+                      <div key={i}>{img}</div>
+                    );
+                  }
+                  return (
                     <a
                       key={i}
-                      href={src}
+                      href={b.link}
                       target="_blank"
                       rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-4 text-sm font-medium text-foreground hover:border-accent transition-colors"
+                      className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-4 text-sm font-medium text-foreground transition-transform duration-300 ease-out hover:scale-105 hover:border-accent"
                     >
                       <Award className="h-5 w-5 text-accent" />
                       View Certificate
                     </a>
-                  )
-                )}
+                  );
+                })}
               </div>
             </>
           )}
