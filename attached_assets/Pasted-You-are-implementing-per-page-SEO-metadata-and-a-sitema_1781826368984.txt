@@ -1,0 +1,183 @@
+You are implementing per-page SEO metadata and a sitemap for an existing React + Vite TypeScript SPA.
+
+========================================
+STEP 1 — CREATE usePageMeta HOOK
+========================================
+
+Create:
+
+src/lib/usePageMeta.ts
+
+This hook should:
+- Accept:
+  { title, description, ogTitle?, ogDescription? }
+
+- On mount:
+  - Set document.title
+  - Update:
+    <meta name="description">
+    <meta property="og:title">
+    <meta property="og:description">
+
+- On unmount:
+  - Restore previous values (store originals in variables)
+
+Use useEffect.
+
+DO NOT create duplicate meta tags — always update existing ones in index.html.
+
+---
+
+========================================
+STEP 2 — ADD SEO TO EACH PAGE
+========================================
+
+At the top of each page, call usePageMeta() with the following:
+
+----------------------------------------
+HOME (Home.tsx)
+----------------------------------------
+title:
+"AI Systems for Small Businesses | Insight Strategy Lab"
+
+description:
+"We build AI-powered systems that help small businesses automate operations, scale smarter, and make better decisions."
+
+----------------------------------------
+SERVICES (Services.tsx)
+----------------------------------------
+title:
+"AI Automation & Business Systems | Insight Strategy Lab"
+
+description:
+"Design and implementation of AI systems that streamline operations, reduce manual work, and scale service businesses efficiently."
+
+----------------------------------------
+ABOUT (About.tsx)
+----------------------------------------
+title:
+"About Bill Tamayo Jr. | Digital Transformation Architect"
+
+description:
+"Meet Bill Tamayo Jr., founder of Insight Strategy Lab, helping small businesses implement practical AI systems that drive real results."
+
+----------------------------------------
+DIAGNOSTIC (Diagnostic.tsx)
+----------------------------------------
+title:
+"AI Business Diagnostic | Identify Opportunities to Automate & Scale"
+
+description:
+"Discover where AI can improve your business operations with a structured diagnostic designed for small and service-based businesses."
+
+----------------------------------------
+CONTACT (Contact.tsx)
+----------------------------------------
+title:
+"Contact Insight Strategy Lab | Start Your AI Transformation"
+
+description:
+"Get in touch to explore how AI systems can improve your workflows, scale your business, and reduce manual effort."
+
+----------------------------------------
+APPS (Apps.tsx)
+----------------------------------------
+title:
+"AI Tools & Applications | Insight Strategy Lab"
+
+description:
+"Explore custom-built AI tools and applications designed to automate workflows and improve business operations."
+
+---
+
+========================================
+STEP 3 — UPDATE index.html FALLBACK
+========================================
+
+Replace placeholder content with:
+
+<title>Insight Strategy Lab | AI Systems for Small Business</title>
+
+<meta name="description" content="Insight Strategy Lab designs AI-powered systems that help small businesses automate operations, scale efficiently, and make smarter decisions." />
+
+<meta property="og:title" content="Insight Strategy Lab | AI Systems for Small Business" />
+<meta property="og:description" content="AI-powered systems to automate and scale small businesses." />
+<meta property="og:type" content="website" />
+
+---
+
+========================================
+STEP 4 — CREATE SITEMAP
+========================================
+
+Create:
+
+public/sitemap.xml
+
+Use:
+
+- Base URL: https://insightstrategylab.com
+- Include ONLY:
+
+  /
+  /services
+  /about
+  /diagnostic
+  /contact
+  /apps
+
+- Use today's date for all <lastmod>
+
+Example structure:
+
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://insightstrategylab.com/</loc>
+    <lastmod>2026-06-18</lastmod>
+  </url>
+</urlset>
+
+Repeat for each route.
+
+---
+
+========================================
+STEP 5 — UPDATE robots.txt
+========================================
+
+Append:
+
+Sitemap: https://insightstrategylab.com/sitemap.xml
+
+Ensure this line already exists and remains:
+
+Disallow: /vehicle-qr-code-1
+
+---
+
+========================================
+STEP 6 — VALIDATE
+========================================
+
+Confirm:
+
+✅ Each page sets unique title + description  
+✅ OG tags update dynamically  
+✅ No duplicate meta tags created  
+✅ Metadata resets correctly on navigation  
+✅ sitemap.xml loads correctly  
+✅ robots.txt includes sitemap  
+✅ Hidden QR page is NOT in sitemap  
+✅ No TypeScript errors  
+
+---
+
+OUTPUT:
+
+Generate:
+1. usePageMeta.ts
+2. Example usage in each page
+3. sitemap.xml file
+4. robots.txt update
+5. index.html meta update
+``
