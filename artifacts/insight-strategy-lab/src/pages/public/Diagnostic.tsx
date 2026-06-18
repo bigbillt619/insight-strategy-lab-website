@@ -106,6 +106,9 @@ export default function Diagnostic() {
     if (!recommendation) return;
     setSubmitError(null);
 
+    const storedSource = sessionStorage.getItem("isl_lead_source");
+    const source = storedSource === "vehicle_qr" ? "vehicle_qr" : "diagnostic";
+
     const emptyToNull = (v?: string) => (v && v.length > 0 ? v : null);
     try {
       const lead = await createLead.mutateAsync({
@@ -113,7 +116,7 @@ export default function Diagnostic() {
         email: data.email,
         phone: emptyToNull(data.phone),
         message: data.message,
-        source: "diagnostic",
+        source,
         business_type: emptyToNull(data.business_type),
         company_size: emptyToNull(data.company_size),
         biggest_bottleneck: emptyToNull(data.biggest_bottleneck),
@@ -133,6 +136,7 @@ export default function Diagnostic() {
         console.error("Failed to save diagnostic result (lead was captured):", err);
       }
 
+      sessionStorage.removeItem("isl_lead_source");
       setStep(s => s + 1); // Move to finished state
     } catch {
       setSubmitError(

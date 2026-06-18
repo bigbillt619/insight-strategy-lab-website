@@ -7,7 +7,7 @@ export const LEAD_STATUSES: LeadStatus[] = [
   "Closed",
 ];
 
-export type LeadSource = "diagnostic" | "contact_direct";
+export type LeadSource = "diagnostic" | "contact_direct" | "vehicle_qr";
 
 export interface Lead {
   id: string;

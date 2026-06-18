@@ -68,6 +68,8 @@ export default function Contact() {
 
   function onSubmit(data: ContactFormValues) {
     const emptyToNull = (v?: string) => (v && v.length > 0 ? v : null);
+    const storedSource = sessionStorage.getItem("isl_lead_source");
+    const source = storedSource === "vehicle_qr" ? "vehicle_qr" : "contact_direct";
     createLead.mutate(
       {
         name: data.name,
@@ -79,10 +81,11 @@ export default function Contact() {
         current_tools: emptyToNull(data.current_tools),
         revenue_range: emptyToNull(data.revenue_range),
         message: data.message,
-        source: "contact_direct",
+        source,
       },
       {
         onSuccess: () => {
+          sessionStorage.removeItem("isl_lead_source");
           toast({ title: "Message Sent", description: "We'll be in touch shortly." });
           form.reset();
         },

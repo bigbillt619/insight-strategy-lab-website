@@ -52,6 +52,8 @@ const CREDIBILITY = [
  */
 export default function VehicleQrLanding() {
   useEffect(() => {
+    sessionStorage.setItem("isl_lead_source", "vehicle_qr");
+
     const existing = document.querySelector<HTMLMetaElement>(
       'meta[name="robots"]',
     );

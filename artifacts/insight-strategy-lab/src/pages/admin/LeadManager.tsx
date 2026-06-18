@@ -6,7 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import type { Lead, LeadStatus, LeadEvent } from "@/lib/types";
+import type { Lead, LeadSource, LeadStatus, LeadEvent } from "@/lib/types";
 import { LEAD_STATUSES } from "@/lib/types";
 import { labelForAnswer } from "@/features/diagnostic/questions";
 
@@ -15,6 +15,12 @@ const STATUS_VARIANTS: Record<LeadStatus, string> = {
   Contacted: "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-200",
   Qualified: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200",
   Closed: "bg-muted text-muted-foreground",
+};
+
+const SOURCE_LABEL: Record<string, string> = {
+  diagnostic: "Diagnostic",
+  contact_direct: "Contact",
+  vehicle_qr: "Vehicle QR",
 };
 
 function eventLabel(e: LeadEvent): string {
@@ -58,6 +64,7 @@ export function LeadManager() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [notes, setNotes] = useState("");
   const [filter, setFilter] = useState<LeadStatus | "All">("All");
+  const [sourceFilter, setSourceFilter] = useState<LeadSource | "All">("All");
 
   const handleStatusChange = (lead: Lead, newStatus: LeadStatus) => {
     updateStatus.mutate({ lead, status: newStatus }, {
@@ -78,7 +85,10 @@ export function LeadManager() {
 
   if (isLoading) return <div className="p-8 text-center animate-pulse">Loading leads...</div>;
 
-  const visible = filter === "All" ? leads : leads.filter((l) => l.status === filter);
+  const SOURCES: LeadSource[] = ["diagnostic", "contact_direct", "vehicle_qr"];
+  const visible = leads
+    .filter((l) => filter === "All" || l.status === filter)
+    .filter((l) => sourceFilter === "All" || l.source === sourceFilter);
 
   return (
     <div className="space-y-4">
@@ -94,6 +104,24 @@ export function LeadManager() {
             {s}
             {s !== "All" && (
               <span className="ml-1.5 opacity-70">{leads.filter((l) => l.status === s).length}</span>
+            )}
+          </button>
+        ))}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mr-1">Source:</span>
+        {(["All", ...SOURCES] as const).map((s) => (
+          <button
+            key={s}
+            onClick={() => setSourceFilter(s as LeadSource | "All")}
+            className={`text-sm px-3 py-1.5 rounded-full border transition-colors ${
+              sourceFilter === s ? "bg-accent text-accent-foreground border-accent" : "border-border text-muted-foreground hover:text-foreground"
+            }`}
+          >
+            {s === "All" ? "All Sources" : SOURCE_LABEL[s]}
+            {s !== "All" && (
+              <span className="ml-1.5 opacity-70">{leads.filter((l) => l.source === s).length}</span>
             )}
           </button>
         ))}
@@ -124,7 +152,9 @@ export function LeadManager() {
                         </>
                       )}
                       <span className="w-1 h-1 rounded-full bg-border" />
-                      <span className="uppercase text-xs tracking-wider font-semibold text-accent">{lead.source}</span>
+                      <span className={`uppercase text-xs tracking-wider font-semibold ${lead.source === "vehicle_qr" ? "text-orange-500 dark:text-orange-400" : "text-accent"}`}>
+                        {SOURCE_LABEL[lead.source] ?? lead.source}
+                      </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-3 flex-wrap" onClick={(e) => e.stopPropagation()}>
