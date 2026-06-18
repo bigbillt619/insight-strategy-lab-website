@@ -4,6 +4,9 @@ export default function About() {
   const { get } = useContent("about");
   const photo = get("photo");
   const creds = get("creds").split("\n").map((s) => s.trim()).filter(Boolean);
+  const badges = ["badge_1", "badge_2", "badge_3", "badge_4", "badge_5", "badge_6"]
+    .map((k) => get(k))
+    .filter(Boolean);
 
   return (
     <div className="py-24 bg-background">
@@ -37,6 +40,22 @@ export default function About() {
               </li>
             ))}
           </ul>
+
+          {badges.length > 0 && (
+            <>
+              <h3 className="text-2xl font-bold text-foreground mt-12 mb-6">{get("badges_heading")}</h3>
+              <div className="flex flex-wrap items-center gap-6 not-prose">
+                {badges.map((src, i) => (
+                  <img
+                    key={i}
+                    src={src}
+                    alt=""
+                    className="h-24 w-auto object-contain rounded-lg border border-border bg-card p-3"
+                  />
+                ))}
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>

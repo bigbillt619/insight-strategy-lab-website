@@ -120,22 +120,3 @@ export interface AppInput {
   published?: boolean;
 }
 
-export interface Review {
-  id: string;
-  name: string;
-  rating: number;
-  text: string;
-  source: string;
-  published: boolean;
-  sort_order: number;
-  created_at: string;
-}
-
-export interface ReviewInput {
-  name: string;
-  rating: number;
-  text: string;
-  source?: string;
-  published?: boolean;
-  sort_order?: number;
-}

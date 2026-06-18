@@ -42,6 +42,7 @@ export const GLOBAL_GROUP: ContentGroup = {
     { key: "contact_address", label: "Address", type: "text", default: "Murrieta, CA 92563" },
     { key: "contact_phone", label: "Phone", type: "text", default: "(951) 528-1192" },
     { key: "contact_email", label: "Email", type: "text", default: "" },
+    { key: "google_reviews_url", label: "Google reviews URL", type: "url", default: "", help: "Link to your Google Business reviews. The reviews call-to-action only appears once this is set." },
     { key: "footer_tagline", label: "Footer tagline", type: "textarea", default: "Helping mission-driven organizations transform through people-first innovation, modular agentic workflows, and performance-driven architecture." },
     { key: "footer_copyright", label: "Footer copyright", type: "text", default: "Copyright \u00a9 2026 Insight Strategy Lab - All Rights Reserved." },
   ],
@@ -118,6 +119,13 @@ export const ABOUT_GROUP: ContentGroup = {
     { key: "body", label: "Body paragraph", type: "textarea", default: "Bill is the founder of Insight Strategy Lab, a consultancy dedicated to helping mission-driven organizations transform through people-first innovation, modular agentic workflows, and performance-driven architecture. His work centers on creating simple, elegant systems that remove operational friction and empower small businesses to focus on the work that matters." },
     { key: "creds_heading", label: "Credentials - heading", type: "text", default: "Education & Professional Credentials" },
     { key: "creds", label: "Credentials list", type: "list", default: "BBA in Human Resource Management (minor in Economics)\nMS in Management\nMA in Military Studies\nMBA in Business" },
+    { key: "badges_heading", label: "Badges & certifications - heading", type: "text", default: "Certifications & Badges" },
+    { key: "badge_1", label: "Badge 1 image", type: "image", default: "", help: "Optional. Upload or link a certification / credential badge." },
+    { key: "badge_2", label: "Badge 2 image", type: "image", default: "" },
+    { key: "badge_3", label: "Badge 3 image", type: "image", default: "" },
+    { key: "badge_4", label: "Badge 4 image", type: "image", default: "" },
+    { key: "badge_5", label: "Badge 5 image", type: "image", default: "" },
+    { key: "badge_6", label: "Badge 6 image", type: "image", default: "" },
   ],
 };
 

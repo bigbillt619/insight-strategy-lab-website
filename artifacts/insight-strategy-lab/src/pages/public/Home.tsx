@@ -2,13 +2,12 @@ import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ShieldCheck, Cog, BarChart, Zap, LayoutDashboard, Database } from "lucide-react";
 import { usePublishedApps } from "@/features/apps/api";
-import { usePublishedReviews } from "@/features/reviews/api";
 import { useContent } from "@/features/content/api";
 import { VideoEmbed } from "@/components/MediaEmbed";
+import { ReviewsSection } from "@/components/ReviewsSection";
 
 export default function Home() {
   const { data: apps = [], isLoading: appsLoading } = usePublishedApps();
-  const { data: reviews = [], isLoading: reviewsLoading } = usePublishedReviews();
   const { get } = useContent("home");
 
   const steps = [
@@ -167,25 +166,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Testimonials preview */}
-      {!reviewsLoading && reviews.length > 0 && (
-         <section className="py-24 bg-background">
-          <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold text-center mb-16 text-foreground">{get("testimonials_heading")}</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {reviews.slice(0,3).map(review => (
-                <div key={review.id} className="p-8 bg-card border border-border rounded-2xl relative">
-                  <div className="text-accent mb-4 text-2xl" aria-hidden>
-                    {"\u2605".repeat(Math.max(1, Math.min(5, review.rating)))}
-                  </div>
-                  <p className="text-muted-foreground mb-6 italic">"{review.text}"</p>
-                  <p className="font-bold text-foreground">{review.name}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-         </section>
-      )}
+      {/* Social proof - links to Google reviews */}
+      <ReviewsSection heading={get("testimonials_heading")} className="bg-background" />
     </div>
   );
 }

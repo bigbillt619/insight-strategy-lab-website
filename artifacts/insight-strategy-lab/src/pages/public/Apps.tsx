@@ -1,5 +1,6 @@
 import { usePublishedApps } from "@/features/apps/api";
-import { Database, PlayCircle } from "lucide-react";
+import { VideoEmbed } from "@/components/MediaEmbed";
+import { Database } from "lucide-react";
 
 export default function Apps() {
   const { data: apps = [], isLoading } = usePublishedApps();
@@ -26,18 +27,19 @@ export default function Apps() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
             {apps.map((app) => (
               <div key={app.id} className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all hover:border-accent">
-                {/* Video/Thumbnail Placeholder */}
-                <div className="aspect-video bg-muted relative border-b border-border flex items-center justify-center overflow-hidden">
-                  <Database className="h-16 w-16 text-muted-foreground/20 absolute" />
-                  {app.youtube_url ? (
-                    <a href={app.youtube_url} target="_blank" rel="noreferrer" className="relative z-10 flex flex-col items-center gap-2 text-foreground/80 hover:text-accent transition-colors">
-                      <PlayCircle className="h-12 w-12" />
-                      <span className="text-sm font-semibold bg-background/80 px-3 py-1 rounded-full backdrop-blur-sm">Watch Demo</span>
-                    </a>
-                  ) : (
-                    <div className="relative z-10 text-muted-foreground/50 text-sm font-medium">Interactive Demo Unavailable</div>
-                  )}
-                </div>
+                {/* Embedded video, thumbnail, or placeholder */}
+                {app.youtube_url ? (
+                  <VideoEmbed url={app.youtube_url} className="rounded-none border-b border-border" />
+                ) : app.thumbnail_url ? (
+                  <div className="aspect-video border-b border-border overflow-hidden">
+                    <img src={app.thumbnail_url} alt={app.title} className="h-full w-full object-cover" />
+                  </div>
+                ) : (
+                  <div className="aspect-video bg-muted relative border-b border-border flex items-center justify-center overflow-hidden">
+                    <Database className="h-16 w-16 text-muted-foreground/20 absolute" />
+                    <div className="relative z-10 text-muted-foreground/50 text-sm font-medium">Demo coming soon</div>
+                  </div>
+                )}
                 
                 <div className="p-8">
                   {app.category && (
