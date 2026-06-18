@@ -36,7 +36,7 @@ export default function Login() {
     <div className="min-h-screen flex items-center justify-center bg-muted/20 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <img src={logo} alt="Logo" className="h-10 mx-auto mb-6" />
+          <img src={logo} alt="Logo" className="h-20 mx-auto mb-6" />
           <h1 className="text-2xl font-bold text-foreground">Command Center</h1>
           <p className="text-muted-foreground mt-2">Authorized access only.</p>
         </div>
