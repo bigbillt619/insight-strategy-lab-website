@@ -57,6 +57,7 @@ create table if not exists public.apps (
   id uuid primary key default gen_random_uuid(),
   title text not null,
   description text,
+  problem_solved text,
   youtube_url text,
   thumbnail_url text,
   category text,

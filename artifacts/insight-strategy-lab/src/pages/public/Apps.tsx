@@ -1,11 +1,18 @@
+import { Link } from "wouter";
 import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
 import { VideoEmbed } from "@/components/MediaEmbed";
-import { Database } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Database, CheckCircle2 } from "lucide-react";
 
 export default function Apps() {
   const { data: apps = [], isLoading } = usePublishedApps();
   const { get } = useContent("apps");
+
+  const includesHeading = get("includes_heading");
+  const includesItems = get("includes_items").split("\n").map((s) => s.trim()).filter(Boolean);
+  const galleryLabel = get("gallery_label");
+  const ctaHeading = get("cta_heading");
 
   return (
     <div className="py-24 bg-background">
@@ -18,6 +25,12 @@ export default function Apps() {
             {get("hero_subtitle")}
           </p>
         </div>
+
+        {galleryLabel && apps.length > 0 && (
+          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-8">
+            {galleryLabel}
+          </h2>
+        )}
 
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -49,20 +62,37 @@ export default function Apps() {
                       {app.category}
                     </div>
                   )}
-                  <h3 className="font-bold text-2xl mb-3 text-foreground">{app.title}</h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">
-                    {app.description}
-                  </p>
-                  
-                  <div className="grid grid-cols-2 gap-4 border-t border-border pt-6 mt-auto">
-                    <div>
-                      <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Use Case</h4>
-                      <p className="text-sm font-medium text-foreground">{app.use_case || "Operational Workflow"}</p>
-                    </div>
-                    <div>
-                      <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Result</h4>
-                      <p className="text-sm font-medium text-accent">{app.results_summary || "Increased efficiency"}</p>
-                    </div>
+                  <h3 className="font-bold text-2xl mb-5 text-foreground">{app.title}</h3>
+
+                  <div className="space-y-5">
+                    {app.description && (
+                      <div>
+                        <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">What it does</h4>
+                        <p className="text-sm text-foreground leading-relaxed">{app.description}</p>
+                      </div>
+                    )}
+                    {app.problem_solved && (
+                      <div>
+                        <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Problem solved</h4>
+                        <p className="text-sm text-foreground leading-relaxed">{app.problem_solved}</p>
+                      </div>
+                    )}
+                    {(app.use_case || app.results_summary) && (
+                      <div className="grid grid-cols-2 gap-4 border-t border-border pt-5">
+                        {app.use_case && (
+                          <div>
+                            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Use case</h4>
+                            <p className="text-sm font-medium text-foreground">{app.use_case}</p>
+                          </div>
+                        )}
+                        {app.results_summary && (
+                          <div>
+                            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Outcome</h4>
+                            <p className="text-sm font-medium text-accent">{app.results_summary}</p>
+                          </div>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
@@ -74,6 +104,38 @@ export default function Apps() {
             <h3 className="text-xl font-bold text-foreground mb-2">{get("empty_heading")}</h3>
             <p className="text-muted-foreground">{get("empty_body")}</p>
           </div>
+        )}
+
+        {includesHeading && includesItems.length > 0 && (
+          <section className="mt-24 bg-card border border-border rounded-2xl p-8 md:p-12">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8">
+              {includesHeading}
+            </h2>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+              {includesItems.map((item, i) => (
+                <li key={i} className="flex items-start gap-3">
+                  <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
+                  <span className="text-foreground leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+
+        {ctaHeading && (
+          <section className="mt-16 text-center max-w-2xl mx-auto">
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">
+              {ctaHeading}
+            </h2>
+            {get("cta_body") && (
+              <p className="text-lg text-muted-foreground mb-8">{get("cta_body")}</p>
+            )}
+            {get("cta_button") && (
+              <Button asChild size="lg">
+                <Link href="/contact">{get("cta_button")}</Link>
+              </Button>
+            )}
+          </section>
         )}
       </div>
     </div>

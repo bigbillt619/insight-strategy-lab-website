@@ -13,6 +13,7 @@ import type { AppItem } from "@/lib/types";
 interface AppFormState {
   title: string;
   description: string;
+  problem_solved: string;
   youtube_url: string;
   thumbnail_url: string;
   category: string;
@@ -24,6 +25,7 @@ interface AppFormState {
 const emptyForm: AppFormState = {
   title: "",
   description: "",
+  problem_solved: "",
   youtube_url: "",
   thumbnail_url: "",
   category: "",
@@ -50,7 +52,8 @@ function AppForm({
     <Card className="border-border">
       <CardContent className="p-6 space-y-4">
         <Input placeholder="Title" value={formData.title} onChange={e => setFormData({ ...formData, title: e.target.value })} />
-        <Textarea placeholder="Description" value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} />
+        <Textarea placeholder="What it does (description)" value={formData.description} onChange={e => setFormData({ ...formData, description: e.target.value })} />
+        <Textarea placeholder="Problem solved" value={formData.problem_solved} onChange={e => setFormData({ ...formData, problem_solved: e.target.value })} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Input placeholder="YouTube URL" value={formData.youtube_url} onChange={e => setFormData({ ...formData, youtube_url: e.target.value })} />
           <Input placeholder="Thumbnail URL" value={formData.thumbnail_url} onChange={e => setFormData({ ...formData, thumbnail_url: e.target.value })} />
@@ -75,6 +78,7 @@ function toFormState(app: AppItem): AppFormState {
   return {
     title: app.title,
     description: app.description ?? "",
+    problem_solved: app.problem_solved ?? "",
     youtube_url: app.youtube_url ?? "",
     thumbnail_url: app.thumbnail_url ?? "",
     category: app.category ?? "",

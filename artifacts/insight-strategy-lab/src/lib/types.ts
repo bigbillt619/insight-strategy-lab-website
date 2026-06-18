@@ -98,6 +98,7 @@ export interface AppItem {
   id: string;
   title: string;
   description: string | null;
+  problem_solved: string | null;
   youtube_url: string | null;
   thumbnail_url: string | null;
   category: string | null;
@@ -111,6 +112,7 @@ export interface AppItem {
 export interface AppInput {
   title: string;
   description?: string | null;
+  problem_solved?: string | null;
   youtube_url?: string | null;
   thumbnail_url?: string | null;
   category?: string | null;
