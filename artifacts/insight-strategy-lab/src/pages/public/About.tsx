@@ -1,5 +1,7 @@
 import { useContent } from "@/features/content/api";
-import { Award, FileText } from "lucide-react";
+import { Link } from "wouter";
+import { Award, FileText, ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 function isImageUrl(url: string) {
   return (
@@ -8,9 +10,17 @@ function isImageUrl(url: string) {
   );
 }
 
+function paragraphs(text: string) {
+  return text.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+}
+
 export default function About() {
   const { get } = useContent("about");
   const photo = get("photo");
+  const lead = paragraphs(get("lead"));
+  const body = paragraphs(get("body"));
+  const philosophy = paragraphs(get("philosophy_body"));
+  const howIWork = get("howiwork_items").split("\n").map((s) => s.trim()).filter(Boolean);
   const creds = get("creds").split("\n").map((s) => s.trim()).filter(Boolean);
   const badges = [1, 2, 3, 4, 5, 6]
     .map((n) => {
@@ -49,17 +59,34 @@ export default function About() {
         </div>
 
         <div className="prose prose-lg dark:prose-invert prose-headings:font-display prose-p:text-muted-foreground max-w-none">
-          <p className="lead text-xl text-foreground font-medium mb-8">
-            {get("lead")}
-          </p>
+          {lead.map((p, i) => (
+            <p key={i} className="lead text-xl text-foreground font-medium mb-6">
+              {p}
+            </p>
+          ))}
 
-          <p>
-            {get("body")}
-          </p>
+          {body.map((p, i) => (
+            <p key={i}>{p}</p>
+          ))}
+
+          {get("philosophy_heading").trim() && philosophy.length > 0 && (
+            <>
+              <hr className="my-12 border-border" />
+              <h3 className="text-2xl font-bold text-foreground mb-6">{get("philosophy_heading")}</h3>
+              <div className="border-l-4 border-accent pl-6">
+                {philosophy.map((p, i) => (
+                  <p key={i} className="text-lg text-foreground font-medium">{p}</p>
+                ))}
+              </div>
+            </>
+          )}
 
           <hr className="my-12 border-border" />
 
-          <h3 className="text-2xl font-bold text-foreground mb-6">{get("creds_heading")}</h3>
+          <h3 className="text-2xl font-bold text-foreground mb-3">{get("creds_heading")}</h3>
+          {get("creds_intro").trim() && (
+            <p className="mb-6">{get("creds_intro")}</p>
+          )}
           <ul className="space-y-3 list-none pl-0">
             {creds.map((c, i) => (
               <li key={i} className="flex items-center gap-4 border border-border p-4 rounded-lg bg-card">
@@ -71,7 +98,10 @@ export default function About() {
 
           {badges.length > 0 && (
             <>
-              <h3 className="text-2xl font-bold text-foreground mt-12 mb-6">{get("badges_heading")}</h3>
+              <h3 className="text-2xl font-bold text-foreground mt-12 mb-3">{get("badges_heading")}</h3>
+              {get("badges_caption").trim() && (
+                <p className="mb-6">{get("badges_caption")}</p>
+              )}
               <div className="flex flex-wrap items-center gap-6 not-prose">
                 {badges.map((b, i) => {
                   if (b.image) {
@@ -115,7 +145,10 @@ export default function About() {
 
           {publications.length > 0 && (
             <>
-              <h3 className="text-2xl font-bold text-foreground mt-12 mb-6">{get("pubs_heading")}</h3>
+              <h3 className="text-2xl font-bold text-foreground mt-12 mb-3">{get("pubs_heading")}</h3>
+              {get("pubs_intro").trim() && (
+                <p className="mb-6">{get("pubs_intro")}</p>
+              )}
               <ul className="space-y-3 list-none pl-0 not-prose">
                 {publications.map((p, i) => {
                   const label = p.title || "View publication";
@@ -145,7 +178,38 @@ export default function About() {
               </ul>
             </>
           )}
+
+          {get("howiwork_heading").trim() && howIWork.length > 0 && (
+            <>
+              <hr className="my-12 border-border" />
+              <h3 className="text-2xl font-bold text-foreground mb-6">{get("howiwork_heading")}</h3>
+              <ol className="space-y-4 list-none pl-0 not-prose">
+                {howIWork.map((step, i) => (
+                  <li key={i} className="flex items-start gap-4 border border-border p-5 rounded-lg bg-card">
+                    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent/10 text-sm font-bold text-accent">
+                      {i + 1}
+                    </span>
+                    <span className="font-medium text-foreground pt-1">{step}</span>
+                  </li>
+                ))}
+              </ol>
+            </>
+          )}
         </div>
+
+        {get("cta_heading").trim() && (
+          <div className="mt-16 rounded-3xl border border-border bg-primary/5 p-8 md:p-12 text-center">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">{get("cta_heading")}</h2>
+            {get("cta_body").trim() && (
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">{get("cta_body")}</p>
+            )}
+            <Button asChild size="lg">
+              <Link href="/diagnostic">
+                {get("cta_button")} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
