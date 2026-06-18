@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, CheckCircle2, ShieldCheck, Cog, BarChart, Zap, LayoutDashboard, Database } from "lucide-react";
@@ -7,6 +8,49 @@ import { VideoEmbed, youTubeThumb } from "@/components/MediaEmbed";
 import { Play } from "lucide-react";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { FeaturedReview } from "@/components/FeaturedReview";
+import type { AppItem } from "@/lib/types";
+
+function AppPreviewCard({ app }: { app: AppItem }) {
+  const [playing, setPlaying] = useState(false);
+  const thumb = youTubeThumb(app.youtube_url ?? "") ?? (app.thumbnail_url || "");
+  const hasVideo = Boolean(app.youtube_url);
+
+  return (
+    <div className="group block bg-background border border-border rounded-xl overflow-hidden hover:border-accent transition-colors hover-elevate">
+      <div className="aspect-video bg-muted relative overflow-hidden">
+        {playing && hasVideo ? (
+          <VideoEmbed url={app.youtube_url!} autoPlay className="absolute inset-0 h-full w-full rounded-none" />
+        ) : thumb ? (
+          <>
+            <img src={thumb} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
+            {hasVideo && (
+              <button
+                type="button"
+                onClick={() => setPlaying(true)}
+                aria-label={`Play ${app.title} video`}
+                className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors hover:bg-black/30 cursor-pointer"
+              >
+                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-lg">
+                  <Play className="h-6 w-6 translate-x-0.5 fill-current text-primary" />
+                </span>
+              </button>
+            )}
+          </>
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Database className="h-12 w-12 text-muted-foreground/30" />
+          </div>
+        )}
+      </div>
+      <div className="p-6">
+        <Link href="/apps" className="block">
+          <h3 className="font-bold text-xl mb-2 hover:text-accent transition-colors">{app.title}</h3>
+        </Link>
+        <p className="text-sm text-muted-foreground line-clamp-2">{app.description}</p>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const { data: apps = [], isLoading: appsLoading } = usePublishedApps();
@@ -149,35 +193,9 @@ export default function Home() {
             </div>
           ) : apps.length > 0 ? (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {apps.slice(0, 3).map((app) => {
-                const thumb = youTubeThumb(app.youtube_url ?? "") ?? (app.thumbnail_url || "");
-                return (
-                <Link key={app.id} href="/apps" className="group block bg-background border border-border rounded-xl overflow-hidden hover:border-accent transition-colors hover-elevate">
-                  <div className="aspect-video bg-muted relative overflow-hidden">
-                    {thumb ? (
-                      <>
-                        <img src={thumb} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
-                        {app.youtube_url && (
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/30">
-                            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-lg">
-                              <Play className="h-6 w-6 translate-x-0.5 fill-current text-primary" />
-                            </div>
-                          </div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <Database className="h-12 w-12 text-muted-foreground/30" />
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-6">
-                    <h3 className="font-bold text-xl mb-2 group-hover:text-accent transition-colors">{app.title}</h3>
-                    <p className="text-sm text-muted-foreground line-clamp-2">{app.description}</p>
-                  </div>
-                </Link>
-                );
-              })}
+              {apps.slice(0, 3).map((app) => (
+                <AppPreviewCard key={app.id} app={app} />
+              ))}
             </div>
           ) : (
             <div className="text-center py-12 bg-background rounded-xl border border-border">

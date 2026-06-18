@@ -1,11 +1,12 @@
 /** Renders a video URL: YouTube/Vimeo as an iframe embed, otherwise a file <video>. */
-export function VideoEmbed({ url, className = "" }: { url: string; className?: string }) {
+export function VideoEmbed({ url, className = "", autoPlay = false }: { url: string; className?: string; autoPlay?: boolean }) {
   const embed = toEmbedUrl(url);
   if (embed) {
+    const src = autoPlay ? `${embed}${embed.includes("?") ? "&" : "?"}autoplay=1` : embed;
     return (
       <div className={`relative w-full overflow-hidden rounded-2xl ${className}`} style={{ aspectRatio: "16 / 9" }}>
         <iframe
-          src={embed}
+          src={src}
           title="Video"
           className="absolute inset-0 h-full w-full"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -15,7 +16,7 @@ export function VideoEmbed({ url, className = "" }: { url: string; className?: s
     );
   }
   return (
-    <video src={url} controls className={`w-full rounded-2xl ${className}`} />
+    <video src={url} controls autoPlay={autoPlay} className={`w-full rounded-2xl ${className}`} />
   );
 }
 
