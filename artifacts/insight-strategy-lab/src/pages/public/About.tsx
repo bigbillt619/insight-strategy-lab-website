@@ -11,9 +11,13 @@ export default function About() {
   return (
     <div className="py-24 bg-background">
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="mb-16">
+        <div className="mb-16 text-center">
           {photo && (
-            <img src={photo} alt="" className="h-40 w-40 rounded-2xl object-cover border border-border mb-8" />
+            <img
+              src={photo}
+              alt=""
+              className="mx-auto mb-8 h-72 w-72 md:h-96 md:w-96 rounded-2xl object-cover border border-border"
+            />
           )}
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-foreground mb-6">
             {get("hero_title")}
