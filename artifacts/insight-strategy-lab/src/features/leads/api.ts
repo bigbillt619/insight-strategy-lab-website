@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
+import { notifyNewLead } from "./notify";
 import type {
   Lead,
   LeadEvent,
@@ -58,6 +59,11 @@ export function useCreateLead() {
         notes: null,
         created_at: new Date().toISOString(),
       };
+
+      // Best-effort owner notification email. Never block or fail the visitor's
+      // submission on this — the lead is already persisted above.
+      void notifyNewLead(lead);
+
       return lead;
     },
   });
