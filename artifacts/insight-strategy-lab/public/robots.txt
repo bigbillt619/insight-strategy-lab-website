@@ -1,2 +1,3 @@
 User-agent: *
 Allow: /
+Disallow: /vehicle-qr-code-1

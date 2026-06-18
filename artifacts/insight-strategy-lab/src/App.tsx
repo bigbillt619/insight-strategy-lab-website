@@ -14,6 +14,7 @@ import Services from "@/pages/public/Services";
 import About from "@/pages/public/About";
 import Contact from "@/pages/public/Contact";
 import Diagnostic from "@/pages/public/Diagnostic";
+import VehicleQrLanding from "@/pages/public/VehicleQrLanding";
 
 import Login from "@/pages/admin/Login";
 import Dashboard from "@/pages/admin/Dashboard";
@@ -34,6 +35,9 @@ function Router() {
           </Switch>
         </AdminLayout>
       </Route>
+
+      {/* Hidden QR-only landing — rendered standalone, no Navbar/Footer */}
+      <Route path="/vehicle-qr-code-1" component={VehicleQrLanding} />
 
       {/* Public Routes wrapped in Layout */}
       <Route>
