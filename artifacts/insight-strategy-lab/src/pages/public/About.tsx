@@ -72,7 +72,7 @@ export default function About() {
                       <img
                         src={b.image}
                         alt=""
-                        className="h-24 w-auto object-contain rounded-lg border border-border bg-card p-3 transition-transform duration-300 ease-out hover:scale-110"
+                        className="relative z-0 h-24 w-auto origin-center object-contain rounded-lg border border-border bg-card p-3 shadow-sm transition-transform duration-300 ease-out hover:z-30 hover:scale-[3] hover:shadow-2xl"
                       />
                     );
                     return b.link ? (
