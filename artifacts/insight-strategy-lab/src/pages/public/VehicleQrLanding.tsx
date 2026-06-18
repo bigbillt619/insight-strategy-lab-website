@@ -13,36 +13,7 @@ import { Button } from "@/components/ui/button";
 import { useContent } from "@/features/content/api";
 import logo from "@/assets/logo.png";
 
-const VALUE_BLOCKS = [
-  {
-    icon: Zap,
-    title: "Automate operations",
-    desc: "Cut the repetitive, manual work that eats your team's day so the business runs without you babysitting it.",
-  },
-  {
-    icon: BarChart,
-    title: "Turn data into decisions",
-    desc: "Make your numbers actually useful — clear signals you can act on instead of spreadsheets nobody opens.",
-  },
-  {
-    icon: Layers,
-    title: "Build scalable systems",
-    desc: "Put the right foundation in place so growth doesn't break what you've already built.",
-  },
-];
-
-const WHO_FOR = [
-  "Business owners wearing too many hats",
-  "Service businesses trying to scale",
-  "Teams drowning in manual processes",
-  "People curious about using AI practically",
-];
-
-const CREDIBILITY = [
-  "Build AI systems for small businesses",
-  "Focus on real-world implementation (not theory)",
-  "Strategy + execution",
-];
+const VALUE_ICONS = [Zap, BarChart, Layers];
 
 /**
  * Hidden, QR-only landing page reachable solely via direct URL
@@ -52,8 +23,9 @@ const CREDIBILITY = [
  * robots.txt disallow rule.
  */
 export default function VehicleQrLanding() {
-  const { get } = useContent("global");
-  const logoScale = Number(get("logo_scale")) || 1;
+  const { get: getGlobal } = useContent("global");
+  const { get } = useContent("vehicle_qr");
+  const logoScale = Number(getGlobal("logo_scale")) || 1;
   const logoStyle = { height: `${3.5 * logoScale}rem` };
 
   useEffect(() => {
@@ -84,6 +56,15 @@ export default function VehicleQrLanding() {
     };
   }, []);
 
+  const valueBlocks = [
+    { icon: VALUE_ICONS[0], title: get("value1_title"), desc: get("value1_desc") },
+    { icon: VALUE_ICONS[1], title: get("value2_title"), desc: get("value2_desc") },
+    { icon: VALUE_ICONS[2], title: get("value3_title"), desc: get("value3_desc") },
+  ];
+
+  const whoItems = get("who_items").split("\n").filter(Boolean);
+  const credItems = get("cred_items").split("\n").filter(Boolean);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Minimal header — logo only, no navigation */}
@@ -105,23 +86,21 @@ export default function VehicleQrLanding() {
           <div className="max-w-2xl mx-auto text-center space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-secondary text-secondary-foreground text-sm font-medium">
               <Zap className="h-4 w-4 text-accent" />
-              <span>Private access</span>
+              <span>{get("hero_badge")}</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
-              You Found This for a Reason
+              {get("hero_title")}
             </h1>
             <p className="text-lg sm:text-xl text-muted-foreground">
-              I build AI-powered systems that help small businesses scale
-              smarter, not harder.
+              {get("hero_subtitle")}
             </p>
             <p className="text-base text-muted-foreground">
-              If you're curious what that could look like for your business,
-              you're in the right place.
+              {get("hero_body")}
             </p>
             <div className="pt-4">
               <Button asChild size="lg" className="w-full sm:w-auto text-lg h-14 px-8">
                 <Link href="/diagnostic">
-                  See How This Works
+                  {get("hero_cta")}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
@@ -134,7 +113,7 @@ export default function VehicleQrLanding() {
       <section className="py-20 bg-secondary/50">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {VALUE_BLOCKS.map((block) => (
+            {valueBlocks.map((block) => (
               <div
                 key={block.title}
                 className="flex flex-col items-center text-center p-6 bg-card rounded-2xl border border-border shadow-sm"
@@ -155,10 +134,10 @@ export default function VehicleQrLanding() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-10">
-              Who This Is For
+              {get("who_heading")}
             </h2>
             <ul className="space-y-4">
-              {WHO_FOR.map((item) => (
+              {whoItems.map((item) => (
                 <li
                   key={item}
                   className="flex items-start gap-3 text-foreground text-lg"
@@ -177,12 +156,10 @@ export default function VehicleQrLanding() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto bg-card border border-border rounded-2xl shadow-sm p-8 sm:p-10">
             <p className="text-lg text-foreground mb-8">
-              I'm <span className="font-semibold">Bill Tamayo Jr.</span>, a
-              Digital Transformation Architect and founder of Insight Strategy
-              Lab.
+              {get("cred_intro")}
             </p>
             <ul className="space-y-4">
-              {CREDIBILITY.map((item) => (
+              {credItems.map((item) => (
                 <li
                   key={item}
                   className="flex items-start gap-3 text-foreground"
@@ -201,13 +178,13 @@ export default function VehicleQrLanding() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center space-y-8">
             <h2 className="text-3xl sm:text-4xl font-bold">
-              Want to Explore What This Could Look Like for You?
+              {get("cta_heading")}
             </h2>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button asChild size="lg" className="w-full sm:w-auto text-lg h-14 px-8">
                 <Link href="/diagnostic">
                   <CalendarClock className="mr-2 h-5 w-5" />
-                  Book a Quick Call
+                  {get("cta_primary")}
                 </Link>
               </Button>
               <Button
@@ -218,7 +195,7 @@ export default function VehicleQrLanding() {
               >
                 <Link href="/contact">
                   <MessageSquare className="mr-2 h-5 w-5" />
-                  Send Me a Message
+                  {get("cta_secondary")}
                 </Link>
               </Button>
             </div>
@@ -230,8 +207,7 @@ export default function VehicleQrLanding() {
       <section className="pb-24 bg-background">
         <div className="container mx-auto px-4">
           <p className="max-w-2xl mx-auto text-center text-muted-foreground">
-            Also—thanks for scanning. That already puts you ahead of most
-            people.
+            {get("closing")}
           </p>
         </div>
       </section>

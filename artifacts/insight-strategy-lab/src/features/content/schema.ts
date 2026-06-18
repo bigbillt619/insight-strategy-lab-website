@@ -230,6 +230,33 @@ export const DIAGNOSTIC_GROUP: ContentGroup = {
   ],
 };
 
+export const VEHICLE_QR_GROUP: ContentGroup = {
+  page: "vehicle_qr",
+  title: "QR Landing Page",
+  description: "Copy for the private QR-code landing page (/vehicle-qr-code-1). Visitors arrive here after scanning the vehicle QR code.",
+  fields: [
+    { key: "hero_badge", label: "Hero badge", type: "text", default: "Private access" },
+    { key: "hero_title", label: "Hero headline", type: "textarea", default: "You Found This for a Reason" },
+    { key: "hero_subtitle", label: "Hero subtitle", type: "textarea", default: "I build AI-powered systems that help small businesses scale smarter, not harder." },
+    { key: "hero_body", label: "Hero body text", type: "textarea", default: "If you're curious what that could look like for your business, you're in the right place." },
+    { key: "hero_cta", label: "Hero CTA button", type: "text", default: "See How This Works" },
+    { key: "value1_title", label: "Value block 1 - title", type: "text", default: "Automate operations" },
+    { key: "value1_desc", label: "Value block 1 - description", type: "textarea", default: "Cut the repetitive, manual work that eats your team's day so the business runs without you babysitting it." },
+    { key: "value2_title", label: "Value block 2 - title", type: "text", default: "Turn data into decisions" },
+    { key: "value2_desc", label: "Value block 2 - description", type: "textarea", default: "Make your numbers actually useful — clear signals you can act on instead of spreadsheets nobody opens." },
+    { key: "value3_title", label: "Value block 3 - title", type: "text", default: "Build scalable systems" },
+    { key: "value3_desc", label: "Value block 3 - description", type: "textarea", default: "Put the right foundation in place so growth doesn't break what you've already built." },
+    { key: "who_heading", label: "Who it's for - heading", type: "text", default: "Who This Is For" },
+    { key: "who_items", label: "Who it's for - items", type: "list", default: "Business owners wearing too many hats\nService businesses trying to scale\nTeams drowning in manual processes\nPeople curious about using AI practically", help: "One item per line." },
+    { key: "cred_intro", label: "Credibility - intro sentence", type: "textarea", default: "I'm Bill Tamayo Jr., a Digital Transformation Architect and founder of Insight Strategy Lab." },
+    { key: "cred_items", label: "Credibility - bullet points", type: "list", default: "Build AI systems for small businesses\nFocus on real-world implementation (not theory)\nStrategy + execution", help: "One item per line." },
+    { key: "cta_heading", label: "Bottom CTA - heading", type: "textarea", default: "Want to Explore What This Could Look Like for You?" },
+    { key: "cta_primary", label: "Bottom CTA - primary button", type: "text", default: "Book a Quick Call" },
+    { key: "cta_secondary", label: "Bottom CTA - secondary button", type: "text", default: "Send Me a Message" },
+    { key: "closing", label: "Closing line", type: "textarea", default: "Also—thanks for scanning. That already puts you ahead of most people." },
+  ],
+};
+
 export const CONTENT_GROUPS: ContentGroup[] = [
   GLOBAL_GROUP,
   HOME_GROUP,
@@ -238,6 +265,7 @@ export const CONTENT_GROUPS: ContentGroup[] = [
   ABOUT_GROUP,
   CONTACT_GROUP,
   DIAGNOSTIC_GROUP,
+  VEHICLE_QR_GROUP,
 ];
 
 export const PAGE_GROUPS: ContentGroup[] = [
@@ -247,6 +275,7 @@ export const PAGE_GROUPS: ContentGroup[] = [
   ABOUT_GROUP,
   CONTACT_GROUP,
   DIAGNOSTIC_GROUP,
+  VEHICLE_QR_GROUP,
 ];
 
 /** Flatten all defaults for a page into a key -> default map. */
