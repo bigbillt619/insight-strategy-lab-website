@@ -10,6 +10,7 @@ import {
   CalendarClock,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useContent } from "@/features/content/api";
 import logo from "@/assets/logo.png";
 
 const VALUE_BLOCKS = [
@@ -51,6 +52,10 @@ const CREDIBILITY = [
  * robots.txt disallow rule.
  */
 export default function VehicleQrLanding() {
+  const { get } = useContent("global");
+  const logoScale = Number(get("logo_scale")) || 1;
+  const logoStyle = { height: `${3.5 * logoScale}rem` };
+
   useEffect(() => {
     sessionStorage.setItem("isl_lead_source", "vehicle_qr");
 
@@ -87,7 +92,8 @@ export default function VehicleQrLanding() {
           <img
             src={logo}
             alt="Insight Strategy Lab"
-            className="h-12 w-auto"
+            className="w-auto"
+            style={logoStyle}
           />
         </div>
       </header>
