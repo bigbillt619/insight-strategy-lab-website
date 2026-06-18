@@ -10,9 +10,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     // A session alone is not enough — only owners on the app_admins allowlist
-    // may enter the admin shell. Sign out any non-owner session to avoid loops.
+    // may enter the admin shell. Sign out any non-owner session and return to
+    // the public site. Use the "~" prefix so navigation ignores the nested
+    // "/admin" router base (otherwise it resolves to "/admin/...").
     if (!loading && !isAdmin) {
-      signOut().finally(() => setLocation("/admin/login"));
+      signOut().finally(() => setLocation("~/"));
     }
   }, [loading, isAdmin, setLocation]);
 
@@ -40,7 +42,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <button 
           onClick={async () => {
             await signOut();
-            setLocation("/admin/login");
+            // "~" navigates relative to the root router, escaping the nested
+            // "/admin" base so the owner lands back on the public home page.
+            setLocation("~/");
           }} 
           className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors font-medium"
         >
