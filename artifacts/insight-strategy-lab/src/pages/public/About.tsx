@@ -1,4 +1,12 @@
 import { useContent } from "@/features/content/api";
+import { Award } from "lucide-react";
+
+function isImageUrl(url: string) {
+  return (
+    /\.(png|jpe?g|gif|webp|svg|avif)(\?|$)/i.test(url) ||
+    url.includes("/storage/v1/object/public/")
+  );
+}
 
 export default function About() {
   const { get } = useContent("about");
@@ -49,14 +57,27 @@ export default function About() {
             <>
               <h3 className="text-2xl font-bold text-foreground mt-12 mb-6">{get("badges_heading")}</h3>
               <div className="flex flex-wrap items-center gap-6 not-prose">
-                {badges.map((src, i) => (
-                  <img
-                    key={i}
-                    src={src}
-                    alt=""
-                    className="h-24 w-auto object-contain rounded-lg border border-border bg-card p-3"
-                  />
-                ))}
+                {badges.map((src, i) =>
+                  isImageUrl(src) ? (
+                    <img
+                      key={i}
+                      src={src}
+                      alt=""
+                      className="h-24 w-auto object-contain rounded-lg border border-border bg-card p-3"
+                    />
+                  ) : (
+                    <a
+                      key={i}
+                      href={src}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-4 text-sm font-medium text-foreground hover:border-accent transition-colors"
+                    >
+                      <Award className="h-5 w-5 text-accent" />
+                      View Certificate
+                    </a>
+                  )
+                )}
               </div>
             </>
           )}
