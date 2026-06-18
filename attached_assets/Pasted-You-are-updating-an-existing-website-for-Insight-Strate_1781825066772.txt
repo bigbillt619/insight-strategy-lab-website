@@ -1,0 +1,116 @@
+You are updating an existing website for Insight Strategy Lab (insightstrategylab.com).
+
+TASK:
+Create a hidden landing page at the route:
+
+/vehicle-qr-code-1
+
+This page is ONLY accessible via direct URL (QR code) and should NOT be linked anywhere in the main navigation, footer, sitemap, or internal links.
+
+OBJECTIVE:
+This is a high-impact, conversion-focused page designed specifically for people who scan a QR code on a vehicle.
+
+It should feel:
+- Private / insider access
+- High-value and intentional
+- Clean, modern, and aligned with the existing brand (white, black, blue, grey)
+
+---
+
+DESIGN REQUIREMENTS:
+
+1. Match the existing site styling:
+   - Fonts
+   - Color palette
+   - Layout structure
+   - Button styles
+   - Spacing and responsiveness
+
+2. Mobile-first optimization (most users will be on phones)
+
+3. Minimal navigation:
+   - No top nav OR a very minimal header (logo only, no links)
+
+---
+
+PAGE STRUCTURE:
+
+SECTION 1: HERO
+- Headline: "You Found This for a Reason"
+- Subheadline: "I build AI-powered systems that help small businesses scale smarter, not harder."
+- Short supporting line: "If you're curious what that could look like for your business, you're in the right place."
+- Primary CTA button: "See How This Works"
+
+---
+
+SECTION 2: WHAT I DO (CONDENSED VALUE PROP)
+- 3 short blocks:
+   1. Automate operations
+   2. Turn data into decisions
+   3. Build scalable systems
+
+Include simple icons if available.
+
+---
+
+SECTION 3: WHO THIS IS FOR
+- Bullet list:
+   - Business owners wearing too many hats
+   - Service businesses trying to scale
+   - Teams drowning in manual processes
+   - People curious about using AI practically
+
+---
+
+SECTION 4: QUICK CREDIBILITY
+- Short intro:
+   "I'm Bill Tamayo Jr., a Digital Transformation Architect and founder of Insight Strategy Lab."
+- 2–3 credibility points:
+   - Build AI systems for small businesses
+   - Focus on real-world implementation (not theory)
+   - Strategy + execution
+
+---
+
+SECTION 5: CTA BLOCK
+- Headline: "Want to Explore What This Could Look Like for You?"
+- Button options:
+   - "Book a Quick Call"
+   - "Send Me a Message"
+
+(Buttons should be easy to connect later to Calendly or email)
+
+---
+
+SECTION 6: OPTIONAL LIGHT PERSONAL TOUCH
+- Short line:
+   "Also—thanks for scanning. That already puts you ahead of most people."
+
+---
+
+TECHNICAL REQUIREMENTS:
+
+- Ensure page is excluded from:
+   - Navigation menus
+   - Sitemap (if applicable)
+- Add meta tag to discourage indexing:
+   <meta name="robots" content="noindex, nofollow">
+- Clean URL handling: /vehicle-qr-code-1
+- Fast loading performance
+
+---
+
+TONE:
+
+- Direct
+- Confident
+- Intelligent but not technical-heavy
+- Slightly exclusive (feels like an intentional discovery)
+
+---
+
+OUTPUT:
+
+Generate the full page code using the same framework as the existing site (detect automatically: HTML/CSS/JS, React, Next.js, etc.).
+
+Ensure the new page integrates seamlessly into the current project structure without breaking anything.

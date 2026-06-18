@@ -1,0 +1,219 @@
+You are working inside an existing React + Vite TypeScript project for Insight Strategy Lab.
+
+GOAL:
+Add a hidden, QR-only landing page at:
+
+/vehicle-qr-code-1
+
+This page is:
+- NOT linked anywhere (nav, footer, internal links)
+- Rendered OUTSIDE the PublicLayout (no Navbar/Footer)
+- Mobile-first and conversion-focused
+- Styled to match the existing brand system
+
+---
+
+========================================
+STEP 1 — CREATE PAGE COMPONENT
+========================================
+
+Create a new file:
+
+src/pages/public/VehicleQrLanding.tsx
+
+Requirements:
+
+- Use existing brand styles (colors: white/black/blue/grey, Inter font)
+- Match spacing, layout, buttons, and typography from:
+  - BrandStyle.tsx
+  - index.css
+- Import lucide-react icons for value props
+- Mobile-first design
+- Clean, modern layout
+
+----------------------------------------
+PAGE STRUCTURE
+----------------------------------------
+
+1. MINIMAL HEADER
+- Logo only (centered or left-aligned)
+- NO navigation links
+
+2. HERO SECTION
+Headline:
+"You Found This for a Reason"
+
+Subheadline:
+"I build AI-powered systems that help small businesses scale smarter, not harder."
+
+Supporting text:
+"If you're curious what that could look like for your business, you're in the right place."
+
+CTA button:
+"See How This Works"
+→ route to: /diagnostic
+
+---
+
+3. WHAT I DO (3 BLOCKS with lucide icons)
+- Automate operations
+- Turn data into decisions
+- Build scalable systems
+
+Use icons like: Zap, BarChart, Layers
+
+---
+
+4. WHO THIS IS FOR (bullet list)
+- Business owners wearing too many hats
+- Service businesses trying to scale
+- Teams drowning in manual processes
+- People curious about using AI practically
+
+---
+
+5. QUICK CREDIBILITY
+Text:
+"I'm Bill Tamayo Jr., a Digital Transformation Architect and founder of Insight Strategy Lab."
+
+Bullet points:
+- Build AI systems for small businesses
+- Focus on real-world implementation (not theory)
+- Strategy + execution
+
+---
+
+6. CTA BLOCK
+Headline:
+"Want to Explore What This Could Look Like for You?"
+
+Buttons:
+- "Book a Quick Call" → /diagnostic
+- "Send Me a Message" → /contact
+
+---
+
+7. CLOSING LINE
+"Also—thanks for scanning. That already puts you ahead of most people."
+
+---
+
+========================================
+STEP 2 — ADD ROUTE
+========================================
+
+Open:
+
+src/App.tsx
+
+Add route:
+
+<Route path="/vehicle-qr-code-1" element={<VehicleQrLanding />} />
+
+IMPORTANT:
+- Render this OUTSIDE PublicLayout
+- Do NOT wrap with Navbar or Footer
+- Ensure it does NOT break existing routes
+- Ensure it does NOT fall into 404
+
+---
+
+========================================
+STEP 3 — ROBOTS META HANDLING
+========================================
+
+Inside VehicleQrLanding.tsx:
+
+Add a useEffect that:
+
+1. Creates meta tag:
+   name="robots"
+   content="noindex, nofollow"
+
+2. Appends it to <head> on mount
+
+3. Removes it on unmount
+
+Example logic:
+
+- document.createElement("meta")
+- setAttribute("name", "robots")
+- setAttribute("content", "noindex, nofollow")
+- append to document.head
+- cleanup removes it
+
+IMPORTANT:
+This must ONLY apply to this page.
+
+---
+
+========================================
+STEP 4 — UPDATE ROBOTS.TXT
+========================================
+
+Edit:
+
+public/robots.txt
+
+Add:
+
+Disallow: /vehicle-qr-code-1
+
+Do NOT modify other rules.
+
+---
+
+========================================
+STEP 5 — ENSURE ISOLATION
+========================================
+
+Verify:
+
+- Page is NOT imported into Navbar.tsx
+- Page is NOT referenced in any links
+- Page does NOT appear in:
+  - navigation
+  - footer
+  - homepage
+  - sitemap (if exists)
+
+---
+
+========================================
+STEP 6 — STYLING
+========================================
+
+- Reuse existing button classes and utilities
+- Maintain consistent vertical spacing
+- Ensure:
+  - Mobile looks premium and clean
+  - Sections stack cleanly
+  - Buttons are thumb-friendly
+
+---
+
+========================================
+STEP 7 — VALIDATION
+========================================
+
+Confirm:
+
+✅ Page loads at /vehicle-qr-code-1  
+✅ No navbar/footer present  
+✅ Buttons route correctly  
+✅ Page not linked anywhere  
+✅ robots meta only appears on this page  
+✅ robots.txt includes disallow rule  
+✅ No TypeScript errors  
+✅ No impact to existing pages  
+
+---
+
+OUTPUT:
+
+Generate FULL working code for:
+- VehicleQrLanding.tsx
+- Updated App.tsx route snippet
+- robots.txt modification
+
+Ensure the implementation integrates cleanly with the existing project.
