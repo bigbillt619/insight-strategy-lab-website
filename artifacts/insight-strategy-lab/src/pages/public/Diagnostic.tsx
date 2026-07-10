@@ -31,15 +31,17 @@ export default function Diagnostic() {
   const { get } = useContent("diagnostic");
   usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
-  const isComplete = step === DIAGNOSTIC_QUESTIONS.length;
-  const showLeadForm = step === DIAGNOSTIC_QUESTIONS.length + 1;
-  const isFinished = step > DIAGNOSTIC_QUESTIONS.length + 1;
+  // After all 6 pillar questions are answered, step === questions.length
+  // shows the scorecard + lead capture form; submitting the form advances
+  // straight to the finished/confirmation screen (step === length + 1).
+  const showScorecard = step === DIAGNOSTIC_QUESTIONS.length;
+  const isFinished = step === DIAGNOSTIC_QUESTIONS.length + 1;
 
   // The BOS maturity assessment is calculated once they finish all 6 pillars.
   const assessment = useMemo(() => {
-    if (!isComplete && !showLeadForm && !isFinished) return null;
+    if (!showScorecard && !isFinished) return null;
     return computeAssessment(answers);
-  }, [isComplete, showLeadForm, isFinished, answers]);
+  }, [showScorecard, isFinished, answers]);
 
   const leadSchema = z.object({
     name: z.string().min(2, "Name is required"),
@@ -115,7 +117,7 @@ export default function Diagnostic() {
   }
 
   // 2. Scorecard + Lead Capture
-  if (showLeadForm || isComplete) {
+  if (showScorecard) {
     const a = assessment!;
     return (
       <div className="py-16 bg-background">
