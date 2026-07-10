@@ -156,6 +156,10 @@ export default function Privacy() {
             These principles guide how Insight Strategy Lab designs systems, manages information,
             and serves clients.
           </p>
+          <p>
+            This commitment will be reviewed periodically and updated as our services,
+            technologies, and regulatory requirements evolve.
+          </p>
 
           <hr className="my-12 border-border" />
 
