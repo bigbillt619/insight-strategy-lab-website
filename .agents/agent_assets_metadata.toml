@@ -1,0 +1,8 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "v944Vuee4slR87NxM10o7"
+uri = "file://PROJECT_ASSESSMENT.md"
+type = "text"
+title = "Project Assessment & Migration Diagnostic"
