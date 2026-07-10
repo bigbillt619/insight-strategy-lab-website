@@ -6,3 +6,9 @@ id = "v944Vuee4slR87NxM10o7"
 uri = "file://PROJECT_ASSESSMENT.md"
 type = "text"
 title = "Project Assessment & Migration Diagnostic"
+
+[[outputs]]
+id = "VZJ5_7yUeW-fQiKBukM78"
+uri = "file://DIAGNOSTIC_TOOL_ASSESSMENT.md"
+type = "text"
+title = "Diagnostic Tool Deep-Dive Assessment"
