@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { signIn } from "@/features/auth/api";
+import { supabase } from "@/lib/supabase";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -12,8 +13,39 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [resetLoading, setResetLoading] = useState(false);
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+
+  const handleForgotPassword = async () => {
+    if (!email) {
+      toast({
+        title: "Enter your email first",
+        description: "Type your admin email above, then click 'Forgot password?'",
+        variant: "destructive",
+      });
+      return;
+    }
+    setResetLoading(true);
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${window.location.origin}/admin/reset-password`,
+      });
+      if (error) throw error;
+      toast({
+        title: "Check your email",
+        description: "We sent a password reset link.",
+      });
+    } catch (err: any) {
+      toast({
+        title: "Could not send reset email",
+        description: err.message || "Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setResetLoading(false);
+    }
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +100,15 @@ export default function Login() {
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? "Authenticating..." : "Sign In"}
             </Button>
+
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              disabled={resetLoading}
+              className="w-full text-center text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
+            >
+              {resetLoading ? "Sending..." : "Forgot password?"}
+            </button>
           </form>
 
           <div className="mt-8 flex items-center justify-center gap-2 text-xs text-muted-foreground uppercase tracking-widest">

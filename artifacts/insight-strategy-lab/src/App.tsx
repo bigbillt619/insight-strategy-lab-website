@@ -18,6 +18,7 @@ import Diagnostic from "@/pages/public/Diagnostic";
 import VehicleQrLanding from "@/pages/public/VehicleQrLanding";
 
 import Login from "@/pages/admin/Login";
+import ResetPassword from "@/pages/admin/ResetPassword";
 import Dashboard from "@/pages/admin/Dashboard";
 
 const queryClient = new QueryClient();
@@ -43,6 +44,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/admin/login" component={Login} />
+      <Route path="/admin/reset-password" component={ResetPassword} />
       
       {/* Admin Routes wrapped in Layout */}
       <Route path="/admin" nest>
