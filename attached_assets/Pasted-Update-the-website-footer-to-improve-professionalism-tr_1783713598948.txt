@@ -1,0 +1,174 @@
+Update the website footer to improve professionalism, trust, and usability while maintaining a clean, minimal design.
+
+GOALS
+1. Add a dedicated Privacy & Data Protection page.
+2. Make the Admin Login link less visually prominent.
+3. Improve footer navigation without distracting from lead-generation CTAs.
+4. Keep the current visual style, spacing, colors, and responsiveness.
+
+FOOTER CHANGES
+
+Current footer:
+
+Copyright © 2026 Insight Strategy Lab - All Rights Reserved.
+Admin Login
+
+Replace the bottom footer section with:
+
+Copyright © 2026 Insight Strategy Lab. All Rights Reserved.
+
+Privacy & Data Protection | Admin Login
+
+Requirements:
+- "Privacy & Data Protection" should link to a new page:
+  /privacy
+- "Admin Login" should remain available but be visually secondary.
+- Links should appear on the same line as the copyright section on desktop.
+- Stack cleanly on mobile.
+- Use small footer-sized typography.
+- Use muted styling consistent with the existing footer.
+- Do not make Admin Login a primary call-to-action.
+
+PRIVACY PAGE
+
+Create a new public page at:
+
+/privacy
+
+Page Title:
+Privacy, Governance & Data Protection Commitment
+
+Meta Title:
+Privacy, Governance & Data Protection | Insight Strategy Lab
+
+Meta Description:
+Learn how Insight Strategy Lab protects client information through privacy, governance, risk management, compliance, and responsible technology practices.
+
+Page Content:
+
+----------------------------------------------------------
+
+Privacy, Governance & Data Protection Commitment
+
+Trust is not a feature—it is a responsibility.
+
+At Insight Strategy Lab (ISL), we are committed to protecting client information, minimizing risk, maintaining strong governance practices, and handling data with integrity, transparency, and respect. As a veteran-owned consulting practice focused on business operating systems, digital transformation, data, and AI, we recognize that trust is foundational to every engagement.
+
+Our Commitment
+
+We are committed to:
+
+• Protecting client and stakeholder information
+• Minimizing privacy, cybersecurity, and operational risks
+• Applying sound governance practices
+• Using information only for authorized business purposes
+• Supporting ethical and responsible AI adoption
+• Continuously improving our security and privacy posture
+
+Information We Collect
+
+We collect only the information necessary to:
+
+• Respond to inquiries and requests
+• Deliver consulting services
+• Conduct assessments and diagnostics
+• Improve website functionality and user experience
+• Communicate with prospective and current clients
+
+Information may include:
+
+• Name
+• Email address
+• Phone number
+• Organization information
+• Assessment responses
+• Website analytics
+• Information voluntarily submitted through forms
+
+We Do Not Sell Your Information
+
+Insight Strategy Lab does not sell, rent, trade, distribute, or monetize personal information or client data to third parties.
+
+Information provided to ISL is used solely to:
+
+• Deliver requested services
+• Support client engagements
+• Conduct business operations
+• Satisfy legal or contractual obligations
+
+Limited Information Sharing
+
+Information may be shared only when necessary to:
+
+• Deliver contracted services through trusted providers
+• Comply with legal requirements
+• Protect the security, rights, or safety of clients and stakeholders
+
+Governance & Risk Management
+
+Our approach incorporates:
+
+• Data minimization
+• Access controls
+• Accountability and oversight
+• Risk assessment and mitigation
+• Change management practices
+• Responsible technology governance
+
+AI & Emerging Technology
+
+When using AI-enabled tools, ISL is committed to:
+
+• Human oversight and accountability
+• Ethical and responsible use
+• Protection of confidential information
+• Transparency where appropriate
+• Continuous evaluation of risks and impacts
+
+Client confidential information will not be intentionally used to train public AI models without authorization.
+
+Data Security
+
+ISL maintains reasonable administrative, technical, and organizational safeguards designed to protect information from unauthorized access, disclosure, alteration, misuse, loss, or destruction.
+
+Your Rights
+
+You may request to:
+
+• Access information we maintain about you
+• Correct inaccurate information
+• Request deletion where legally permissible
+• Opt out of future communications
+
+Compliance Philosophy
+
+Protect people.
+Govern responsibly.
+Minimize risk.
+Respect privacy.
+Build trust.
+
+These principles guide how Insight Strategy Lab designs systems, manages information, and serves clients.
+
+Contact
+
+Insight Strategy Lab
+Murrieta, California
+
+https://insightstrategylab.com
+
+----------------------------------------------------------
+
+DESIGN REQUIREMENTS
+
+- Match the current site styling.
+- Use the site's existing typography system.
+- Limit content width for readability.
+- Use section headings and spacing similar to About and Services pages.
+- Mobile responsive.
+- Accessible (semantic headings and proper link contrast).
+
+ADMIN LOGIN
+
+Leave existing admin authentication and routing unchanged.
+Only reduce visual prominence in the footer and place it beside Privacy & Data Protection.
