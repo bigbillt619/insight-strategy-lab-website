@@ -160,15 +160,6 @@ export default function Privacy() {
             This commitment will be reviewed periodically and updated as our services,
             technologies, and regulatory requirements evolve.
           </p>
-
-          <hr className="my-12 border-border" />
-
-          <h3 className="text-2xl font-bold text-foreground mb-3">Contact</h3>
-          <p className="mb-1">Insight Strategy Lab</p>
-          <p className="mb-1">Murrieta, California</p>
-          <p>
-            <a href="mailto:info@insightstrategylab.com">info@insightstrategylab.com</a>
-          </p>
         </div>
       </div>
     </div>
