@@ -1,0 +1,337 @@
+Bill, after reading the current diagnostic design, I'd make a more fundamental change.
+
+Right now the tool is essentially:
+
+```text
+5 Questions
+      ↓
+Recommendation
+      ↓
+Lead Capture
+```
+
+That's useful, but it positions ISL as a company that recommends tools.
+
+Your vision is much bigger.
+
+You're not selling software recommendations.
+
+You're selling **Business Operating System Architecture.**
+
+***
+
+# The Problem With The Current Diagnostic
+
+Current questions:
+
+* Business Type
+* Company Size
+* Biggest Bottleneck
+* Current Tools
+* Revenue Range
+
+These are mostly demographic qualifiers.
+
+At the end, the system says:
+
+> "Based on your answers, we recommend..."
+
+which feels similar to dozens of AI and software assessment tools.
+
+It doesn't showcase the ISL methodology.
+
+***
+
+# Reframe Around the ISL Operating System
+
+Instead of diagnosing:
+
+```text
+What software should you use?
+```
+
+Diagnose:
+
+```text
+How mature is your Business Operating System?
+```
+
+This instantly differentiates ISL.
+
+***
+
+# Proposed ISL Business Operating System Assessment
+
+### Question 1
+
+**Leadership & Strategy**
+
+> Does your organization have documented goals that everyone understands?
+
+Answers:
+
+* No defined goals
+* Leadership only knows them
+* Some teams know them
+* Mostly aligned
+* Fully aligned and tracked
+
+***
+
+### Question 2
+
+**People & Accountability**
+
+> Are roles and responsibilities clearly defined?
+
+Answers:
+
+* Constant confusion
+* Mostly informal
+* Defined but inconsistent
+* Clear for most employees
+* Fully documented and governed
+
+***
+
+### Question 3
+
+**Processes**
+
+> How are your core business processes managed?
+
+Answers:
+
+* Mostly tribal knowledge
+* Some written procedures
+* Key workflows documented
+* Standardized across teams
+* Continuously measured and improved
+
+***
+
+### Question 4
+
+**Technology**
+
+> Do your systems work together?
+
+Answers:
+
+* Mostly manual
+* Many disconnected tools
+* Partial integrations
+* Well integrated
+* Unified technology ecosystem
+
+***
+
+### Question 5
+
+**Data & Visibility**
+
+> How easily can leadership understand business performance?
+
+Answers:
+
+* We guess
+* Spreadsheets everywhere
+* Periodic reports
+* Real-time dashboards
+* Data-driven decision making
+
+***
+
+### Question 6
+
+**AI Readiness**
+
+> How is AI currently used?
+
+Answers:
+
+* Not using AI
+* Experiments only
+* Individual usage
+* Team usage
+* Integrated into business workflows
+
+***
+
+# New Recommendation Categories
+
+Instead of:
+
+```text
+Recommended System:
+HubSpot
+Monday
+Airtable
+```
+
+Return:
+
+## Your BOS Maturity Level
+
+### Level 1 — Foundational
+
+Focus:
+
+* Leadership alignment
+* Role clarity
+* Process documentation
+
+***
+
+### Level 2 — Operational
+
+Focus:
+
+* Workflow standardization
+* Team accountability
+* System consolidation
+
+***
+
+### Level 3 — Integrated
+
+Focus:
+
+* Cross-functional visibility
+* Process automation
+* Data governance
+
+***
+
+### Level 4 — Optimized
+
+Focus:
+
+* KPI-driven management
+* Intelligent automation
+* AI-assisted operations
+
+***
+
+### Level 5 — Adaptive Enterprise
+
+Focus:
+
+* AI-enabled decision systems
+* Continuous improvement
+* Business Operating System governance
+
+***
+
+# Lead Magnet Output
+
+The result page should feel like a mini consulting engagement.
+
+Example:
+
+## ISL Business Operating System Score
+
+```text
+Strategy             2/5
+People               3/5
+Processes            2/5
+Technology           2/5
+Data                 1/5
+AI                   1/5
+
+Overall Score: 11/30
+```
+
+### Key Risk Areas
+
+* Limited visibility into performance
+* Process dependency on individuals
+* Disconnected technology stack
+
+### Recommended Next Step
+
+> Design a foundational Business Operating System focused on process standardization and technology integration.
+
+Then:
+
+```text
+Get Your Free Operating System Review
+```
+
+instead of:
+
+```text
+Contact Us
+```
+
+***
+
+# Recommendation Engine Upgrade
+
+I'd also move away from the current flat-rule approach.
+
+Current:
+
+```text
+Question
+    ↓
+Answer
+    ↓
+Recommendation
+```
+
+Future:
+
+Each answer receives a weighted score:
+
+```text
+Strategy
+People
+Processes
+Technology
+Data
+AI
+```
+
+Then calculate:
+
+```text
+BOS Maturity Score
+```
+
+This removes hundreds of brittle recommendation mappings and makes the assessment scalable.
+
+***
+
+# Strategic Impact for ISL
+
+Today the diagnostic says:
+
+> "We help you find the right system."
+
+What I think it should say is:
+
+> "We assess the health of your Business Operating System and identify where People, Processes, Technology, Data, and AI are preventing scale."
+
+That aligns perfectly with:
+
+```text
+Insight Strategy Lab
+Business Operating System Architecture
+
+Strategy
+   ↓
+People
+   ↓
+Processes
+   ↓
+Technology
+   ↓
+Data
+   ↓
+AI
+   ↓
+Continuous Improvement
+```
+
+That's a much stronger market position and turns the diagnostic from a software recommendation quiz into a true ISL signature framework.
