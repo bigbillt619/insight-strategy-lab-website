@@ -8,7 +8,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import type { Lead, LeadSource, LeadStatus, LeadEvent } from "@/lib/types";
 import { LEAD_STATUSES } from "@/lib/types";
-import { labelForAnswer } from "@/features/diagnostic/questions";
 
 const STATUS_VARIANTS: Record<LeadStatus, string> = {
   New: "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-200",
@@ -178,32 +177,7 @@ export function LeadManager() {
 
                 {expandedId === lead.id && (
                   <div className="p-6 bg-muted/20 border-t border-border/50">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-6">
-                      <div>
-                        <h5 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Lead Details</h5>
-                        <dl className="space-y-2 text-sm">
-                          <div className="flex justify-between border-b border-border/50 pb-1">
-                            <dt className="text-muted-foreground">Business Type:</dt>
-                            <dd className="font-medium text-foreground">{labelForAnswer("business_type", lead.business_type ?? undefined) || "N/A"}</dd>
-                          </div>
-                          <div className="flex justify-between border-b border-border/50 pb-1">
-                            <dt className="text-muted-foreground">Team Size:</dt>
-                            <dd className="font-medium text-foreground">{labelForAnswer("company_size", lead.company_size ?? undefined) || "N/A"}</dd>
-                          </div>
-                          <div className="flex justify-between border-b border-border/50 pb-1">
-                            <dt className="text-muted-foreground">Bottleneck:</dt>
-                            <dd className="font-medium text-foreground">{labelForAnswer("biggest_bottleneck", lead.biggest_bottleneck ?? undefined) || "N/A"}</dd>
-                          </div>
-                          <div className="flex justify-between border-b border-border/50 pb-1">
-                            <dt className="text-muted-foreground">Current Tools:</dt>
-                            <dd className="font-medium text-foreground">{labelForAnswer("current_tools", lead.current_tools ?? undefined) || "N/A"}</dd>
-                          </div>
-                          <div className="flex justify-between border-b border-border/50 pb-1">
-                            <dt className="text-muted-foreground">Revenue:</dt>
-                            <dd className="font-medium text-foreground">{labelForAnswer("revenue_range", lead.revenue_range ?? undefined) || "N/A"}</dd>
-                          </div>
-                        </dl>
-                      </div>
+                    <div className="grid grid-cols-1 gap-8 mb-6">
                       <div>
                         <h5 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Message</h5>
                         <p className="text-sm text-foreground bg-background border border-border rounded-lg p-3 h-[120px] overflow-y-auto">

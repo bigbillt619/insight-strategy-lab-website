@@ -39,17 +39,7 @@ create table if not exists public.diagnostic_results (
   id uuid primary key default gen_random_uuid(),
   lead_id uuid references public.leads(id) on delete set null,
   answers jsonb not null default '{}'::jsonb,
-  recommended_systems jsonb not null default '{}'::jsonb,
-  created_at timestamptz not null default now()
-);
-
-create table if not exists public.recommendation_map (
-  id uuid primary key default gen_random_uuid(),
-  trigger_type text not null,
-  trigger_value text not null,
-  recommended_systems text[] not null default '{}',
-  rationale text,
-  priority int not null default 0,
+  assessment jsonb not null default '{}'::jsonb,
   created_at timestamptz not null default now()
 );
 
@@ -93,7 +83,6 @@ create table if not exists public.app_admins (
 alter table public.leads enable row level security;
 alter table public.lead_events enable row level security;
 alter table public.diagnostic_results enable row level security;
-alter table public.recommendation_map enable row level security;
 alter table public.apps enable row level security;
 alter table public.reviews enable row level security;
 alter table public.app_admins enable row level security;
@@ -119,8 +108,6 @@ drop policy if exists lead_events_anon_insert on public.lead_events;
 drop policy if exists lead_events_admin_all on public.lead_events;
 drop policy if exists diag_anon_insert on public.diagnostic_results;
 drop policy if exists diag_admin_all on public.diagnostic_results;
-drop policy if exists recmap_public_read on public.recommendation_map;
-drop policy if exists recmap_admin_all on public.recommendation_map;
 drop policy if exists apps_public_read on public.apps;
 drop policy if exists apps_admin_all on public.apps;
 drop policy if exists reviews_public_read on public.reviews;
@@ -144,12 +131,6 @@ create policy diag_anon_insert on public.diagnostic_results
 create policy diag_admin_all on public.diagnostic_results
   for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
--- recommendation_map: public read (drives the diagnostic); owner full
-create policy recmap_public_read on public.recommendation_map
-  for select to anon, authenticated using (true);
-create policy recmap_admin_all on public.recommendation_map
-  for all to authenticated using (public.is_admin()) with check (public.is_admin());
-
 -- apps: public reads published only; owner sees/edits all
 create policy apps_public_read on public.apps
   for select to anon, authenticated using (published = true or public.is_admin());
@@ -166,35 +147,6 @@ create policy reviews_admin_all on public.reviews
 -- is a random uuid, not a secret). Add more ids here to grant other owners.
 insert into public.app_admins (user_id) values ('5154898f-69c4-4531-82f7-e063b80876e2')
   on conflict do nothing;
-
--- ---------------------------------------------------------------------------
--- Seed: recommendation map (aligned to the diagnostic answer values)
--- ---------------------------------------------------------------------------
-
-delete from public.recommendation_map;
-insert into public.recommendation_map (trigger_type, trigger_value, recommended_systems, rationale, priority) values
-  -- biggest bottleneck (strongest signal)
-  ('biggest_bottleneck','manual_scheduling', array['Automated Scheduling System','Custom CRM'], 'Manual scheduling and bookings are a weekly time sink — an automated system books, reminds, and reschedules for you.', 90),
-  ('biggest_bottleneck','lead_followup', array['Lead Follow-up Automation','Custom CRM'], 'Leads go cold without consistent follow-up — automated sequences keep every prospect warm.', 90),
-  ('biggest_bottleneck','scattered_data', array['Operations Dashboard','ROI & Analytics Dashboard'], 'When your numbers live in five places, a single dashboard turns scattered data into decisions.', 90),
-  ('biggest_bottleneck','repetitive_admin', array['Workflow Automation','Custom Internal Tools'], 'Repetitive admin is exactly what automation eliminates, handing your hours back.', 90),
-  ('biggest_bottleneck','no_custom_tools', array['Custom Internal Tools','Custom CRM'], 'Off-the-shelf tools force your business into their box — a custom system is built around your workflow.', 90),
-  -- business type
-  ('business_type','fitness_facility', array['Fitness CRM','Automated Scheduling System'], 'Fitness facilities run on memberships, classes, and bookings — a fitness CRM keeps them all flowing.', 60),
-  ('business_type','sports_academy', array['Athlete Management System','Automated Scheduling System'], 'Academies juggle athletes, sessions, and progress — a management system keeps it organized at scale.', 60),
-  ('business_type','property_management', array['Property Operations Hub','Operations Dashboard'], 'Property operations span units, tenants, and tasks — one hub keeps every moving part visible.', 60),
-  ('business_type','service_business', array['Field Service CRM','Workflow Automation'], 'Service businesses win on responsiveness — a field CRM and automation keep jobs moving.', 60),
-  ('business_type','other', array['Custom System Audit'], 'Every business is different — a short audit pinpoints the highest-leverage system to build first.', 40),
-  -- current tools
-  ('current_tools','spreadsheets', array['Operations Dashboard','Workflow Automation'], 'Spreadsheets break down as you grow — a dashboard and automation pick up where they leave off.', 50),
-  ('current_tools','generic_crm', array['Custom CRM'], 'A generic CRM rarely fits your exact process — a custom one is shaped to how you actually work.', 50),
-  ('current_tools','pen_paper', array['Custom CRM','Automated Scheduling System'], 'Moving off pen and paper to a simple, tailored system is the fastest win available to you.', 50),
-  ('current_tools','disconnected_apps', array['Custom Internal Tools','Workflow Automation'], 'Disconnected apps create double-entry and dropped balls — one connected system removes both.', 50),
-  -- company size
-  ('company_size','20_plus', array['Operations Dashboard','Custom Internal Tools'], 'At 20+ people, visibility and role-based tools matter most.', 30),
-  ('company_size','6_20', array['Operations Dashboard'], 'A growing team needs shared visibility into the numbers that matter.', 30),
-  ('company_size','2_5', array['Workflow Automation'], 'A small team gets the biggest lift from removing repetitive work.', 20),
-  ('company_size','solo', array['Workflow Automation'], 'Solo operators win back the most time by automating the busywork.', 20);
 
 -- ---------------------------------------------------------------------------
 -- Seed: apps in production (Bill's real projects; videos/thumbnails added later)

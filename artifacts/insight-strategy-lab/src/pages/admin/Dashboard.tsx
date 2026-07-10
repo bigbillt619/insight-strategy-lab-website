@@ -1,19 +1,16 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useLeads } from "@/features/leads/api";
 import { useAllApps } from "@/features/apps/api";
-import { useRecommendationMap } from "@/features/diagnostic/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, Database, GitMerge } from "lucide-react";
+import { Users, Database } from "lucide-react";
 import { LeadManager } from "./LeadManager";
 import { AppManager } from "./AppManager";
-import { RecommendationManager } from "./RecommendationManager";
 import { SiteSettingsManager } from "./SiteSettingsManager";
 import { PageContentManager } from "./PageContentManager";
 
 export default function Dashboard() {
   const { data: leads = [], isLoading: leadsLoading } = useLeads();
   const { data: apps = [], isLoading: appsLoading } = useAllApps();
-  const { data: recMap = [], isLoading: mapLoading } = useRecommendationMap();
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
@@ -43,22 +40,12 @@ export default function Dashboard() {
             <div className="text-3xl font-bold text-foreground">{appsLoading ? "-" : apps.length}</div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Map Rules</CardTitle>
-            <GitMerge className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-3xl font-bold text-foreground">{mapLoading ? "-" : recMap.length}</div>
-          </CardContent>
-        </Card>
       </div>
 
       <Tabs defaultValue="leads" className="w-full">
         <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-6 flex-wrap">
           <TabsTrigger value="leads" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Leads Pipeline</TabsTrigger>
           <TabsTrigger value="apps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Apps Manager</TabsTrigger>
-          <TabsTrigger value="recmap" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Recommendation Map</TabsTrigger>
           <TabsTrigger value="pages" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Page Content</TabsTrigger>
           <TabsTrigger value="settings" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Site Settings</TabsTrigger>
         </TabsList>
@@ -69,10 +56,6 @@ export default function Dashboard() {
 
         <TabsContent value="apps" className="m-0">
           <AppManager />
-        </TabsContent>
-
-        <TabsContent value="recmap" className="m-0">
-          <RecommendationManager />
         </TabsContent>
 
         <TabsContent value="pages" className="m-0">

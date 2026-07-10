@@ -1,64 +1,114 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 import type {
+  BosAssessmentResult,
+  BosMaturityLevel,
+  BosPillar,
   DiagnosticAnswers,
-  RecommendationMap,
-  RecommendationMapInput,
-  RecommendationOutput,
 } from "@/lib/types";
+import { DIAGNOSTIC_QUESTIONS, PILLAR_LABELS } from "./questions";
 
-export const recommendationMapKey = ["recommendation_map"] as const;
+/**
+ * Fixed maturity-level bands for the 6-pillar x 5-point BOS assessment
+ * (overall score range 6-30). These, along with the pillar questions, are
+ * intentionally code constants rather than CMS/owner-editable content -- the
+ * ISL signature framework itself shouldn't drift from an admin screen.
+ */
+export const BOS_MATURITY_LEVELS: BosMaturityLevel[] = [
+  {
+    name: "Foundational",
+    minScore: 6,
+    maxScore: 10,
+    focusAreas: ["Strategic clarity", "Accountability", "Process documentation"],
+    nextStep:
+      "Focus on documenting core processes, clarifying responsibilities, and establishing leadership alignment before investing heavily in technology or AI.",
+  },
+  {
+    name: "Operational",
+    minScore: 11,
+    maxScore: 15,
+    focusAreas: ["Workflow consistency", "Team coordination", "Basic reporting"],
+    nextStep:
+      "Standardize workflows and improve operational visibility by connecting people, processes, and systems.",
+  },
+  {
+    name: "Integrated",
+    minScore: 16,
+    maxScore: 20,
+    focusAreas: ["System integration", "Process automation", "Organizational visibility"],
+    nextStep:
+      "Expand automation and strengthen cross-functional data flows to improve decision-making.",
+  },
+  {
+    name: "Optimized",
+    minScore: 21,
+    maxScore: 25,
+    focusAreas: ["KPI-driven management", "Data governance", "Advanced automation"],
+    nextStep:
+      "Leverage advanced reporting, governance, and AI-enabled workflows to improve performance.",
+  },
+  {
+    name: "Adaptive Enterprise",
+    minScore: 26,
+    maxScore: 30,
+    focusAreas: ["AI-enabled operations", "Predictive decision-making", "Continuous improvement"],
+    nextStep:
+      "Continue evolving a fully integrated operating system through AI, continuous improvement, and strategic innovation.",
+  },
+];
 
-/** Public: read the recommendation map that drives the diagnostic. */
-export function useRecommendationMap() {
-  return useQuery({
-    queryKey: recommendationMapKey,
-    queryFn: async (): Promise<RecommendationMap[]> => {
-      const { data, error } = await supabase
-        .from("recommendation_map")
-        .select("*")
-        .order("priority", { ascending: false });
-      if (error) throw error;
-      return (data ?? []) as RecommendationMap[];
-    },
-  });
+function levelForScore(overallScore: number): BosMaturityLevel {
+  return (
+    BOS_MATURITY_LEVELS.find(
+      (l) => overallScore >= l.minScore && overallScore <= l.maxScore,
+    ) ?? BOS_MATURITY_LEVELS[0]
+  );
+}
+
+/** Human-readable risk label per pillar, used when surfacing "key risk areas". */
+const RISK_LABELS: Record<BosPillar, string> = {
+  strategy: "Strategic Alignment",
+  people: "Role Clarity & Accountability",
+  processes: "Process Standardization",
+  technology: "Technology Integration",
+  data: "Data Visibility",
+  ai: "AI Readiness",
+};
+
+export function riskLabel(pillar: BosPillar): string {
+  return RISK_LABELS[pillar];
+}
+
+export function pillarLabel(pillar: BosPillar): string {
+  return PILLAR_LABELS[pillar];
 }
 
 /**
- * Lightweight, data-driven recommendation engine.
- * Matches each diagnostic answer against the recommendation_map
- * (trigger_type = answer key, trigger_value = answer value), then
- * produces a confidence-framed result: a primary opportunity, a few
- * "also consider" options, and a short "why this matters" rationale.
+ * Pure scoring engine: sums the 6 pillar scores (1-5 each) into an overall
+ * score (6-30), maps it to a fixed maturity level band, and surfaces the 3
+ * lowest-scoring pillars as key risk areas (ties broken by pillar order).
  */
-export function computeRecommendation(
+export function computeAssessment(
   answers: DiagnosticAnswers,
-  map: RecommendationMap[],
-): RecommendationOutput {
-  const matches = map
-    .filter((row) => {
-      const answerValue = (answers as Record<string, string | undefined>)[
-        row.trigger_type
-      ];
-      return answerValue !== undefined && answerValue === row.trigger_value;
-    })
-    .sort((a, b) => b.priority - a.priority);
-
-  const orderedSystems: string[] = [];
-  for (const row of matches) {
-    for (const system of row.recommended_systems) {
-      if (!orderedSystems.includes(system)) orderedSystems.push(system);
-    }
+): BosAssessmentResult {
+  const scores = {} as Record<BosPillar, number>;
+  let overallScore = 0;
+  for (const q of DIAGNOSTIC_QUESTIONS) {
+    const score = answers[q.key] ?? 0;
+    scores[q.key] = score;
+    overallScore += score;
   }
 
-  const why =
-    matches.find((m) => m.rationale)?.rationale ??
-    "Based on your answers, a custom system would remove the manual work that's currently capping your growth.";
+  const riskAreas = [...DIAGNOSTIC_QUESTIONS]
+    .map((q) => q.key)
+    .sort((a, b) => scores[a] - scores[b])
+    .slice(0, 3);
 
   return {
-    primary: orderedSystems[0] ?? "Custom System Audit",
-    also_consider: orderedSystems.slice(1, 3),
-    why,
+    scores,
+    overallScore,
+    level: levelForScore(overallScore),
+    riskAreas,
   };
 }
 
@@ -68,66 +118,12 @@ export function useSaveDiagnosticResult() {
     mutationFn: async (input: {
       lead_id: string | null;
       answers: DiagnosticAnswers;
-      recommended_systems: RecommendationOutput;
+      assessment: BosAssessmentResult;
     }) => {
       // No .select() so the public (anon) flow needs INSERT only, never a
       // readable SELECT policy on diagnostic_results.
-      const { error } = await supabase
-        .from("diagnostic_results")
-        .insert(input);
+      const { error } = await supabase.from("diagnostic_results").insert(input);
       if (error) throw error;
     },
-  });
-}
-
-/* ---------------- Admin: recommendation map CRUD ---------------- */
-
-export function useCreateRecommendation() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async (input: RecommendationMapInput) => {
-      const { data, error } = await supabase
-        .from("recommendation_map")
-        .insert(input)
-        .select()
-        .single();
-      if (error) throw error;
-      return data as RecommendationMap;
-    },
-    onSuccess: () => qc.invalidateQueries({ queryKey: recommendationMapKey }),
-  });
-}
-
-export function useUpdateRecommendation() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async ({
-      id,
-      ...input
-    }: RecommendationMapInput & { id: string }) => {
-      const { data, error } = await supabase
-        .from("recommendation_map")
-        .update(input)
-        .eq("id", id)
-        .select()
-        .single();
-      if (error) throw error;
-      return data as RecommendationMap;
-    },
-    onSuccess: () => qc.invalidateQueries({ queryKey: recommendationMapKey }),
-  });
-}
-
-export function useDeleteRecommendation() {
-  const qc = useQueryClient();
-  return useMutation({
-    mutationFn: async (id: string) => {
-      const { error } = await supabase
-        .from("recommendation_map")
-        .delete()
-        .eq("id", id);
-      if (error) throw error;
-    },
-    onSuccess: () => qc.invalidateQueries({ queryKey: recommendationMapKey }),
   });
 }

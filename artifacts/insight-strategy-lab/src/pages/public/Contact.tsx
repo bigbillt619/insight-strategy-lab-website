@@ -9,36 +9,18 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { DIAGNOSTIC_QUESTIONS } from "@/features/diagnostic/questions";
 import { ReviewsSection } from "@/components/ReviewsSection";
 import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
-
-const optionsFor = (key: string) =>
-  DIAGNOSTIC_QUESTIONS.find((q) => q.key === key)?.options ?? [];
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Valid email is required"),
   phone: z.string().optional(),
-  business_type: z.string().optional(),
-  company_size: z.string().optional(),
-  biggest_bottleneck: z.string().optional(),
-  current_tools: z.string().optional(),
-  revenue_range: z.string().optional(),
   message: z.string().min(10, "Please provide more details"),
 });
 
 type ContactFormValues = z.infer<typeof contactSchema>;
-
-const QUALIFIERS: { name: keyof ContactFormValues; label: string }[] = [
-  { name: "business_type", label: "Business type" },
-  { name: "company_size", label: "Team size" },
-  { name: "biggest_bottleneck", label: "Biggest bottleneck" },
-  { name: "current_tools", label: "Current tools" },
-  { name: "revenue_range", label: "Annual revenue" },
-];
 
 export default function Contact() {
   const { toast } = useToast();
@@ -59,11 +41,6 @@ export default function Contact() {
       name: "",
       email: "",
       phone: "",
-      business_type: "",
-      company_size: "",
-      biggest_bottleneck: "",
-      current_tools: "",
-      revenue_range: "",
       message: "",
     },
   });
@@ -77,11 +54,6 @@ export default function Contact() {
         name: data.name,
         email: data.email,
         phone: emptyToNull(data.phone),
-        business_type: emptyToNull(data.business_type),
-        company_size: emptyToNull(data.company_size),
-        biggest_bottleneck: emptyToNull(data.biggest_bottleneck),
-        current_tools: emptyToNull(data.current_tools),
-        revenue_range: emptyToNull(data.revenue_range),
         message: data.message,
         source,
       },
@@ -199,34 +171,6 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {QUALIFIERS.map((q) => (
-                      <FormField
-                        key={q.name}
-                        control={form.control}
-                        name={q.name}
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel>{q.label}</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value || undefined}>
-                              <FormControl>
-                                <SelectTrigger>
-                                  <SelectValue placeholder="Select..." />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent>
-                                {optionsFor(q.name).map((o) => (
-                                  <SelectItem key={o.value} value={o.value}>{o.label}</SelectItem>
-                                ))}
-                              </SelectContent>
-                            </Select>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    ))}
                   </div>
 
                   <FormField

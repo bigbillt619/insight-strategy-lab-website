@@ -1,95 +1,117 @@
 export interface DiagnosticOption {
-  value: string;
+  /** Maturity score this answer contributes for its pillar, 1 (lowest) - 5 (highest). */
+  score: 1 | 2 | 3 | 4 | 5;
   label: string;
 }
 
+export type BosPillar =
+  | "strategy"
+  | "people"
+  | "processes"
+  | "technology"
+  | "data"
+  | "ai";
+
 export interface DiagnosticQuestion {
-  /** Maps directly to a lead field + recommendation_map trigger_type */
-  key:
-    | "business_type"
-    | "company_size"
-    | "biggest_bottleneck"
-    | "current_tools"
-    | "revenue_range";
+  /** One of the six Business Operating System pillars this question scores. */
+  key: BosPillar;
+  pillarLabel: string;
   question: string;
   helper?: string;
   options: DiagnosticOption[];
 }
 
+export const PILLAR_LABELS: Record<BosPillar, string> = {
+  strategy: "Strategy",
+  people: "People",
+  processes: "Processes",
+  technology: "Technology",
+  data: "Data",
+  ai: "AI",
+};
+
+/** The 6 pillars of the ISL Business Operating System framework, each scored 1-5. */
 export const DIAGNOSTIC_QUESTIONS: DiagnosticQuestion[] = [
   {
-    key: "business_type",
-    question: "What type of operation are we designing a system for?",
-    helper: "This helps us tailor the system architecture to your operations.",
+    key: "strategy",
+    pillarLabel: "Leadership & Strategy",
+    question: "Does your organization have documented goals that everyone understands?",
     options: [
-      { value: "fitness_facility", label: "Gym / Fitness Facility" },
-      { value: "sports_academy", label: "Sports Training Academy" },
-      { value: "property_management", label: "Property Management" },
-      {
-        value: "service_business",
-        label: "Service-Based Business (landscaping, delivery, trades)",
-      },
-      { value: "other", label: "Something else" },
+      { score: 1, label: "No defined goals" },
+      { score: 2, label: "Leadership only knows them" },
+      { score: 3, label: "Some teams know them" },
+      { score: 4, label: "Mostly aligned" },
+      { score: 5, label: "Fully aligned and tracked" },
     ],
   },
   {
-    key: "company_size",
-    question: "How big is your team?",
+    key: "people",
+    pillarLabel: "People & Accountability",
+    question: "Are roles and responsibilities clearly defined?",
     options: [
-      { value: "solo", label: "Just me" },
-      { value: "2_5", label: "2–5 people" },
-      { value: "6_20", label: "6–20 people" },
-      { value: "20_plus", label: "20+ people" },
+      { score: 1, label: "Constant confusion" },
+      { score: 2, label: "Mostly informal" },
+      { score: 3, label: "Defined but inconsistent" },
+      { score: 4, label: "Clear for most employees" },
+      { score: 5, label: "Fully documented and governed" },
     ],
   },
   {
-    key: "biggest_bottleneck",
-    question: "What's slowing you down the most right now?",
-    helper: "Pick the one that costs you the most time or money.",
+    key: "processes",
+    pillarLabel: "Processes",
+    question: "How are your core business processes managed?",
     options: [
-      { value: "manual_scheduling", label: "Manual scheduling & bookings" },
-      { value: "lead_followup", label: "Chasing leads & follow-ups" },
-      {
-        value: "scattered_data",
-        label: "Scattered data with no clear dashboards",
-      },
-      { value: "repetitive_admin", label: "Repetitive admin & busywork" },
-      {
-        value: "no_custom_tools",
-        label: "No custom tools built for my workflow",
-      },
+      { score: 1, label: "Mostly tribal knowledge" },
+      { score: 2, label: "Some written procedures" },
+      { score: 3, label: "Key workflows documented" },
+      { score: 4, label: "Standardized across teams" },
+      { score: 5, label: "Continuously measured and improved" },
     ],
   },
   {
-    key: "current_tools",
-    question: "What are you using to run things today?",
+    key: "technology",
+    pillarLabel: "Technology",
+    question: "Do your systems work together?",
     options: [
-      { value: "spreadsheets", label: "Spreadsheets" },
-      { value: "generic_crm", label: "A generic CRM (GoHighLevel, etc.)" },
-      { value: "pen_paper", label: "Pen & paper / nothing yet" },
-      { value: "disconnected_apps", label: "A mix of disconnected apps" },
+      { score: 1, label: "Mostly manual" },
+      { score: 2, label: "Many disconnected tools" },
+      { score: 3, label: "Partial integrations" },
+      { score: 4, label: "Well integrated" },
+      { score: 5, label: "Unified technology ecosystem" },
     ],
   },
   {
-    key: "revenue_range",
-    question: "What's your approximate annual revenue?",
-    helper: "Optional — it helps us scope the right engagement.",
+    key: "data",
+    pillarLabel: "Data & Visibility",
+    question: "How easily can leadership understand business performance?",
     options: [
-      { value: "under_250k", label: "Under $250k" },
-      { value: "250k_1m", label: "$250k – $1M" },
-      { value: "1m_5m", label: "$1M – $5M" },
-      { value: "5m_plus", label: "$5M+" },
-      { value: "private", label: "Prefer not to say" },
+      { score: 1, label: "We guess" },
+      { score: 2, label: "Spreadsheets everywhere" },
+      { score: 3, label: "Periodic reports" },
+      { score: 4, label: "Real-time dashboards" },
+      { score: 5, label: "Data-driven decision making" },
+    ],
+  },
+  {
+    key: "ai",
+    pillarLabel: "AI Readiness",
+    question: "How is AI currently used?",
+    options: [
+      { score: 1, label: "Not using AI" },
+      { score: 2, label: "Experiments only" },
+      { score: 3, label: "Individual usage" },
+      { score: 4, label: "Team usage" },
+      { score: 5, label: "Integrated into business workflows" },
     ],
   },
 ];
 
-/** Human-readable label lookup for storing/displaying answer values. */
-export function labelForAnswer(
-  key: DiagnosticQuestion["key"],
-  value: string | undefined,
+/** Human-readable label lookup for a pillar's chosen score (for display/storage). */
+export function labelForScore(
+  key: BosPillar,
+  score: number | undefined,
 ): string {
-  if (!value) return "";
+  if (!score) return "";
   const q = DIAGNOSTIC_QUESTIONS.find((q) => q.key === key);
-  return q?.options.find((o) => o.value === value)?.label ?? value;
+  return q?.options.find((o) => o.score === score)?.label ?? "";
 }

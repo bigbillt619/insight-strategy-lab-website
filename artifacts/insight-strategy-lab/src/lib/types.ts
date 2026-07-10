@@ -54,44 +54,38 @@ export interface LeadEvent {
   created_at: string;
 }
 
-export interface DiagnosticAnswers {
-  business_type?: string;
-  company_size?: string;
-  biggest_bottleneck?: string;
-  current_tools?: string;
-  revenue_range?: string;
+export type BosPillar =
+  | "strategy"
+  | "people"
+  | "processes"
+  | "technology"
+  | "data"
+  | "ai";
+
+/** Raw 1-5 score per pillar, keyed by pillar. */
+export type DiagnosticAnswers = Partial<Record<BosPillar, number>>;
+
+export interface BosMaturityLevel {
+  name: string;
+  minScore: number;
+  maxScore: number;
+  focusAreas: string[];
+  nextStep: string;
+}
+
+export interface BosAssessmentResult {
+  scores: Record<BosPillar, number>;
+  overallScore: number;
+  level: BosMaturityLevel;
+  riskAreas: BosPillar[];
 }
 
 export interface DiagnosticResult {
   id: string;
   lead_id: string | null;
   answers: DiagnosticAnswers;
-  recommended_systems: RecommendationOutput;
+  assessment: BosAssessmentResult;
   created_at: string;
-}
-
-export interface RecommendationOutput {
-  primary: string | null;
-  also_consider: string[];
-  why: string;
-}
-
-export interface RecommendationMap {
-  id: string;
-  trigger_type: string;
-  trigger_value: string;
-  recommended_systems: string[];
-  rationale: string | null;
-  priority: number;
-  created_at: string;
-}
-
-export interface RecommendationMapInput {
-  trigger_type: string;
-  trigger_value: string;
-  recommended_systems: string[];
-  rationale?: string | null;
-  priority: number;
 }
 
 export interface AppItem {
