@@ -167,9 +167,7 @@ export default function Privacy() {
           <p className="mb-1">Insight Strategy Lab</p>
           <p className="mb-1">Murrieta, California</p>
           <p>
-            <a href="https://insightstrategylab.com" target="_blank" rel="noreferrer">
-              https://insightstrategylab.com
-            </a>
+            <a href="mailto:info@insightstrategylab.com">info@insightstrategylab.com</a>
           </p>
         </div>
       </div>
