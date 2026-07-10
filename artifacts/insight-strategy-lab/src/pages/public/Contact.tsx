@@ -4,8 +4,10 @@ import { ArrowRight } from "lucide-react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCreateLead } from "@/features/leads/api";
+import { QUALIFIER_FIELDS } from "@/features/leads/qualifiers";
 import { useToast } from "@/hooks/use-toast";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
@@ -17,6 +19,11 @@ const contactSchema = z.object({
   name: z.string().min(2, "Name is required"),
   email: z.string().email("Valid email is required"),
   phone: z.string().optional(),
+  business_type: z.string().optional(),
+  company_size: z.string().optional(),
+  biggest_bottleneck: z.string().optional(),
+  current_tools: z.string().optional(),
+  revenue_range: z.string().optional(),
   message: z.string().min(10, "Please provide more details"),
 });
 
@@ -41,6 +48,11 @@ export default function Contact() {
       name: "",
       email: "",
       phone: "",
+      business_type: "",
+      company_size: "",
+      biggest_bottleneck: "",
+      current_tools: "",
+      revenue_range: "",
       message: "",
     },
   });
@@ -54,6 +66,11 @@ export default function Contact() {
         name: data.name,
         email: data.email,
         phone: emptyToNull(data.phone),
+        business_type: emptyToNull(data.business_type),
+        company_size: emptyToNull(data.company_size),
+        biggest_bottleneck: emptyToNull(data.biggest_bottleneck),
+        current_tools: emptyToNull(data.current_tools),
+        revenue_range: emptyToNull(data.revenue_range),
         message: data.message,
         source,
       },
@@ -171,6 +188,36 @@ export default function Contact() {
                         </FormItem>
                       )}
                     />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {QUALIFIER_FIELDS.map((qf) => (
+                      <FormField
+                        key={qf.name}
+                        control={form.control}
+                        name={qf.name}
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{qf.label}</FormLabel>
+                            <Select onValueChange={field.onChange} value={field.value ?? ""}>
+                              <FormControl>
+                                <SelectTrigger>
+                                  <SelectValue placeholder="Select an option" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent>
+                                {qf.options.map((opt) => (
+                                  <SelectItem key={opt.value} value={opt.value}>
+                                    {opt.label}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    ))}
                   </div>
 
                   <FormField

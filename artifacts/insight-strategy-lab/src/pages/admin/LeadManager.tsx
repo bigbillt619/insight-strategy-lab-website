@@ -8,6 +8,12 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import type { Lead, LeadSource, LeadStatus, LeadEvent } from "@/lib/types";
 import { LEAD_STATUSES } from "@/lib/types";
+import { QUALIFIER_FIELDS } from "@/features/leads/qualifiers";
+
+function qualifierLabel(fieldName: (typeof QUALIFIER_FIELDS)[number]["name"], value: string): string {
+  const field = QUALIFIER_FIELDS.find((f) => f.name === fieldName);
+  return field?.options.find((o) => o.value === value)?.label ?? value;
+}
 
 const STATUS_VARIANTS: Record<LeadStatus, string> = {
   New: "bg-blue-100 text-blue-800 dark:bg-blue-950 dark:text-blue-200",
@@ -184,6 +190,18 @@ export function LeadManager() {
                           {lead.message || "No message provided."}
                         </p>
                       </div>
+                      {QUALIFIER_FIELDS.some((qf) => lead[qf.name]) && (
+                        <div>
+                          <h5 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-3">Business Context</h5>
+                          <div className="flex flex-wrap gap-2">
+                            {QUALIFIER_FIELDS.filter((qf) => lead[qf.name]).map((qf) => (
+                              <Badge key={qf.name} variant="outline" className="font-normal">
+                                {qf.label}: {qualifierLabel(qf.name, lead[qf.name]!)}
+                              </Badge>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
