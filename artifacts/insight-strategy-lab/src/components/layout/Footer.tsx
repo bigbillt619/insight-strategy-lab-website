@@ -60,11 +60,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-2 md:gap-4">
           <p className="text-xs text-muted-foreground">
             {get("footer_copyright")}
           </p>
-          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+          <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-xs text-muted-foreground">
+            <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy & Data Protection</Link>
+            <span className="hidden md:inline text-border">|</span>
             <Link href="/admin/login" className="hover:text-foreground transition-colors">Admin Login</Link>
           </div>
         </div>

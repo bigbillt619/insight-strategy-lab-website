@@ -15,6 +15,7 @@ import Services from "@/pages/public/Services";
 import About from "@/pages/public/About";
 import Contact from "@/pages/public/Contact";
 import Diagnostic from "@/pages/public/Diagnostic";
+import Privacy from "@/pages/public/Privacy";
 import VehicleQrLanding from "@/pages/public/VehicleQrLanding";
 
 import Login from "@/pages/admin/Login";
@@ -69,6 +70,7 @@ function Router() {
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/diagnostic" component={Diagnostic} />
+            <Route path="/privacy" component={Privacy} />
             <Route component={NotFound} />
           </Switch>
         </PublicLayout>
