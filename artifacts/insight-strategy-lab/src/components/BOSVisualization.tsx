@@ -114,9 +114,18 @@ export function BOSVisualization() {
                 BUSINESS OPERATING SYSTEM
               </div>
             </div>
-            <div className="flex justify-center gap-x-4 flex-wrap">
+            {/* Inputs */}
+            <div className="text-blue-300 text-[9px] font-semibold tracking-wide text-center mb-1 opacity-80">
+              People · Processes · Technology · Data · AI
+            </div>
+            {/* Divider arrow */}
+            <div className="flex justify-center mb-1">
+              <span className="text-blue-300 text-[10px] opacity-60">↓</span>
+            </div>
+            {/* Outcomes */}
+            <div className="flex justify-center gap-x-3 flex-wrap">
               {["Clarity", "Accountability", "Visibility", "Scalability", "Growth"].map((outcome) => (
-                <span key={outcome} className="text-blue-200 text-[10px] font-semibold whitespace-nowrap">
+                <span key={outcome} className="text-blue-100 text-[9px] font-bold whitespace-nowrap">
                   ✓ {outcome}
                 </span>
               ))}

@@ -1,0 +1,208 @@
+Yes. Looking at the screenshot, the hero is becoming **left-heavy**.
+
+The issue isn't that the graphic is too small—it's that the **headline has grown into 6 lines** while the BOS visualization remains roughly the same height. Your eye spends 80% of its attention on the left side.
+
+### Current Visual Weight
+
+**Left Column**
+
+* Trust bar
+* 4 credential badges
+* Massive 6-line headline
+* Supporting paragraph
+* Emotional statement
+* Framework statement
+* 2 CTAs
+* 4 benefit bullets
+
+**Right Column**
+
+* Single BOS diagram
+
+The left side contains nearly twice the visual content.
+
+***
+
+## Option 1 (My Recommendation)
+
+### Make the BOS Visualization 15-20% Larger
+
+Increase the right column width from roughly:
+
+```css
+50% / 50%
+```
+
+to
+
+```css
+45% text
+55% visualization
+```
+
+or
+
+```css
+grid-template-columns: 0.9fr 1.1fr;
+```
+
+The BOS framework is your differentiator. Give it more real estate.
+
+***
+
+## Option 2 (Best Conversion + Balance)
+
+Shorten the headline slightly.
+
+Current:
+
+> Finally get your people, processes, technology, data, and AI working together in one Business Operating System.
+
+Try:
+
+> Finally get your people, processes, technology, data, and AI working together.
+
+Then add directly below:
+
+```text
+Built on a proven Business Operating System framework.
+```
+
+or
+
+```text
+Using a Business Operating System designed for clarity, accountability, and growth.
+```
+
+Now the headline drops from 6 lines to 4-5 lines.
+
+The visual instantly balances.
+
+***
+
+## Option 3 (My Favorite Layout)
+
+Keep the headline.
+
+Move this line:
+
+```text
+People + Processes + Technology + Data + AI = Business Operating System
+```
+
+into the BOS graphic.
+
+For example:
+
+Current BOS box:
+
+```text
+BUSINESS OPERATING SYSTEM
+
+✓ Clarity
+✓ Accountability
+✓ Visibility
+✓ Scalability
+✓ Growth
+```
+
+Change to:
+
+```text
+BUSINESS OPERATING SYSTEM
+
+People + Processes +
+Technology + Data + AI
+
+↓
+
+Clarity • Visibility • Growth
+```
+
+This removes text from the left and strengthens the graphic.
+
+***
+
+## Option 4 (Most Premium)
+
+Add outcome cards under the BOS box.
+
+Example:
+
+```text
+┌─────────────────────┐
+│ BUSINESS OPERATING  │
+│ SYSTEM              │
+└─────────────────────┘
+
+[Clarity] [Visibility]
+
+[Accountability] [Growth]
+```
+
+This creates visual weight at the bottom-right.
+
+***
+
+## Option 5 (Reduce Badge Clutter)
+
+You now have:
+
+```text
+★★★★★ Trusted...
+AI Business Strategy
+SHRM-CP
+Veteran
+27 Years Leadership
+```
+
+That's 5 separate badges before the headline.
+
+Try:
+
+```text
+★★★★★ Trusted by Small Businesses,
+Nonprofits & Mission-Driven Organizations
+
+Veteran-Owned • SHRM-CP • AI Business Strategy • 27 Years Leadership
+```
+
+One row instead of four pills.
+
+The page immediately feels cleaner and gives more room to the hero.
+
+***
+
+## What I Would Do
+
+If this were my site, I'd make three changes:
+
+1. Increase BOS visualization size by \~20%.
+2. Move the "People + Processes + Technology + Data + AI = BOS" statement into the graphic.
+3. Collapse the four credentials into one trust row.
+
+That would create nearly perfect visual balance:
+
+```text
+LEFT                        RIGHT
+
+Headline                    BOS Framework
+
+Subheadline                 Framework Flow
+
+Emotional Statement         Outcome Box
+
+CTA                         Transformation Visual
+
+Benefits
+```
+
+Right now I'd score the hero:
+
+**Messaging: 10/10**
+
+**Visual Balance: 8.5/10**
+
+With those three changes:
+
+**Visual Balance: 9.5–10/10**.

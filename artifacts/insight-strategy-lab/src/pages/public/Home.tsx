@@ -165,7 +165,7 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start py-8 md:py-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-12 items-start py-8 md:py-10">
 
             {/* ── LEFT: Hero content ── */}
             <div>
@@ -182,20 +182,17 @@ export default function Home() {
                 </a>
               </div>
 
-              {/* Credibility tags — tweak 3: added 27 Years */}
-              <div className="hero-animate flex flex-wrap items-center gap-2 mb-4" style={{ animationDelay: "60ms" }}>
+              {/* Credentials — single compact trust row */}
+              <div className="hero-animate flex flex-wrap items-center gap-x-3 gap-y-1 mb-4" style={{ animationDelay: "60ms" }}>
                 {[
-                  { icon: Brain,      label: "AI Business Strategy" },
+                  { icon: Award,      label: "Veteran-Owned" },
                   { icon: Shield,     label: "SHRM-CP" },
-                  { icon: Award,      label: "Veteran" },
+                  { icon: Brain,      label: "AI Business Strategy" },
                   { icon: TrendingUp, label: "27 Years Leadership" },
-                ].map(({ icon: Icon, label }) => (
-                  <span
-                    key={label}
-                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold border"
-                    style={{ background: "rgba(37,99,235,0.05)", borderColor: "rgba(37,99,235,0.18)", color: "#1e40af" }}
-                  >
-                    <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                ].map(({ icon: Icon, label }, i) => (
+                  <span key={label} className="flex items-center gap-1 text-xs font-semibold" style={{ color: "#1e40af" }}>
+                    {i > 0 && <span className="text-gray-300 mr-1" aria-hidden="true">·</span>}
+                    <Icon className="h-3 w-3" aria-hidden="true" />
                     {label}
                   </span>
                 ))}
@@ -216,12 +213,7 @@ export default function Home() {
                 Stop managing disconnected systems — start leading with clarity, visibility, and confidence.
               </p>
 
-              {/* Methodology micro-copy — tweak 4 */}
-              <p className="hero-animate text-xs text-gray-500 leading-relaxed mb-4" style={{ animationDelay: "260ms" }}>
-                People + Processes + Technology + Data + AI = Business Operating System
-              </p>
-
-              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "300ms" }}>
+              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "270ms" }}>
                 {/* CTA — tweak 5: first-person language */}
                 <Button asChild size="lg" className="text-base h-11 px-6 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
                   <Link href="/contact">Get My Free Strategy Session</Link>
