@@ -38,3 +38,11 @@ already-instantiated `supabase` client. After changing those env values you must
 fully restart the web workflow — otherwise a stale in-memory client (e.g. old
 project URL) surfaces as "Invalid API key" / 401 in the browser even though curl
 against the server works fine.
+
+# Supabase URL + anon key are hardcoded in source (do not move back to env)
+`src/lib/supabase.ts` hardcodes `supabaseUrl` and `supabaseAnonKey` directly —
+NOT via `import.meta.env`. Reason: both values are public by design (embedded in
+every browser bundle), and using secrets caused repeated project-mismatch drift
+that broke the admin login. The correct project is `uojvfdivwhcisbdaojrd`.
+Only `SUPABASE_SERVICE_ROLE_KEY` remains a secret (api-server only, never browser).
+Do NOT refactor these back to env vars.
