@@ -83,19 +83,6 @@ export default function Services() {
         </div>
       </section>
 
-      {/* ─── 6-Phase Callout ──────────────────────────────── */}
-      <section className="py-10 border-b border-gray-100" style={{ background: "#F8FAFF" }}>
-        <div className="container mx-auto px-6 max-w-5xl">
-          <FadeUp>
-            <div>
-              <span className="text-xs font-bold uppercase tracking-widest mb-1 block" style={{ color: "#2563EB" }}>Our Methodology</span>
-              <p className="text-gray-800 font-semibold text-lg">
-                Every engagement follows our structured <a href="/#process" style={{ color: "#2563EB", textDecoration: "underline", textUnderlineOffset: "3px" }}>6-Phase Approach</a> — from Discovery to Optimization.
-              </p>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
 
       {/* ─── Capabilities ─────────────────────────────────── */}
       <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
