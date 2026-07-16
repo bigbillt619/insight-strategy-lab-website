@@ -28,6 +28,14 @@ declare global {
   function gtag(...args: unknown[]): void;
 }
 
+function ScrollToTop() {
+  const [location] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return null;
+}
+
 function GaTracker() {
   const [location] = useLocation();
   useEffect(() => {
@@ -85,6 +93,7 @@ function App() {
       <TooltipProvider>
         <BrandStyle />
         <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+          <ScrollToTop />
           <GaTracker />
           <Router />
         </WouterRouter>
