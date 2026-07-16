@@ -13,7 +13,7 @@ import {
   Clock, Zap, X, ArrowRight, Star,
 } from "lucide-react";
 import { FadeUp } from "@/components/FadeUp";
-import { resolveAppThumbnail } from "@/lib/utils";
+import { resolveAppThumbnail, extractYouTubeId } from "@/lib/utils";
 import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
@@ -47,18 +47,45 @@ function StatCard({ value, label, delay, active }: { value: number; label: strin
 
 function AppPreviewCard({ app }: { app: { id: string; title: string; description: string; thumbnail_url?: string; youtube_url?: string } }) {
   const [imgError, setImgError] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const resolvedThumb = resolveAppThumbnail(app.thumbnail_url, app.youtube_url);
   const showImg = resolvedThumb && !imgError;
+  const ytId = extractYouTubeId(app.youtube_url ?? "") || extractYouTubeId(app.thumbnail_url ?? "");
+  const canPlay = !!ytId;
+
   return (
     <div className="group flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
-      <div className="aspect-video bg-gray-100 overflow-hidden">
-        {showImg ? (
-          <img
-            src={resolvedThumb!}
-            alt={app.title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-            onError={() => setImgError(true)}
+      <div className="aspect-video bg-gray-100 overflow-hidden relative">
+        {playing && ytId ? (
+          <iframe
+            src={`https://www.youtube.com/embed/${ytId}?autoplay=1&rel=0`}
+            title={app.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
           />
+        ) : showImg ? (
+          <>
+            <img
+              src={resolvedThumb!}
+              alt={app.title}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              onError={() => setImgError(true)}
+            />
+            {canPlay && (
+              <button
+                onClick={() => setPlaying(true)}
+                aria-label={`Play ${app.title} video`}
+                className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+              >
+                <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                  <svg viewBox="0 0 24 24" className="w-6 h-6 fill-blue-600 ml-1">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </button>
+            )}
+          </>
         ) : (
           <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.08),rgba(37,99,235,0.02))" }}>
             <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(37,99,235,0.12)" }}>
@@ -72,6 +99,17 @@ function AppPreviewCard({ app }: { app: { id: string; title: string; description
           <h3 className="font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors cursor-pointer text-sm md:text-base">{app.title}</h3>
         </Link>
         <p className="text-sm text-gray-500 line-clamp-2">{app.description}</p>
+        {canPlay && !playing && (
+          <button
+            onClick={() => setPlaying(true)}
+            className="mt-3 self-start text-xs font-semibold text-blue-600 hover:text-blue-700 flex items-center gap-1 transition-colors"
+          >
+            <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
+              <path d="M8 5v14l11-7z" />
+            </svg>
+            Watch demo
+          </button>
+        )}
       </div>
     </div>
   );
