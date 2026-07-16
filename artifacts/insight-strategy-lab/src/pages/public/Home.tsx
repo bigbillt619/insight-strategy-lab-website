@@ -15,23 +15,8 @@ import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
 import { VideoEmbed, youTubeThumb } from "@/components/MediaEmbed";
 import { BOSVisualization } from "@/components/BOSVisualization";
+import { FadeUp } from "@/components/FadeUp";
 import type { AppItem } from "@/lib/types";
-
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLElement>(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-  return { ref, inView };
-}
 
 function useCountUp(target: number, duration = 1800, active = false) {
   const [count, setCount] = useState(0);
@@ -62,18 +47,6 @@ function StatCard({ value, suffix = "%", label, delay, active }: { value: number
   );
 }
 
-function FadeUp({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const { ref, inView } = useInView();
-  return (
-    <div
-      ref={ref as React.Ref<HTMLDivElement>}
-      className={className}
-      style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(24px)", transition: `opacity 0.65s ${delay}ms ease, transform 0.65s ${delay}ms ease` }}
-    >
-      {children}
-    </div>
-  );
-}
 
 function AppPreviewCard({ app }: { app: AppItem }) {
   const [playing, setPlaying] = useState(false);

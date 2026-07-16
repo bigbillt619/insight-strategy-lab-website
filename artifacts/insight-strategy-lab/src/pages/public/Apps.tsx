@@ -4,7 +4,89 @@ import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
 import { VideoEmbed } from "@/components/MediaEmbed";
 import { Button } from "@/components/ui/button";
-import { Database, CheckCircle2 } from "lucide-react";
+import { Database, CheckCircle2, ArrowRight, Play } from "lucide-react";
+import { useState } from "react";
+import { FadeUp } from "@/components/FadeUp";
+import type { AppItem } from "@/lib/types";
+
+function AppCard({ app }: { app: AppItem }) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <FadeUp>
+      <div className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+        {/* Media */}
+        <div className="aspect-video bg-gray-50 relative overflow-hidden">
+          {playing && app.youtube_url ? (
+            <VideoEmbed url={app.youtube_url} autoPlay className="absolute inset-0 h-full w-full rounded-none" />
+          ) : app.youtube_url ? (
+            <>
+              {app.thumbnail_url && (
+                <img src={app.thumbnail_url} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              )}
+              <button
+                type="button"
+                onClick={() => setPlaying(true)}
+                aria-label={`Play ${app.title} video`}
+                className="absolute inset-0 flex items-center justify-center bg-black/25 hover:bg-black/35 transition-colors"
+              >
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-xl">
+                  <Play className="h-7 w-7 translate-x-0.5 fill-current" style={{ color: "#2563EB" }} aria-hidden="true" />
+                </span>
+              </button>
+            </>
+          ) : app.thumbnail_url ? (
+            <img src={app.thumbnail_url} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          ) : (
+            <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+              <Database className="h-12 w-12 text-gray-200" aria-hidden="true" />
+              <span className="text-gray-400 text-sm">Demo coming soon</span>
+            </div>
+          )}
+        </div>
+
+        <div className="p-8">
+          {app.category && (
+            <span className="inline-flex px-3 py-1 rounded-full text-xs font-semibold mb-4" style={{ background: "rgba(37,99,235,0.08)", color: "#2563EB" }}>
+              {app.category}
+            </span>
+          )}
+          <h3 className="font-black text-xl mb-5 text-gray-900 leading-tight">{app.title}</h3>
+
+          <div className="space-y-5">
+            {app.description && (
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#2563EB" }}>What it does</h4>
+                <p className="text-sm text-gray-700 leading-relaxed">{app.description}</p>
+              </div>
+            )}
+            {app.problem_solved && (
+              <div>
+                <h4 className="text-xs font-bold uppercase tracking-wider mb-2" style={{ color: "#2563EB" }}>Problem solved</h4>
+                <p className="text-sm text-gray-700 leading-relaxed">{app.problem_solved}</p>
+              </div>
+            )}
+            {(app.use_case || app.results_summary) && (
+              <div className="grid grid-cols-2 gap-4 border-t border-gray-100 pt-5">
+                {app.use_case && (
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider mb-1 text-gray-500">Use case</h4>
+                    <p className="text-sm font-semibold text-gray-800">{app.use_case}</p>
+                  </div>
+                )}
+                {app.results_summary && (
+                  <div>
+                    <h4 className="text-xs font-bold uppercase tracking-wider mb-1 text-gray-500">Outcome</h4>
+                    <p className="text-sm font-semibold" style={{ color: "#2563EB" }}>{app.results_summary}</p>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
 
 export default function Apps() {
   const { data: apps = [], isLoading } = usePublishedApps();
@@ -17,129 +99,109 @@ export default function Apps() {
   const ctaHeading = get("cta_heading");
 
   return (
-    <div className="py-24 bg-background">
-      <div className="container mx-auto px-4 max-w-6xl">
-        <div className="mb-16 max-w-3xl">
-          <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-6">
-            {get("hero_title")}
-          </h1>
-          <p className="text-xl text-muted-foreground">
-            {get("hero_subtitle")}
-          </p>
+    <div className="flex flex-col min-h-screen overflow-x-hidden">
+
+      {/* ─── Hero ─────────────────────────────────────────── */}
+      <section className="bg-white pt-20 pb-16 md:pt-28 md:pb-24 relative overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle,#2563EB,transparent)", transform: "translate(25%,-25%)" }} />
         </div>
+        <div className="container mx-auto px-6 max-w-5xl relative z-10">
+          <FadeUp>
+            <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border mb-6" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
+              Apps in Production
+            </span>
+          </FadeUp>
+          <FadeUp delay={80}>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 mb-6 leading-[1.05]">
+              {get("hero_title") || "Real Systems Running Inside Businesses"}
+            </h1>
+          </FadeUp>
+          <FadeUp delay={160}>
+            <p className="text-xl text-gray-600 max-w-2xl leading-relaxed">
+              {get("hero_subtitle") || "These aren't prototypes or templates. These are production systems actively used to run operations."}
+            </p>
+          </FadeUp>
+        </div>
+      </section>
 
-        {galleryLabel && apps.length > 0 && (
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-muted-foreground mb-8">
-            {galleryLabel}
-          </h2>
-        )}
+      {/* ─── Gallery ──────────────────────────────────────── */}
+      <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
+        <div className="container mx-auto px-6 max-w-6xl">
+          {galleryLabel && apps.length > 0 && (
+            <FadeUp>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] mb-10" style={{ color: "#2563EB" }}>{galleryLabel}</p>
+            </FadeUp>
+          )}
 
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-96 rounded-2xl bg-muted animate-pulse border border-border" />
-            ))}
-          </div>
-        ) : apps.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-            {apps.map((app) => (
-              <div key={app.id} className="group bg-card border border-border rounded-2xl overflow-hidden hover:shadow-lg transition-all hover:border-accent">
-                {/* Embedded video, thumbnail, or placeholder */}
-                {app.youtube_url ? (
-                  <VideoEmbed url={app.youtube_url} className="rounded-none border-b border-border" />
-                ) : app.thumbnail_url ? (
-                  <div className="aspect-video border-b border-border overflow-hidden">
-                    <img src={app.thumbnail_url} alt={app.title} className="h-full w-full object-cover" />
-                  </div>
-                ) : (
-                  <div className="aspect-video bg-muted relative border-b border-border flex items-center justify-center overflow-hidden">
-                    <Database className="h-16 w-16 text-muted-foreground/20 absolute" />
-                    <div className="relative z-10 text-muted-foreground/50 text-sm font-medium">Demo coming soon</div>
-                  </div>
-                )}
-                
-                <div className="p-8">
-                  {app.category && (
-                    <div className="inline-flex px-2 py-1 rounded bg-primary/10 text-primary text-xs font-semibold mb-4">
-                      {app.category}
-                    </div>
-                  )}
-                  <h3 className="font-bold text-2xl mb-5 text-foreground">{app.title}</h3>
-
-                  <div className="space-y-5">
-                    {app.description && (
-                      <div>
-                        <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">What it does</h4>
-                        <p className="text-sm text-foreground leading-relaxed">{app.description}</p>
-                      </div>
-                    )}
-                    {app.problem_solved && (
-                      <div>
-                        <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Problem solved</h4>
-                        <p className="text-sm text-foreground leading-relaxed">{app.problem_solved}</p>
-                      </div>
-                    )}
-                    {(app.use_case || app.results_summary) && (
-                      <div className="grid grid-cols-2 gap-4 border-t border-border pt-5">
-                        {app.use_case && (
-                          <div>
-                            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Use case</h4>
-                            <p className="text-sm font-medium text-foreground">{app.use_case}</p>
-                          </div>
-                        )}
-                        {app.results_summary && (
-                          <div>
-                            <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-1">Outcome</h4>
-                            <p className="text-sm font-medium text-accent">{app.results_summary}</p>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-24 bg-card border border-border rounded-2xl">
-            <Database className="h-12 w-12 text-muted-foreground/50 mx-auto mb-4" />
-            <h3 className="text-xl font-bold text-foreground mb-2">{get("empty_heading")}</h3>
-            <p className="text-muted-foreground">{get("empty_body")}</p>
-          </div>
-        )}
-
-        {includesHeading && includesItems.length > 0 && (
-          <section className="mt-24 bg-card border border-border rounded-2xl p-8 md:p-12">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-8">
-              {includesHeading}
-            </h2>
-            <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
-              {includesItems.map((item, i) => (
-                <li key={i} className="flex items-start gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-accent shrink-0 mt-0.5" />
-                  <span className="text-foreground leading-relaxed">{item}</span>
-                </li>
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[1, 2, 3, 4].map((i) => (
+                <div key={i} className="h-96 rounded-2xl bg-gray-200 animate-pulse" />
               ))}
-            </ul>
-          </section>
-        )}
+            </div>
+          ) : apps.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              {apps.map((app) => <AppCard key={app.id} app={app} />)}
+            </div>
+          ) : (
+            <FadeUp>
+              <div className="text-center py-24 bg-white border border-gray-100 rounded-2xl shadow-sm">
+                <Database className="h-12 w-12 mx-auto mb-4" style={{ color: "rgba(37,99,235,0.3)" }} aria-hidden="true" />
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{get("empty_heading") || "Coming Soon"}</h3>
+                <p className="text-gray-500">{get("empty_body") || "Production apps will appear here."}</p>
+              </div>
+            </FadeUp>
+          )}
+        </div>
+      </section>
 
-        {ctaHeading && (
-          <section className="mt-16 text-center max-w-2xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-4">
-              {ctaHeading}
-            </h2>
+      {/* ─── What's Included ──────────────────────────────── */}
+      {includesHeading && includesItems.length > 0 && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{includesHeading}</h2>
+            </FadeUp>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {includesItems.map((item, i) => (
+                <FadeUp key={i} delay={i * 50}>
+                  <div className="flex items-start gap-4 p-5 border border-gray-100 rounded-2xl bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                    <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" style={{ color: "#2563EB" }} aria-hidden="true" />
+                    <span className="text-gray-800 leading-relaxed">{item}</span>
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── CTA ──────────────────────────────────────────── */}
+      {ctaHeading && (
+        <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: "#111827" }}>
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full opacity-10" style={{ background: "radial-gradient(circle,#2563EB,transparent)" }} />
+          </div>
+          <div className="container mx-auto px-6 text-center relative z-10 max-w-2xl">
+            <FadeUp>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-6">{ctaHeading}</h2>
+            </FadeUp>
             {get("cta_body") && (
-              <p className="text-lg text-muted-foreground mb-8">{get("cta_body")}</p>
+              <FadeUp delay={100}>
+                <p className="text-gray-400 text-lg mb-10 leading-relaxed">{get("cta_body")}</p>
+              </FadeUp>
             )}
             {get("cta_button") && (
-              <Button asChild size="lg">
-                <Link href="/contact">{get("cta_button")}</Link>
-              </Button>
+              <FadeUp delay={200}>
+                <Button asChild size="lg" className="h-12 px-8 text-base font-semibold" style={{ background: "#2563EB", color: "white" }}>
+                  <Link href="/contact">{get("cta_button")} <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                </Button>
+              </FadeUp>
             )}
-          </section>
-        )}
-      </div>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
