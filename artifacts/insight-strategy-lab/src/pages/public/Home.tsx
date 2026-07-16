@@ -103,7 +103,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How long does a project take?",
-    a: "Most engagements begin with an assessment and roadmap. Many clients start seeing measurable improvements within weeks. Full Business Operating System implementation timelines vary based on organizational complexity.",
+    a: "Most engagements follow our 6-phase approach, starting with Discovery and Strategize before moving into Design and Implementation. Many clients start seeing measurable improvements within weeks. Full Business Operating System implementation timelines vary based on organizational complexity.",
   },
   {
     q: "Do you offer ongoing support?",
@@ -475,27 +475,50 @@ export default function Home() {
       <section id="process" className="py-20 md:py-28 bg-white scroll-mt-20">
         <div className="container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">Our Approach</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">Our 6-Phase Approach</h2>
           </FadeUp>
           <FadeUp delay={100}>
-            <p className="text-gray-600 text-center mb-14 text-lg max-w-xl mx-auto">A practical, proven framework for transforming how your organization operates.</p>
+            <p className="text-gray-600 text-center mb-10 text-lg max-w-xl mx-auto">
+              A structured, proven methodology that takes organizations from operational chaos to a fully integrated Business Operating System.
+            </p>
           </FadeUp>
 
-          <div className="relative max-w-5xl mx-auto">
-            <div className="hidden md:block absolute top-10 left-[12.5%] right-[12.5%] h-0.5" style={{ background: "linear-gradient(to right,#2563EB,rgba(37,99,235,0.2))" }} aria-hidden="true" />
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+          {/* Intro video */}
+          <FadeUp delay={150}>
+            <div className="max-w-4xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl border border-gray-100" style={{ background: "#0f172a" }}>
+              <video
+                src="/intro-video.mp4"
+                controls
+                preload="metadata"
+                className="w-full block"
+                style={{ maxHeight: "520px" }}
+                aria-label="Insight Strategy Lab introduction and 6-phase approach overview"
+              >
+                Your browser does not support video playback.
+              </video>
+            </div>
+          </FadeUp>
+
+          {/* 6-phase cards */}
+          <div className="max-w-5xl mx-auto">
+            <FadeUp>
+              <p className="text-center text-xs font-bold uppercase tracking-widest mb-10" style={{ color: "#2563EB" }}>The Six Phases</p>
+            </FadeUp>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
               {[
-                { num: "01", label: "Assess", desc: "Understand your current operations, systems, and challenges through a structured discovery process." },
-                { num: "02", label: "Design", desc: "Build a tailored Business Operating System strategy aligned to your goals and constraints." },
-                { num: "03", label: "Implement", desc: "Integrate people, processes, technology, data, and AI into a unified operational framework." },
-                { num: "04", label: "Optimize", desc: "Continuously improve performance, scalability, and organizational effectiveness over time." },
+                { num: "01", label: "Discover", desc: "Assess the current state of your people, processes, technology, data, and systems to identify gaps and opportunities." },
+                { num: "02", label: "Strategize", desc: "Define organizational goals, priorities, and the blueprint for your Business Operating System." },
+                { num: "03", label: "Design", desc: "Map workflows, accountability structures, integration points, and the operating model in detail." },
+                { num: "04", label: "Implement", desc: "Deploy technology, automation, and new operational workflows across the organization." },
+                { num: "05", label: "Integrate", desc: "Connect people, data, and AI into one unified system that operates consistently at scale." },
+                { num: "06", label: "Optimize", desc: "Measure outcomes, refine systems, and continuously improve performance and scalability." },
               ].map(({ num, label, desc }, i) => (
-                <FadeUp key={label} delay={i * 120}>
-                  <div className="flex flex-col items-center text-center md:items-start md:text-left">
-                    <div className="relative z-10 w-20 h-20 rounded-full flex items-center justify-center mb-5 font-black text-xl text-white shadow-lg" style={{ background: "linear-gradient(135deg,#2563EB,#1d4ed8)" }}>
+                <FadeUp key={label} delay={i * 80}>
+                  <div className="h-full flex flex-col p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 font-black text-base text-white shrink-0" style={{ background: "linear-gradient(135deg,#2563EB,#1d4ed8)" }}>
                       {num}
                     </div>
-                    <h3 className="font-black text-xl text-gray-900 mb-2">{label}</h3>
+                    <h3 className="font-black text-gray-900 mb-2 text-base md:text-lg">{label}</h3>
                     <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
                   </div>
                 </FadeUp>
