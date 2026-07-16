@@ -178,7 +178,7 @@ export default function Home() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
                   style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
                 >
-                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses, Nonprofits &amp; Mission-Driven Organizations
+                  <span aria-hidden="true">★★★★★</span> Trusted by Businesses, Nonprofits &amp; Mission-Driven Orgs
                 </a>
               </div>
 
