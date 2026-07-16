@@ -1,0 +1,596 @@
+This is already written in a format that Replit Agent can execute, but I'd tighten it up into a true implementation ticket that reduces ambiguity and prevents the agent from making design decisions that dilute the conversion strategy.
+
+***
+
+# #17 – Homepage Conversion Redesign
+
+## Objective
+
+Replace the current minimalist homepage (`/`) with a premium, conversion-focused landing page that clearly positions Insight Strategy Lab as a Business Operating System (BOS) transformation partner.
+
+The page should follow this conversion flow:
+
+**Outcome → Credibility → Problem → Transformation → Services → Differentiator → Benefits → Process → FAQ → CTA**
+
+Primary conversion goal:
+
+**Book a Free Strategy Session**
+
+CTA destination:
+
+`/contact`
+
+***
+
+# Technical Requirements
+
+## Preserve Existing Functionality
+
+* Keep existing Navbar
+* Keep existing Footer
+* Preserve SEO fields from:
+  `useContent("home")`
+* No backend changes
+* No database changes
+* No new CMS groups required
+* Static copy is acceptable for all new sections
+
+***
+
+# SECTION 1: HERO
+
+## Layout
+
+Two-column responsive layout.
+
+### Left Column
+
+#### Trust Badge
+
+```
+★★★★★ Trusted by Small Businesses & Mission-Driven Organizations
+```
+
+#### Headline
+
+```
+Finally get your people, processes, technology,
+data, and AI working together in one operating system.
+```
+
+#### Supporting Copy
+
+```
+Stop wasting time on disconnected tools, manual processes,
+and operational chaos. We help organizations build scalable
+operating systems that create clarity, efficiency,
+accountability, and measurable growth.
+```
+
+#### Benefit Checklist
+
+* Eliminate manual work and duplicate effort
+* Create repeatable systems that scale
+* Connect technology, data, and AI into one workflow
+* Gain real-time visibility into operations
+* Improve decision-making and execution
+
+#### CTAs
+
+Primary:
+
+```
+Book Free Strategy Session
+```
+
+Links to:
+
+```
+/contact
+```
+
+Secondary:
+
+```
+See How It Works
+```
+
+Smooth-scrolls to Process section.
+
+#### Trust Indicators
+
+Display 4 badges:
+
+* Veteran-Owned Business
+* 27 Years Leadership Experience
+* AI & Digital Transformation Expertise
+* Small Business & Nonprofit Focus
+
+***
+
+### Right Column
+
+Create animated BOS visualization.
+
+Visual structure:
+
+```
+People
+   ↓
+Processes
+   ↓
+Technology
+   ↓
+Data
+   ↓
+AI
+
+      ↓
+
+Business Operating System
+```
+
+Requirements:
+
+* SVG or CSS-based
+* Animated connector lines
+* Pulsing center hub
+* Floating cards
+* Subtle professional motion
+* No external libraries
+
+***
+
+# SECTION 2: WHY THIS MATTERS
+
+Full-width section below hero.
+
+## Headline
+
+```
+The Hidden Cost of Operational Complexity
+```
+
+## Supporting Copy
+
+```
+Most organizations aren't struggling because people
+aren't working hard. They're struggling because
+inefficient systems consume time, visibility,
+and growth opportunities.
+```
+
+## Stats Grid
+
+4 cards.
+
+### Card 1
+
+```
+36%
+```
+
+Workweek spent on administrative work.
+
+### Card 2
+
+```
+31%
+```
+
+Spend up to half their time on repetitive tasks.
+
+### Card 3
+
+```
+81%
+```
+
+Say digital transformation is essential.
+
+### Card 4
+
+```
+56%
+```
+
+Exceed expected transformation ROI.
+
+## Animation
+
+Implement count-up animation.
+
+Requirements:
+
+* Intersection Observer
+* Trigger once
+* Smooth count-up
+
+***
+
+# SECTION 3: PROBLEM
+
+## Headline
+
+```
+Most Organizations Don't Have a People Problem.
+They Have a Systems Problem.
+```
+
+## Description
+
+```
+Information is scattered across platforms.
+Processes live inside people's heads.
+Teams duplicate work.
+Leadership lacks visibility.
+Everyone works harder, but outcomes don't improve.
+```
+
+## Card Grid
+
+4 cards.
+
+### Card 1
+
+Disconnected Technology
+
+### Card 2
+
+Manual Processes
+
+### Card 3
+
+Lack of Visibility
+
+### Card 4
+
+Operational Bottlenecks
+
+Requirements:
+
+* Icon
+* Title
+* Description
+* Hover effect
+* Fade-in animation
+
+***
+
+# SECTION 4: TRANSFORMATION
+
+## Headline
+
+```
+Imagine Operating With Complete Clarity
+```
+
+Two-column comparison.
+
+***
+
+## BEFORE
+
+Use red indicators.
+
+* Disorganized
+* Reactive
+* Manual
+* Data Silos
+* Slow Decisions
+* Unclear Responsibilities
+
+***
+
+## AFTER
+
+Use green indicators.
+
+* Aligned
+* Efficient
+* Automated
+* Connected Data
+* Faster Decisions
+* Clear Accountability
+
+***
+
+Add animated divider arrow between columns.
+
+***
+
+# SECTION 5: HOW WE HELP
+
+## Headline
+
+```
+How Insight Strategy Lab Helps
+```
+
+4 service cards.
+
+### Operational Assessment
+
+Identify operational gaps and opportunities.
+
+### Business Operating System Design
+
+Connect people, process, data, technology, and AI.
+
+### AI Integration
+
+Deploy practical AI solutions.
+
+### Digital Transformation Roadmap
+
+Create prioritized implementation plans.
+
+Requirements:
+
+* Icon
+* Description
+* Hover state
+* "Learn More" micro-interaction
+
+***
+
+# SECTION 6: WHY ISL
+
+## Headline
+
+```
+Most Consultants Give Advice.
+We Build Operating Systems.
+```
+
+## Supporting Copy
+
+```
+Most consultants deliver recommendations.
+
+Most software vendors sell tools.
+
+Most AI providers sell automation.
+
+We integrate everything into a single operational framework
+that helps organizations operate with clarity,
+consistency, accountability, and confidence.
+```
+
+## Diagram
+
+Reuse BOS visualization component.
+
+Smaller centered version.
+
+Layout:
+
+```
+           People
+
+Processes           Technology
+
+           BOS
+
+      Data      AI
+```
+
+Animated connections.
+
+***
+
+# SECTION 7: RESULTS & BENEFITS
+
+## Headline
+
+```
+What Better Operations Look Like
+```
+
+## Grid
+
+6 cards.
+
+* Faster Decision-Making
+* Reduced Administrative Work
+* Improved Visibility
+* More Automation
+* Standardized Workflows
+* Scalable Growth
+
+Requirements:
+
+* Icon
+* Hover effect
+* Responsive layout
+
+***
+
+# SECTION 8: PROCESS
+
+## Headline
+
+```
+Our Approach
+```
+
+Create timeline.
+
+Desktop:
+Horizontal
+
+Mobile:
+Vertical
+
+### Step 1
+
+Assess
+
+Understand current operations.
+
+### Step 2
+
+Design
+
+Build BOS strategy.
+
+### Step 3
+
+Implement
+
+Deploy systems and integrations.
+
+### Step 4
+
+Optimize
+
+Continuously improve performance.
+
+***
+
+# SECTION 9: FAQ
+
+Use existing component:
+
+```
+src/components/ui/accordion.tsx
+```
+
+Questions:
+
+### What is a Business Operating System?
+
+### Do we need new software?
+
+### What organizations do you work with?
+
+### Can you help implement AI?
+
+### How long does a project take?
+
+### Do you offer ongoing support?
+
+### How much does it cost?
+
+***
+
+# SECTION 10: FINAL CTA
+
+Use dark blue gradient background.
+
+## Headline
+
+```
+Stop Managing Chaos.
+Start Operating With Clarity.
+```
+
+## Supporting Copy
+
+```
+Get a clear understanding of your biggest
+operational opportunities and a practical roadmap
+for improvement.
+```
+
+## Buttons
+
+Primary:
+
+```
+Book Your Free Strategy Session
+```
+
+Secondary:
+
+```
+Schedule a Discovery Call
+```
+
+Both link to:
+
+```
+/contact
+```
+
+## Trust Statement
+
+```
+No obligation. Just actionable insights and a clear path forward.
+```
+
+***
+
+# Animation Requirements
+
+Apply throughout:
+
+* Intersection Observer fade-ins
+* Card hover elevation
+* BOS pulse animation
+* Count-up statistics
+* Smooth scrolling
+* Button hover states
+
+Avoid:
+
+* Heavy parallax
+* Large libraries
+* Performance-heavy animation frameworks
+
+***
+
+# Cleanup
+
+Remove or replace the following homepage sections:
+
+* Inline Featured Review pull quote
+* Existing “Who It’s For” section
+* Existing homepage review section
+
+Apps Showcase:
+
+* Optional
+* Move below "How We Help"
+* Otherwise remove from homepage
+
+***
+
+# Files
+
+Primary:
+
+```txt
+src/pages/public/Home.tsx
+```
+
+Potential UI reuse:
+
+```txt
+src/components/ui/accordion.tsx
+src/components/ui/button.tsx
+src/components/ui/card.tsx
+```
+
+Preserve:
+
+```txt
+useContent("home")
+```
+
+SEO title and description wiring.
+
+***
+
+# Acceptance Criteria
+
+* Conversion-focused multi-section homepage implemented
+* Mobile responsive
+* BOS visualization implemented
+* Stats count-up animation works
+* FAQ uses existing accordion component
+* All CTAs go to `/contact`
+* Existing SEO content preserved
+* Old homepage sections removed or repositioned
+* Lighthouse-friendly performance maintained
+* Professional, premium consulting/SaaS aesthetic aligned with Insight Strategy Lab branding.

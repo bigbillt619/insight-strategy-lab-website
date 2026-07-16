@@ -1,0 +1,212 @@
+This is excellent and ready for Replit Agent as-is. The only additions I'd make are a few implementation guardrails that will materially improve conversion and prevent the agent from making suboptimal UX decisions.
+
+Add the following section at the end:
+
+***
+
+## Design & UX Requirements (Important)
+
+### Visual Hierarchy
+
+The page should visually resemble a premium SaaS consulting company, not a traditional consulting website.
+
+Prioritize:
+
+* Large outcome-focused headlines
+* Strong whitespace
+* Premium card layouts
+* Clear section separation
+* High contrast CTA buttons
+* Modern typography
+* Executive-level feel
+
+Reference style:
+
+* Stripe
+* HubSpot
+* Vercel
+* Linear
+* ServiceTitan
+* Gartner consulting landing pages
+
+***
+
+### Conversion Requirements
+
+The user should be able to click a CTA within the first 5 seconds of arriving.
+
+CTA placement:
+
+* Hero primary CTA
+* Hero secondary CTA
+* Stats section CTA
+* Final CTA section
+
+All CTA buttons should route to:
+
+```tsx
+/contact
+```
+
+Primary CTA styling:
+
+* Solid blue
+* Highly visible
+* Hover animation
+
+Secondary CTA styling:
+
+* Outline button
+* Lower visual weight
+
+***
+
+### Color Usage
+
+Primary Blue:
+
+```css
+#2563EB
+```
+
+Dark Background:
+
+```css
+#111827
+```
+
+Success Green:
+
+```css
+#16A34A
+```
+
+Danger Red:
+
+```css
+#DC2626
+```
+
+Light Gray:
+
+```css
+#F3F4F6
+```
+
+Do not introduce additional brand colors.
+
+***
+
+### Animation Constraints
+
+Use only:
+
+* CSS transitions
+* CSS keyframes
+* Intersection Observer
+* React hooks
+
+Do not use:
+
+* Framer Motion
+* GSAP
+* Lottie
+* ThreeJS
+
+Animations should feel subtle and professional.
+
+Preferred animations:
+
+* Fade-up
+* Fade-in
+* Hover lift
+* Count-up
+* Pulse
+* Soft glow
+
+***
+
+### Accessibility
+
+Ensure:
+
+* WCAG-compliant color contrast
+* Keyboard-accessible FAQ accordion
+* Focus states on all buttons
+* Semantic heading structure
+* Proper ARIA labels for interactive components
+
+***
+
+### Mobile Requirements
+
+For mobile:
+
+Hero section becomes:
+
+```text
+Headline
+Subheadline
+Benefits
+CTA Buttons
+Trust Indicators
+BOS Visualization
+```
+
+Stats:
+
+```text
+1 column
+```
+
+Problem cards:
+
+```text
+2 x 2
+```
+
+Benefits:
+
+```text
+2 x 3
+```
+
+Timeline:
+
+```text
+Vertical
+```
+
+FAQ:
+
+```text
+Full width
+```
+
+No horizontal scrolling anywhere on the page.
+
+***
+
+### Success Criteria
+
+The homepage should immediately communicate:
+
+1. What Insight Strategy Lab does
+2. Who Insight Strategy Lab helps
+3. The transformation Insight Strategy Lab provides
+4. Why Insight Strategy Lab is different
+5. What action the visitor should take next
+
+A first-time visitor should understand the value proposition without scrolling.
+
+***
+
+### Expected Outcome
+
+The new homepage should position Insight Strategy Lab as:
+
+**A Business Operating System design and implementation partner that integrates People, Processes, Technology, Data, and AI into a single operational framework that drives clarity, efficiency, accountability, and growth.**
+
+***
+
+With these additions, your ticket is at a level where Replit Agent can produce something very close to a polished production homepage rather than a generic marketing page.
