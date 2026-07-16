@@ -1,0 +1,231 @@
+Honestly? The current About page is good, but it still reads like the **old Insight Strategy Lab**—the "AI systems builder" version—not the much stronger **Business Operating System Architect** positioning you've created on the homepage.
+
+The homepage is now saying:
+
+> We build Business Operating Systems.
+
+The About page is still saying:
+
+> I build systems and AI solutions.
+
+Those are related, but not identical.
+
+***
+
+# My Biggest Recommendation
+
+Change the headline.
+
+Current:
+
+## The Architect Behind the Systems
+
+Stronger:
+
+## The Architect Behind the Business Operating System
+
+or
+
+## Building Business Operating Systems That Create Clarity and Growth
+
+or
+
+## Helping Organizations Turn Complexity Into Clarity
+
+***
+
+# Rewrite the Opening Section
+
+Current opening:
+
+> I design and build operational systems that help service-based businesses run more efficiently, scale their capacity, and eliminate manual friction.
+
+I'd elevate it.
+
+## Suggested
+
+### The Architect Behind the Business Operating System
+
+I help small businesses, nonprofits, and mission-driven organizations integrate People, Processes, Technology, Data, and AI into one Business Operating System.
+
+My work focuses on reducing complexity, improving visibility, and creating the operational foundation organizations need to scale sustainably.
+
+After more than 27 years leading teams and solving complex organizational challenges, I've learned that most organizations don't fail because people aren't working hard—they struggle because their systems aren't working together.
+
+Insight Strategy Lab exists to solve that problem.
+
+***
+
+# Strengthen the Philosophy Section
+
+This is actually your strongest content.
+
+Current:
+
+> Most businesses don't have a strategy problem. They have a system problem.
+
+I'd make it a centerpiece.
+
+## Philosophy
+
+### Most Organizations Don't Have a Strategy Problem. They Have a System Problem.
+
+Many organizations already know where they want to go.
+
+The challenge is that information is scattered, processes are inconsistent, technology is disconnected, and leaders lack the visibility needed to execute effectively.
+
+My approach is simple:
+
+Systems should reduce complexity, not create it.
+
+Every Business Operating System is designed to improve clarity, accountability, efficiency, and growth by integrating the five pillars of organizational performance:
+
+* People
+* Processes
+* Technology
+* Data
+* AI
+
+***
+
+# Add Your Marine Corps Background
+
+I would absolutely add this.
+
+Right now it disappears.
+
+That's a mistake.
+
+It is a massive credibility asset.
+
+## Leadership Foundation
+
+Before founding Insight Strategy Lab, I served for 27 years on active duty in the United States Marine Corps, retiring as a Lieutenant Colonel.
+
+Throughout that career, I led complex organizations, managed large-scale operations, and learned firsthand that successful execution depends on systems, accountability, and alignment.
+
+Those same principles now guide every engagement at Insight Strategy Lab.
+
+***
+
+# Education Section
+
+Current:
+
+```text
+BBA
+MS
+MA
+MBA
+```
+
+Feels like a resume.
+
+I'd make it more intentional.
+
+## Education
+
+My formal education spans business, leadership, analytics, organizational systems, and strategic planning.
+
+* Bachelor of Business Administration in Human Resource Management (Minor in Economics)
+* Master of Science in Management
+* Master of Arts in Military Studies
+* Master of Business Administration
+
+This multidisciplinary background informs the Business Operating System framework used in every client engagement.
+
+***
+
+# Research & Publications
+
+This section is strong but underdeveloped.
+
+Instead of:
+
+> My work includes research...
+
+Try:
+
+## Research & Publications
+
+My research has focused on organizational performance, workforce dynamics, strategic human resource management, and predictive analytics—areas that directly influence how organizations operate and scale.
+
+Selected publications include:
+
+* *Hardening Warfighting's Critical Vulnerability: The Need to Implement a Strategic HR Methodology in the Marine Corps*
+* *Forecasting Enlisted Attrition in the Marine Corps by Grade and Years of Service*
+
+These projects reinforced a foundational belief: better systems lead to better outcomes.
+
+***
+
+# Family Section
+
+Keep it.
+
+In fact, I'd move it higher.
+
+Most consultant sites are all credentials.
+
+The family section humanizes you.
+
+I would rewrite it slightly:
+
+## Family & Values
+
+### Driven by Purpose. Grounded in Family.
+
+The same values that guide our family—commitment, accountability, service, and integrity—also guide the work we do at Insight Strategy Lab.
+
+Building systems that help organizations thrive is about more than efficiency.
+
+When organizations operate effectively, employees experience less frustration, leaders make better decisions, families benefit, communities grow stronger, and important missions move forward.
+
+That's why this work matters.
+
+***
+
+# Final CTA
+
+Current:
+
+> Ready to see what your system could look like?
+
+I would align it with the homepage.
+
+## Ready to Build Your Business Operating System?
+
+Start with a strategy session and discover where People, Processes, Technology, Data, and AI can be better aligned to create clarity, accountability, and growth.
+
+### Get My Free Strategy Session
+
+***
+
+# Overall Assessment
+
+### Current About Page
+
+**7.5/10**
+
+Good credentials.
+Good story.
+Somewhat generic.
+
+### Revised BOS-Focused About Page
+
+**9.5/10**
+
+Positions you as:
+
+* Marine Corps LtCol (Ret.)
+* Business Operating System Architect
+* Digital Transformation Strategist
+* Operator, not consultant
+* Family-centered leader
+* Systems thinker
+
+Most importantly, it aligns perfectly with the homepage message:
+
+> "Most organizations don't have a people problem or strategy problem. They have a systems problem. We solve that through Business Operating Systems."
+
+That's the narrative I'd carry across the entire site.

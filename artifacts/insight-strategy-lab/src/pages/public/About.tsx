@@ -24,6 +24,7 @@ export default function About() {
   const lead = paragraphs(get("lead"));
   const body = paragraphs(get("body"));
   const philosophy = paragraphs(get("philosophy_body"));
+  const philosophyPillars = get("philosophy_pillars").split("\n").map((s) => s.trim()).filter(Boolean);
   const howIWork = get("howiwork_items").split("\n").map((s) => s.trim()).filter(Boolean);
   const creds = get("creds").split("\n").map((s) => s.trim()).filter(Boolean);
 
@@ -89,13 +90,18 @@ export default function About() {
         </div>
       </section>
 
-      {/* ─── Body ─────────────────────────────────────────── */}
+      {/* ─── Leadership Foundation ─────────────────────────── */}
       {body.length > 0 && (
         <section className="py-16 md:py-24" style={{ background: "#F3F4F6" }}>
           <div className="container mx-auto px-6 max-w-3xl">
-            <div className="prose prose-lg prose-gray max-w-none space-y-6">
+            <FadeUp>
+              <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border mb-6" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
+                Leadership Foundation
+              </span>
+            </FadeUp>
+            <div className="space-y-5">
               {body.map((p, i) => (
-                <FadeUp key={i} delay={i * 60}>
+                <FadeUp key={i} delay={60 + i * 60}>
                   <p className="text-gray-700 leading-relaxed text-lg">{p}</p>
                 </FadeUp>
               ))}
@@ -109,13 +115,23 @@ export default function About() {
         <section className="py-16 md:py-24 bg-white">
           <div className="container mx-auto px-6 max-w-3xl">
             <FadeUp>
-              <h2 className="text-3xl font-black text-gray-900 mb-8">{get("philosophy_heading")}</h2>
+              <h2 className="text-3xl font-black text-gray-900 mb-8 leading-tight">{get("philosophy_heading")}</h2>
             </FadeUp>
             <FadeUp delay={80}>
               <div className="rounded-2xl p-8 border-l-4" style={{ background: "rgba(37,99,235,0.04)", borderLeftColor: "#2563EB" }}>
                 {philosophy.map((p, i) => (
                   <p key={i} className="text-lg text-gray-800 font-medium leading-relaxed mb-4 last:mb-0">{p}</p>
                 ))}
+                {philosophyPillars.length > 0 && (
+                  <ul className="mt-5 space-y-2">
+                    {philosophyPillars.map((pillar, i) => (
+                      <li key={i} className="flex items-center gap-3 text-lg font-semibold text-gray-900">
+                        <span className="h-2 w-2 rounded-full shrink-0" style={{ background: "#2563EB" }} aria-hidden="true" />
+                        {pillar}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </FadeUp>
           </div>
@@ -275,16 +291,21 @@ export default function About() {
                 </span>
               </FadeUp>
               <FadeUp delay={140}>
-                <h2 className="text-3xl font-black text-gray-900 mb-5">Driven by Purpose, Grounded in Family</h2>
+                <h2 className="text-3xl font-black text-gray-900 mb-5">Driven by Purpose. Grounded in Family.</h2>
               </FadeUp>
               <FadeUp delay={200}>
                 <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  The same values that guide our family — commitment, accountability, and showing up for each other — are the same values that drive the work at Insight Strategy Lab.
+                  The same values that guide our family — commitment, accountability, service, and integrity — also guide the work we do at Insight Strategy Lab.
                 </p>
               </FadeUp>
               <FadeUp delay={260}>
+                <p className="text-gray-600 leading-relaxed mb-4">
+                  Building systems that help organizations thrive is about more than efficiency.
+                </p>
+              </FadeUp>
+              <FadeUp delay={310}>
                 <p className="text-gray-600 leading-relaxed">
-                  Building systems that actually work for people isn't just a business philosophy — it's personal. When organizations run well, families thrive, communities strengthen, and missions get fulfilled.
+                  When organizations operate effectively, employees experience less frustration, leaders make better decisions, families benefit, communities grow stronger, and important missions move forward. That's why this work matters.
                 </p>
               </FadeUp>
             </div>
