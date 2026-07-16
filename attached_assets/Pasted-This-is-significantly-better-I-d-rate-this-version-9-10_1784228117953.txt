@@ -1,0 +1,199 @@
+This is **significantly better**. I'd rate this version **9/10** from a conversion and positioning standpoint.
+
+### What's Improved
+
+✅ The BOS framework is now the dominant visual.
+
+✅ Visitors immediately understand there is a methodology behind ISL.
+
+✅ The emotional outcome statement:
+
+> "Stop managing disconnected systems — start leading with clarity, visibility, and confidence."
+
+is a big upgrade.
+
+✅ The stats moved below the fold where they support rather than compete with the message.
+
+✅ The visual hierarchy feels much closer to the examples you originally shared.
+
+***
+
+## I'd Make 5 Final Tweaks
+
+### 1. Add "Business Operating System" to the Headline
+
+Current:
+
+> Finally get your people, processes, technology, data, and AI working together.
+
+Stronger:
+
+> Finally get your people, processes, technology, data, and AI working together in one Business Operating System.
+
+Why?
+
+Many visitors won't make the connection between the headline and the framework graphic.
+
+The BOS phrase should appear above the fold in text.
+
+***
+
+### 2. Replace "Trusted by Small Businesses"
+
+Current badge:
+
+```text
+★★★★★ Trusted by Small Businesses
+```
+
+This is slightly weak because there isn't visible supporting proof yet.
+
+Consider:
+
+```text
+★★★★★ Veteran-Owned Business Transformation Partner
+```
+
+or
+
+```text
+★★★★★ Helping Organizations Build Business Operating Systems
+```
+
+or
+
+```text
+★★★★★ Trusted by Small Businesses & Mission-Driven Organizations
+```
+
+The last option aligns best with your positioning.
+
+***
+
+### 3. Add One More Trust Indicator
+
+Current:
+
+* AI Business Strategy
+* SHRM-CP
+* Veteran
+
+Add a 4th:
+
+```text
+27 Years Leadership Experience
+```
+
+This is one of your strongest differentiators and should be visible above the fold.
+
+***
+
+### 4. Add a Small Methodology Statement
+
+Under the emotional statement, add:
+
+```text
+People + Processes + Technology + Data + AI = Business Operating System
+```
+
+or
+
+```text
+Our Business Operating System framework aligns the five operational pillars that drive organizational success.
+```
+
+This reinforces the graphic and establishes intellectual property.
+
+***
+
+### 5. Strengthen the CTA Button
+
+Current:
+
+```text
+Book Free Strategy Session
+```
+
+I would test:
+
+```text
+Book My Free Strategy Session
+```
+
+or
+
+```text
+Get My Free Strategy Session
+```
+
+The first-person language usually feels more actionable.
+
+***
+
+## One Premium Enhancement
+
+The BOS diagram is good, but you could make the center box more visually compelling.
+
+Current:
+
+```text
+BUSINESS OPERATING SYSTEM
+CLARITY • VISIBILITY • GROWTH
+```
+
+Consider:
+
+```text
+BUSINESS OPERATING SYSTEM
+
+People
+Processes
+Technology
+Data
+AI
+
+→ Clarity
+→ Accountability
+→ Visibility
+→ Growth
+```
+
+This visually communicates transformation from inputs to outcomes.
+
+***
+
+## Overall Assessment
+
+### Before
+
+6/10
+
+Generic consulting homepage.
+
+### First revision
+
+7.5/10
+
+Stronger messaging but stats dominated the hero.
+
+### Current version
+
+9/10
+
+Clear positioning, strong headline, visible methodology, compelling CTA path.
+
+### To reach 10/10
+
+Add:
+
+* "Business Operating System" in headline
+* 27 Years Leadership Experience badge
+* methodology micro-copy
+* stronger CTA wording
+* slightly richer BOS outcome box
+
+At that point, a first-time visitor should understand within 3–5 seconds:
+
+> "Insight Strategy Lab helps organizations integrate people, processes, technology, data, and AI into a Business Operating System that creates clarity, visibility, accountability, and growth."
+
+That's exactly the message you want landing above the fold.

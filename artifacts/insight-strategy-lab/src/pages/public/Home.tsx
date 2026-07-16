@@ -169,7 +169,7 @@ export default function Home() {
 
             {/* ── LEFT: Hero content ── */}
             <div>
-              {/* Review badge */}
+              {/* Review badge — tweak 2 */}
               <div className="hero-animate mb-2" style={{ animationDelay: "0ms" }}>
                 <a
                   href="https://g.page/r/CX2HyTtBwIIVEAE/review"
@@ -178,16 +178,17 @@ export default function Home() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
                   style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
                 >
-                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses
+                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
                 </a>
               </div>
 
-              {/* Credibility tags — row below badge */}
+              {/* Credibility tags — tweak 3: added 27 Years */}
               <div className="hero-animate flex flex-wrap items-center gap-2 mb-4" style={{ animationDelay: "60ms" }}>
                 {[
-                  { icon: Brain,  label: "AI Business Strategy" },
-                  { icon: Shield, label: "SHRM-CP" },
-                  { icon: Award,  label: "Veteran" },
+                  { icon: Brain,      label: "AI Business Strategy" },
+                  { icon: Shield,     label: "SHRM-CP" },
+                  { icon: Award,      label: "Veteran" },
+                  { icon: TrendingUp, label: "27 Years Leadership" },
                 ].map(({ icon: Icon, label }) => (
                   <span
                     key={label}
@@ -200,22 +201,30 @@ export default function Home() {
                 ))}
               </div>
 
+              {/* Headline — tweak 1: BOS added */}
               <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-3" style={{ animationDelay: "120ms" }}>
-                Finally get your people, processes, technology, data, and AI{" "}
-                <span style={{ color: "#2563EB" }}>working together.</span>
+                Finally get your people, processes, technology, data, and AI working together in one{" "}
+                <span style={{ color: "#2563EB" }}>Business Operating System.</span>
               </h1>
 
               <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-2" style={{ animationDelay: "200ms" }}>
                 Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
               </p>
 
-              <p className="hero-animate text-sm font-semibold mb-4" style={{ animationDelay: "240ms", color: "#2563EB" }}>
+              {/* Emotional line */}
+              <p className="hero-animate text-sm font-semibold mb-2" style={{ animationDelay: "230ms", color: "#2563EB" }}>
                 Stop managing disconnected systems — start leading with clarity, visibility, and confidence.
               </p>
 
-              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "280ms" }}>
+              {/* Methodology micro-copy — tweak 4 */}
+              <p className="hero-animate text-xs text-gray-500 leading-relaxed mb-4" style={{ animationDelay: "260ms" }}>
+                People + Processes + Technology + Data + AI = Business Operating System
+              </p>
+
+              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "300ms" }}>
+                {/* CTA — tweak 5: first-person language */}
                 <Button asChild size="lg" className="text-base h-11 px-6 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                  <Link href="/contact">Book Free Strategy Session</Link>
+                  <Link href="/contact">Get My Free Strategy Session</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="text-base h-11 px-6 font-semibold">
                   <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
