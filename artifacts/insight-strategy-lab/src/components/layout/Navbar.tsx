@@ -17,7 +17,7 @@ export default function Navbar() {
   ].filter((s) => s.href);
 
   const logoScale = Number(get("logo_scale")) || 1;
-  const logoStyle = { height: `${3.5 * logoScale}rem` };
+  const logoStyle = { height: `${7 * logoScale}rem`, maxHeight: "none" };
 
   const links = [
     { href: "/", label: "Home" },
@@ -29,7 +29,7 @@ export default function Navbar() {
 
   return (
     <nav className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container mx-auto px-4 flex h-20 items-center justify-between">
+      <div className="container mx-auto px-4 flex h-28 items-center justify-between">
         <Link href="/">
           <img src={logo} alt="Insight Strategy Lab" className="w-auto" style={logoStyle} />
         </Link>
