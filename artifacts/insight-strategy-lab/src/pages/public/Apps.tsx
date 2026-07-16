@@ -11,6 +11,8 @@ import type { AppItem } from "@/lib/types";
 
 function AppCard({ app }: { app: AppItem }) {
   const [playing, setPlaying] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const thumbSrc = imgError ? null : app.thumbnail_url;
   return (
     <FadeUp>
       <div className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
@@ -20,8 +22,8 @@ function AppCard({ app }: { app: AppItem }) {
             <VideoEmbed url={app.youtube_url} autoPlay className="absolute inset-0 h-full w-full rounded-none" />
           ) : app.youtube_url ? (
             <>
-              {app.thumbnail_url && (
-                <img src={app.thumbnail_url} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+              {thumbSrc && (
+                <img src={thumbSrc} alt="" onError={() => setImgError(true)} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
               )}
               <button
                 type="button"
@@ -34,8 +36,8 @@ function AppCard({ app }: { app: AppItem }) {
                 </span>
               </button>
             </>
-          ) : app.thumbnail_url ? (
-            <img src={app.thumbnail_url} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
+          ) : thumbSrc ? (
+            <img src={thumbSrc} alt="" onError={() => setImgError(true)} className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" />
           ) : (
             <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
               <Database className="h-12 w-12 text-gray-200" aria-hidden="true" />

@@ -45,11 +45,18 @@ function StatCard({ value, label, delay, active }: { value: number; label: strin
 }
 
 function AppPreviewCard({ app }: { app: { id: string; title: string; description: string; thumbnail_url?: string } }) {
+  const [imgError, setImgError] = useState(false);
+  const showImg = app.thumbnail_url && !imgError;
   return (
     <div className="group flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
       <div className="aspect-video bg-gray-100 overflow-hidden">
-        {app.thumbnail_url ? (
-          <img src={app.thumbnail_url} alt={app.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        {showImg ? (
+          <img
+            src={app.thumbnail_url}
+            alt={app.title}
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+            onError={() => setImgError(true)}
+          />
         ) : (
           <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.08),rgba(37,99,235,0.02))" }}>
             <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(37,99,235,0.12)" }}>
