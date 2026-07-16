@@ -1,87 +1,66 @@
-import { useState, useEffect, useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import {
-  CheckCircle2, X, ArrowRight, Play, Database,
-  BarChart3, Layers, Brain, Map, Zap, Eye, Bot,
-  GitBranch, TrendingUp, Clock, ClipboardList, Star,
-  Shield, Award, Cpu, Heart,
-} from "lucide-react";
-import {
-  Accordion, AccordionItem, AccordionTrigger, AccordionContent,
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  CheckCircle2, Award, Shield, Brain, TrendingUp,
+  Layers, ClipboardList, Eye, GitBranch, BarChart3, Bot, Map,
+  Clock, Zap, X, ArrowRight, Star,
+} from "lucide-react";
+import { FadeUp } from "@/components/FadeUp";
 import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
-import { VideoEmbed, youTubeThumb } from "@/components/MediaEmbed";
 import { BOSVisualization } from "@/components/BOSVisualization";
-import { FadeUp } from "@/components/FadeUp";
-import type { AppItem } from "@/lib/types";
 
-function useCountUp(target: number, duration = 1800, active = false) {
+function StatCard({ value, label, delay, active }: { value: number; label: string; delay: number; active: boolean }) {
   const [count, setCount] = useState(0);
   useEffect(() => {
     if (!active) return;
     let start = 0;
-    const step = target / (duration / 16);
+    const duration = 1500;
+    const step = Math.ceil(value / (duration / 16));
     const timer = setInterval(() => {
-      start = Math.min(start + step, target);
-      setCount(Math.round(start));
-      if (start >= target) clearInterval(timer);
+      start += step;
+      if (start >= value) { setCount(value); clearInterval(timer); }
+      else setCount(start);
     }, 16);
     return () => clearInterval(timer);
-  }, [active, target, duration]);
-  return count;
-}
-
-function StatCard({ value, suffix = "%", label, delay, active }: { value: number; suffix?: string; label: string; delay: number; active: boolean }) {
-  const count = useCountUp(value, 1600, active);
+  }, [active, value]);
   return (
-    <div
-      className="bg-white rounded-2xl border border-gray-100 p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
-      style={{ opacity: active ? 1 : 0, transform: active ? "translateY(0)" : "translateY(20px)", transition: `opacity 0.6s ${delay}ms, transform 0.6s ${delay}ms` }}
-    >
-      <div className="text-5xl font-black mb-3" style={{ color: "#2563EB" }}>{count}{suffix}</div>
-      <p className="text-gray-600 text-sm leading-relaxed">{label}</p>
-    </div>
+    <FadeUp delay={delay}>
+      <div className="flex flex-col items-center text-center p-7 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+        <div className="text-4xl md:text-5xl font-black mb-2" style={{ color: "#2563EB" }}>
+          {active ? count : 0}%
+        </div>
+        <p className="text-gray-600 text-sm leading-relaxed">{label}</p>
+      </div>
+    </FadeUp>
   );
 }
 
-
-function StatNum({ value, active }: { value: number; active: boolean }) {
-  const count = useCountUp(value, 1600, active);
-  return <>{count}</>;
-}
-
-function AppPreviewCard({ app }: { app: AppItem }) {
-  const [playing, setPlaying] = useState(false);
-  const thumb = youTubeThumb(app.youtube_url ?? "") ?? (app.thumbnail_url || "");
-  const hasVideo = Boolean(app.youtube_url);
+function AppPreviewCard({ app }: { app: { id: string; title: string; description: string; thumbnail_url?: string } }) {
   return (
-    <div className="group bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-      <div className="aspect-video bg-gray-50 relative overflow-hidden">
-        {playing && hasVideo ? (
-          <VideoEmbed url={app.youtube_url!} autoPlay className="absolute inset-0 h-full w-full rounded-none" />
-        ) : thumb ? (
-          <>
-            <img src={thumb} alt="" className="absolute inset-0 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
-            {hasVideo && (
-              <button type="button" onClick={() => setPlaying(true)} aria-label={`Play ${app.title} video`} className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors cursor-pointer">
-                <span className="flex h-14 w-14 items-center justify-center rounded-full bg-white/90 shadow-lg">
-                  <Play className="h-6 w-6 translate-x-0.5 fill-current text-blue-600" />
-                </span>
-              </button>
-            )}
-          </>
+    <div className="group flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
+      <div className="aspect-video bg-gray-100 overflow-hidden">
+        {app.thumbnail_url ? (
+          <img src={app.thumbnail_url} alt={app.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center">
-            <Database className="h-12 w-12 text-gray-300" />
+          <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg,rgba(37,99,235,0.08),rgba(37,99,235,0.02))" }}>
+            <div className="w-16 h-16 rounded-full flex items-center justify-center" style={{ background: "rgba(37,99,235,0.12)" }}>
+              <Bot className="h-8 w-8" style={{ color: "#2563EB" }} aria-hidden="true" />
+            </div>
           </div>
         )}
       </div>
-      <div className="p-6">
-        <Link href="/apps" className="block">
-          <h3 className="font-bold text-lg mb-2 text-gray-900 hover:text-blue-600 transition-colors">{app.title}</h3>
+      <div className="p-5 flex flex-col flex-1">
+        <Link href="/apps">
+          <h3 className="font-bold text-gray-900 mb-1 group-hover:text-blue-600 transition-colors cursor-pointer text-sm md:text-base">{app.title}</h3>
         </Link>
         <p className="text-sm text-gray-500 line-clamp-2">{app.description}</p>
       </div>
@@ -89,41 +68,22 @@ function AppPreviewCard({ app }: { app: AppItem }) {
   );
 }
 
-const FAQ_ITEMS = [
-  {
-    q: "What is a Business Operating System?",
-    a: "A Business Operating System is the framework that connects people, processes, technology, data, and AI into one unified way of operating. It creates visibility, accountability, consistency, and scalability across your entire organization.",
-  },
-  {
-    q: "Do we need new software?",
-    a: "Not necessarily. We first maximize the value of your existing systems before recommending additional investments. Our goal is to eliminate waste and create integration, not add complexity.",
-  },
-  {
-    q: "What organizations do you work with?",
-    a: "We support small businesses, nonprofits, and mission-driven organizations looking to improve operations, adopt AI, and scale effectively without adding unnecessary overhead.",
-  },
-  {
-    q: "Can you help implement AI?",
-    a: "Yes. We identify practical AI opportunities, select appropriate technologies, and integrate them into existing workflows so AI actually helps your team instead of creating more complexity.",
-  },
-  {
-    q: "How long does a project take?",
-    a: "Most engagements follow our 6-phase approach, starting with Discovery and Strategize before moving into Design and Implementation. Many clients start seeing measurable improvements within weeks. Full Business Operating System implementation timelines vary based on organizational complexity.",
-  },
-  {
-    q: "Do you offer ongoing support?",
-    a: "Yes. We provide implementation assistance, governance support, strategic advising, and continuous improvement services so your operating system evolves as your organization grows.",
-  },
-  {
-    q: "How much does it cost?",
-    a: "Pricing is customized based on organizational goals, complexity, and scope. We provide recommendations after an initial strategy session—there is no obligation.",
-  },
-];
+const PROBLEM_ICONS = [Layers, ClipboardList, Eye, GitBranch];
+const RESULT_ICONS = [Clock, ClipboardList, Eye, Zap, GitBranch, TrendingUp];
 
 export default function Home() {
   const { data: apps = [], isLoading: appsLoading } = usePublishedApps();
   const { get } = useContent("home");
   usePageMeta({ title: get("seo_title"), description: get("seo_description") });
+
+  const transformBefore = get("transform_before").split("\n").map((s) => s.trim()).filter(Boolean);
+  const transformAfter = get("transform_after").split("\n").map((s) => s.trim()).filter(Boolean);
+  const resultsItems = get("results_items").split("\n").map((s) => s.trim()).filter(Boolean);
+  const faqItems = [1, 2, 3, 4, 5, 6, 7].map((n) => ({
+    q: get(`faq_${n}_q`),
+    a: get(`faq_${n}_a`),
+  })).filter((item) => item.q.trim() && item.a.trim());
+  const finalCtaLines = get("final_cta_heading").split("\n");
 
   const statsRef = useRef<HTMLElement>(null);
   const [statsInView, setStatsInView] = useState(false);
@@ -151,13 +111,9 @@ export default function Home() {
           to { opacity: 1; transform: translateY(0); }
         }
         .hero-animate { animation: hero-fade-up 0.7s ease both; }
-        @keyframes gradient-shift {
-          0%, 100% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-        }
       `}</style>
 
-      {/* ─── SECTION 1+2: HERO + STATS (two-column) ─────────────── */}
+      {/* ─── HERO ────────────────────────────────────────────────── */}
       <section className="relative bg-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle,#2563EB,transparent)", transform: "translate(20%,-20%)" }} />
@@ -167,66 +123,59 @@ export default function Home() {
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-12 items-start py-8 md:py-10">
 
-            {/* ── LEFT: Hero content ── */}
             <div>
-              {/* Review badge — tweak 2 */}
+              {/* Review badge */}
               <div className="hero-animate mb-2" style={{ animationDelay: "0ms" }}>
                 <a
-                  href="https://g.page/r/CX2HyTtBwIIVEAE/review"
+                  href={get("hero_badge_link") || "https://g.page/r/CX2HyTtBwIIVEAE/review"}
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
                   style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
                 >
-                  <span aria-hidden="true">★★★★★</span> Trusted by Businesses, Nonprofits &amp; Mission-Driven Orgs
+                  {get("hero_badge")}
                 </a>
               </div>
 
-              {/* Credentials — single compact trust row */}
+              {/* Credentials strip */}
               <p className="hero-animate text-xs font-semibold mb-4 flex flex-wrap gap-x-2 gap-y-0.5" style={{ animationDelay: "60ms", color: "#1e40af" }}>
-                <span className="flex items-center gap-1"><Award className="h-3 w-3" aria-hidden="true" />Veteran-Owned</span>
-                <span className="text-gray-300" aria-hidden="true">·</span>
-                <span className="flex items-center gap-1"><Shield className="h-3 w-3" aria-hidden="true" />SHRM-CP</span>
-                <span className="text-gray-300" aria-hidden="true">·</span>
-                <span className="flex items-center gap-1"><Brain className="h-3 w-3" aria-hidden="true" />AI Business Strategy</span>
-                <span className="text-gray-300" aria-hidden="true">·</span>
-                <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" aria-hidden="true" />27 Yrs Leadership</span>
+                {get("hero_cred_1") && <span className="flex items-center gap-1"><Award className="h-3 w-3" aria-hidden="true" />{get("hero_cred_1")}</span>}
+                {get("hero_cred_1") && get("hero_cred_2") && <span className="text-gray-300" aria-hidden="true">·</span>}
+                {get("hero_cred_2") && <span className="flex items-center gap-1"><Shield className="h-3 w-3" aria-hidden="true" />{get("hero_cred_2")}</span>}
+                {get("hero_cred_2") && get("hero_cred_3") && <span className="text-gray-300" aria-hidden="true">·</span>}
+                {get("hero_cred_3") && <span className="flex items-center gap-1"><Brain className="h-3 w-3" aria-hidden="true" />{get("hero_cred_3")}</span>}
+                {get("hero_cred_3") && get("hero_cred_4") && <span className="text-gray-300" aria-hidden="true">·</span>}
+                {get("hero_cred_4") && <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" aria-hidden="true" />{get("hero_cred_4")}</span>}
               </p>
 
-              {/* Headline — split for visual balance */}
               <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-1" style={{ animationDelay: "120ms" }}>
-                Finally get your people, processes, technology, data, and AI working together.
+                {get("hero_headline")}
               </h1>
               <p className="hero-animate text-xl md:text-2xl font-black tracking-tight mb-3" style={{ animationDelay: "160ms", color: "#2563EB" }}>
-                One Business Operating System.
+                {get("hero_subtitle")}
               </p>
 
               <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-2" style={{ animationDelay: "200ms" }}>
-                We help organizations integrate People, Processes, Technology, Data, and AI into a scalable Business Operating System that creates clarity, accountability, efficiency, and measurable growth.
+                {get("hero_body")}
               </p>
 
-              {/* Emotional line */}
-              <p className="hero-animate text-sm font-semibold mb-2" style={{ animationDelay: "230ms", color: "#2563EB" }}>
-                Stop managing disconnected systems — start leading with clarity, visibility, and confidence.
-              </p>
+              {get("hero_tagline") && (
+                <p className="hero-animate text-sm font-semibold mb-2" style={{ animationDelay: "230ms", color: "#2563EB" }}>
+                  {get("hero_tagline")}
+                </p>
+              )}
 
               <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "270ms" }}>
-                {/* CTA — tweak 5: first-person language */}
                 <Button asChild size="lg" className="text-base h-11 px-6 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                  <Link href="/contact">Get My Free Strategy Session</Link>
+                  <Link href="/contact">{get("hero_cta_1")}</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="text-base h-11 px-6 font-semibold">
-                  <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
+                  <a href="#process" onClick={handleProcessScroll}>{get("hero_cta_2")}</a>
                 </Button>
               </div>
 
               <div className="hero-animate flex flex-wrap gap-x-4 gap-y-1.5" style={{ animationDelay: "340ms" }}>
-                {[
-                  "Eliminate manual work",
-                  "Connect AI into one workflow",
-                  "Real-time visibility",
-                  "Standardize operations",
-                ].map((item) => (
+                {[get("hero_check_1"), get("hero_check_2"), get("hero_check_3"), get("hero_check_4")].filter(Boolean).map((item) => (
                   <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600">
                     <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
                     {item}
@@ -235,61 +184,54 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ── RIGHT: BOS Framework Visualization ── */}
             <BOSVisualization />
-
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION: HIDDEN COST STATS ─────────────────────────── */}
+      {/* ─── STATS ───────────────────────────────────────────────── */}
       <section ref={statsRef} className="py-16 md:py-20" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
             <FadeUp>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">The Hidden Cost of Operational Complexity</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">{get("stats_heading")}</h2>
             </FadeUp>
             <FadeUp delay={80}>
-              <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-                Most organizations struggle not from lack of effort, but from systems that consume time, visibility, and growth.
-              </p>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">{get("stats_body")}</p>
             </FadeUp>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
             {[
-              { value: 36, label: "of workweek spent on admin instead of growth" },
-              { value: 31, label: "of owners spend half their time on repetitive tasks" },
-              { value: 81, label: "of leaders say digital transformation is essential" },
-              { value: 56, label: "of organizations exceeded expected ROI with transformation" },
+              { value: Number(get("stat_1_value")) || 36, label: get("stat_1_label") },
+              { value: Number(get("stat_2_value")) || 31, label: get("stat_2_label") },
+              { value: Number(get("stat_3_value")) || 81, label: get("stat_3_label") },
+              { value: Number(get("stat_4_value")) || 56, label: get("stat_4_label") },
             ].map(({ value, label }, i) => (
-              <StatCard key={label} value={value} label={label} delay={i * 100} active={statsInView} />
+              <StatCard key={i} value={value} label={label} delay={i * 100} active={statsInView} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 3: PROBLEM ──────────────────────────────────── */}
+      {/* ─── PROBLEM ─────────────────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center mb-16">
             <FadeUp>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">Most Organizations Don't Have a People Problem.<br className="hidden md:block" /> They Have a Systems Problem.</h2>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">{get("problem_heading")}</h2>
             </FadeUp>
             <FadeUp delay={100}>
-              <p className="text-gray-600 text-lg leading-relaxed">
-                Information is scattered across platforms. Processes live inside people's heads. Teams duplicate work. Leadership lacks visibility. Everyone works harder, but outcomes don't improve.
-              </p>
+              <p className="text-gray-600 text-lg leading-relaxed">{get("problem_body")}</p>
             </FadeUp>
           </div>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: Layers, title: "Disconnected Technology", desc: "Systems don't communicate, creating silos and inefficiencies that slow everyone down." },
-              { icon: ClipboardList, title: "Manual Processes", desc: "Critical workflows rely on spreadsheets, emails, and workarounds instead of automated systems." },
-              { icon: Eye, title: "Lack of Visibility", desc: "Leadership struggles to see performance data and identify operational bottlenecks in real time." },
-              { icon: GitBranch, title: "Operational Bottlenecks", desc: "Growth slows because the organization depends on individuals rather than repeatable systems." },
+              { icon: PROBLEM_ICONS[0], title: get("problem_1_title"), desc: get("problem_1_desc") },
+              { icon: PROBLEM_ICONS[1], title: get("problem_2_title"), desc: get("problem_2_desc") },
+              { icon: PROBLEM_ICONS[2], title: get("problem_3_title"), desc: get("problem_3_desc") },
+              { icon: PROBLEM_ICONS[3], title: get("problem_4_title"), desc: get("problem_4_desc") },
             ].map(({ icon: Icon, title, desc }, i) => (
-              <FadeUp key={title} delay={i * 100}>
+              <FadeUp key={i} delay={i * 100}>
                 <div className="group h-full p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "rgba(37,99,235,0.08)" }}>
                     <Icon className="h-6 w-6" style={{ color: "#2563EB" }} aria-hidden="true" />
@@ -303,14 +245,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SECTION 4: TRANSFORMATION ───────────────────────────── */}
+      {/* ─── TRANSFORMATION ──────────────────────────────────────── */}
       <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">Imagine Operating With Complete Clarity</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">{get("transform_heading")}</h2>
           </FadeUp>
           <FadeUp delay={100}>
-            <p className="text-gray-600 text-center mb-14 text-lg max-w-2xl mx-auto">Transform operational chaos into an integrated system that supports growth.</p>
+            <p className="text-gray-600 text-center mb-14 text-lg max-w-2xl mx-auto">{get("transform_body")}</p>
           </FadeUp>
 
           <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 max-w-4xl mx-auto items-center">
@@ -323,7 +265,7 @@ export default function Home() {
                   <h3 className="font-black text-gray-900 text-lg">Before</h3>
                 </div>
                 <ul className="space-y-4" aria-label="Before transformation">
-                  {["Disorganized", "Reactive", "Manual", "Data Silos", "Slow Decisions", "Unclear Responsibilities"].map((item) => (
+                  {transformBefore.map((item) => (
                     <li key={item} className="flex items-center gap-3 text-gray-700">
                       <X className="h-4 w-4 shrink-0" style={{ color: "#DC2626" }} aria-hidden="true" />
                       <span className="text-[15px]">{item}</span>
@@ -354,7 +296,7 @@ export default function Home() {
                   <h3 className="font-black text-gray-900 text-lg">After</h3>
                 </div>
                 <ul className="space-y-4" aria-label="After transformation">
-                  {["Aligned", "Efficient", "Automated", "Connected Data", "Faster Decisions", "Clear Accountability"].map((item) => (
+                  {transformAfter.map((item) => (
                     <li key={item} className="flex items-center gap-3 text-gray-700">
                       <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#16A34A" }} aria-hidden="true" />
                       <span className="text-[15px]">{item}</span>
@@ -367,24 +309,23 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SECTION 5: HOW WE HELP ──────────────────────────────── */}
+      {/* ─── HOW WE HELP ─────────────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">How Insight Strategy Lab Helps</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">{get("help_heading")}</h2>
           </FadeUp>
           <FadeUp delay={100}>
-            <p className="text-gray-600 text-center mb-14 text-lg max-w-2xl mx-auto">Four core services designed to align your entire organization and drive measurable results.</p>
+            <p className="text-gray-600 text-center mb-14 text-lg max-w-2xl mx-auto">{get("help_body")}</p>
           </FadeUp>
-
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
-              { icon: BarChart3, title: "Operational Assessment", desc: "Identify operational gaps, inefficiencies, and opportunities for improvement across your entire organization." },
-              { icon: Layers, title: "Business Operating System Design", desc: "Create a framework that aligns people, processes, technology, data, and AI into one integrated operational model." },
-              { icon: Bot, title: "AI Integration", desc: "Implement practical AI solutions that improve productivity, automate repetitive work, and reduce manual effort." },
-              { icon: Map, title: "Digital Transformation Roadmap", desc: "Build a prioritized implementation plan that delivers measurable business outcomes at each milestone." },
+              { icon: BarChart3, title: get("help_1_title"), desc: get("help_1_desc") },
+              { icon: Layers,    title: get("help_2_title"), desc: get("help_2_desc") },
+              { icon: Bot,       title: get("help_3_title"), desc: get("help_3_desc") },
+              { icon: Map,       title: get("help_4_title"), desc: get("help_4_desc") },
             ].map(({ icon: Icon, title, desc }, i) => (
-              <FadeUp key={title} delay={i * 100}>
+              <FadeUp key={i} delay={i * 100}>
                 <div className="group h-full p-7 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-default">
                   <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "rgba(37,99,235,0.08)" }}>
                     <Icon className="h-6 w-6" style={{ color: "#2563EB" }} aria-hidden="true" />
@@ -401,15 +342,15 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── APPS SHOWCASE (optional) ────────────────────────────── */}
+      {/* ─── APPS SHOWCASE ───────────────────────────────────────── */}
       {apps.length > 0 && (
         <section className="py-20 bg-gray-50 border-y border-gray-100">
           <div className="container mx-auto px-6">
             <FadeUp>
               <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">Real Systems Running Inside Businesses</h2>
-                  <p className="text-gray-500 max-w-xl">These aren't prototypes or templates. These are production systems actively used to run operations.</p>
+                  <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-2">{get("apps_heading")}</h2>
+                  <p className="text-gray-500 max-w-xl">{get("apps_body")}</p>
                 </div>
                 <Button asChild variant="outline" className="shrink-0">
                   <Link href="/apps">View All Apps</Link>
@@ -429,32 +370,30 @@ export default function Home() {
         </section>
       )}
 
-      {/* ─── SECTION 6: WHY ISL ──────────────────────────────────── */}
+      {/* ─── WHY ISL ─────────────────────────────────────────────── */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
             <div>
               <FadeUp>
                 <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-8">
-                  Most Consultants Give Advice.<br />
-                  <span style={{ color: "#2563EB" }}>We Build Operating Systems.</span>
+                  {get("why_heading_1")}<br />
+                  <span style={{ color: "#2563EB" }}>{get("why_heading_2")}</span>
                 </h2>
               </FadeUp>
               <div className="space-y-5">
-                {[
-                  "Most consultants deliver recommendations.",
-                  "Most software vendors sell tools.",
-                  "Most AI providers sell automation.",
-                ].map((text, i) => (
+                {[get("why_item_1"), get("why_item_2"), get("why_item_3")].filter(Boolean).map((text, i) => (
                   <FadeUp key={i} delay={i * 80}>
                     <p className="text-gray-500 text-lg">{text}</p>
                   </FadeUp>
                 ))}
-                <FadeUp delay={300}>
-                  <p className="text-gray-900 text-lg font-semibold leading-relaxed pt-2">
-                    We integrate everything into a single operational framework that helps organizations operate with clarity, consistency, accountability, and confidence.
-                  </p>
-                </FadeUp>
+                {get("why_summary") && (
+                  <FadeUp delay={300}>
+                    <p className="text-gray-900 text-lg font-semibold leading-relaxed pt-2">
+                      {get("why_summary")}
+                    </p>
+                  </FadeUp>
+                )}
               </div>
             </div>
             <FadeUp delay={100}>
@@ -466,51 +405,43 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SECTION 7: RESULTS & BENEFITS ──────────────────────── */}
+      {/* ─── RESULTS & BENEFITS ──────────────────────────────────── */}
       <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">What Better Operations Look Like</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">{get("results_heading")}</h2>
           </FadeUp>
           <FadeUp delay={100}>
-            <p className="text-gray-600 text-center mb-14 text-lg max-w-2xl mx-auto">The result is not just efficiency. It's a stronger, more scalable organization.</p>
+            <p className="text-gray-600 text-center mb-14 text-lg max-w-2xl mx-auto">{get("results_body")}</p>
           </FadeUp>
-
           <div className="grid grid-cols-2 lg:grid-cols-3 gap-5 max-w-4xl mx-auto">
-            {[
-              { icon: Clock, label: "Faster Decision-Making" },
-              { icon: ClipboardList, label: "Reduced Administrative Work" },
-              { icon: Eye, label: "Improved Visibility" },
-              { icon: Zap, label: "More Automation" },
-              { icon: GitBranch, label: "Standardized Workflows" },
-              { icon: TrendingUp, label: "Scalable Growth" },
-            ].map(({ icon: Icon, label }, i) => (
-              <FadeUp key={label} delay={i * 80}>
-                <div className="group flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-default">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
-                    <Icon className="h-6 w-6" style={{ color: "#2563EB" }} aria-hidden="true" />
+            {resultsItems.map((label, i) => {
+              const Icon = RESULT_ICONS[i % RESULT_ICONS.length];
+              return (
+                <FadeUp key={label} delay={i * 80}>
+                  <div className="group flex flex-col items-center text-center p-6 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 cursor-default">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
+                      <Icon className="h-6 w-6" style={{ color: "#2563EB" }} aria-hidden="true" />
+                    </div>
+                    <span className="font-bold text-gray-900 text-sm">{label}</span>
                   </div>
-                  <span className="font-bold text-gray-900 text-sm">{label}</span>
-                </div>
-              </FadeUp>
-            ))}
+                </FadeUp>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* ─── SECTION 8: PROCESS ──────────────────────────────────── */}
+      {/* ─── PROCESS ─────────────────────────────────────────────── */}
       <section id="process" className="py-20 md:py-28 bg-white scroll-mt-20">
         <div className="container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">Our 6-Phase Approach</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">{get("process_heading")}</h2>
           </FadeUp>
           <FadeUp delay={100}>
-            <p className="text-gray-600 text-center mb-10 text-lg max-w-xl mx-auto">
-              A structured, proven methodology that takes organizations from operational chaos to a fully integrated Business Operating System.
-            </p>
+            <p className="text-gray-600 text-center mb-10 text-lg max-w-xl mx-auto">{get("process_body")}</p>
           </FadeUp>
 
-          {/* Intro video */}
           <FadeUp delay={150}>
             <div className="max-w-4xl mx-auto mb-16 rounded-2xl overflow-hidden shadow-2xl border border-gray-100" style={{ background: "#0f172a" }}>
               <video
@@ -526,21 +457,20 @@ export default function Home() {
             </div>
           </FadeUp>
 
-          {/* 6-phase cards */}
           <div className="max-w-5xl mx-auto">
             <FadeUp>
               <p className="text-center text-xs font-bold uppercase tracking-widest mb-10" style={{ color: "#2563EB" }}>The Six Phases</p>
             </FadeUp>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-5 md:gap-6">
               {[
-                { num: "01", label: "Discover", desc: "Assess the current state of your people, processes, technology, data, and systems to identify gaps and opportunities." },
-                { num: "02", label: "Strategize", desc: "Define organizational goals, priorities, and the blueprint for your Business Operating System." },
-                { num: "03", label: "Design", desc: "Map workflows, accountability structures, integration points, and the operating model in detail." },
-                { num: "04", label: "Implement", desc: "Deploy technology, automation, and new operational workflows across the organization." },
-                { num: "05", label: "Integrate", desc: "Connect people, data, and AI into one unified system that operates consistently at scale." },
-                { num: "06", label: "Optimize", desc: "Measure outcomes, refine systems, and continuously improve performance and scalability." },
+                { num: "01", label: get("phase_1_label"), desc: get("phase_1_desc") },
+                { num: "02", label: get("phase_2_label"), desc: get("phase_2_desc") },
+                { num: "03", label: get("phase_3_label"), desc: get("phase_3_desc") },
+                { num: "04", label: get("phase_4_label"), desc: get("phase_4_desc") },
+                { num: "05", label: get("phase_5_label"), desc: get("phase_5_desc") },
+                { num: "06", label: get("phase_6_label"), desc: get("phase_6_desc") },
               ].map(({ num, label, desc }, i) => (
-                <FadeUp key={label} delay={i * 80}>
+                <FadeUp key={num} delay={i * 80}>
                   <div className="h-full flex flex-col p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
                     <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 font-black text-base text-white shrink-0" style={{ background: "linear-gradient(135deg,#2563EB,#1d4ed8)" }}>
                       {num}
@@ -555,19 +485,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SECTION 9: FAQ ──────────────────────────────────────── */}
+      {/* ─── FAQ ─────────────────────────────────────────────────── */}
       <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6">
           <FadeUp>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-3xl md:text-4xl font-black text-gray-900 text-center mb-4">{get("faq_heading")}</h2>
           </FadeUp>
           <FadeUp delay={100}>
-            <p className="text-gray-600 text-center mb-12 text-lg max-w-xl mx-auto">Everything you need to know about working with Insight Strategy Lab.</p>
+            <p className="text-gray-600 text-center mb-12 text-lg max-w-xl mx-auto">{get("faq_body")}</p>
           </FadeUp>
           <FadeUp delay={150}>
             <div className="max-w-3xl mx-auto bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
               <Accordion type="single" collapsible className="divide-y divide-gray-100">
-                {FAQ_ITEMS.map(({ q, a }, i) => (
+                {faqItems.map(({ q, a }, i) => (
                   <AccordionItem key={i} value={`faq-${i}`} className="border-0">
                     <AccordionTrigger className="px-7 py-5 text-left text-[15px] font-semibold text-gray-900 hover:no-underline hover:bg-gray-50 transition-colors">
                       {q}
@@ -583,7 +513,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── SECTION 10: FINAL CTA ───────────────────────────────── */}
+      {/* ─── FINAL CTA ───────────────────────────────────────────── */}
       <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: "#111827" }}>
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10" style={{ background: "radial-gradient(circle,#2563EB,transparent)" }} />
@@ -596,26 +526,25 @@ export default function Home() {
           </FadeUp>
           <FadeUp delay={100}>
             <h2 className="text-4xl md:text-5xl font-black text-white mb-6 leading-tight">
-              Stop Managing Chaos.<br />Start Operating With Clarity.
+              {finalCtaLines[0]}
+              {finalCtaLines.length > 1 && <><br />{finalCtaLines[1]}</>}
             </h2>
           </FadeUp>
           <FadeUp delay={200}>
-            <p className="text-gray-400 text-lg max-w-xl mx-auto mb-10 leading-relaxed">
-              Get a clear understanding of your biggest operational opportunities and a practical roadmap for improvement.
-            </p>
+            <p className="text-gray-400 text-lg max-w-xl mx-auto mb-10 leading-relaxed">{get("final_cta_body")}</p>
           </FadeUp>
           <FadeUp delay={300}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild size="lg" className="text-base h-12 px-8 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                <Link href="/contact">Book Your Free Strategy Session</Link>
+                <Link href="/contact">{get("final_cta_1")}</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-base h-12 px-8 font-semibold text-white border-white/20 hover:bg-white/5">
-                <Link href="/contact">Schedule a Discovery Call</Link>
+                <Link href="/contact">{get("final_cta_2")}</Link>
               </Button>
             </div>
           </FadeUp>
           <FadeUp delay={400}>
-            <p className="text-gray-500 text-sm">No obligation. Just actionable insights and a clear path forward.</p>
+            <p className="text-gray-500 text-sm">{get("final_cta_note")}</p>
           </FadeUp>
         </div>
       </section>

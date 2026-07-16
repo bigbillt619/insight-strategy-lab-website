@@ -200,18 +200,29 @@ export function ContentGroupForm({ group }: { group: ContentGroup }) {
         <CardContent className="p-6 space-y-6">
           {group.description && <p className="text-sm text-muted-foreground">{group.description}</p>}
           <div className="grid grid-cols-1 gap-6">
-            {group.fields.map((f) => (
-              <div key={f.key} className="space-y-2">
-                <Label className="text-sm font-medium">{f.label}</Label>
-                {f.help && <p className="text-xs text-muted-foreground">{f.help}</p>}
-                <FieldInput
-                  field={f}
-                  page={group.page}
-                  value={values[f.key] ?? ""}
-                  onChange={(v) => setValues((prev) => ({ ...prev, [f.key]: v }))}
-                />
-              </div>
-            ))}
+            {group.fields.map((f, idx) => {
+              const prevSection = idx > 0 ? group.fields[idx - 1].section : undefined;
+              const showDivider = f.section && f.section !== prevSection;
+              return (
+                <div key={f.key}>
+                  {showDivider && (
+                    <div className={`${idx > 0 ? "pt-4 mt-2 border-t border-border" : ""} pb-1`}>
+                      <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{f.section}</p>
+                    </div>
+                  )}
+                  <div className="space-y-2">
+                    <Label className="text-sm font-medium">{f.label}</Label>
+                    {f.help && <p className="text-xs text-muted-foreground">{f.help}</p>}
+                    <FieldInput
+                      field={f}
+                      page={group.page}
+                      value={values[f.key] ?? ""}
+                      onChange={(v) => setValues((prev) => ({ ...prev, [f.key]: v }))}
+                    />
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </CardContent>
       </Card>

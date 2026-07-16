@@ -143,8 +143,8 @@ export default function About() {
         <div className="container mx-auto px-6 max-w-4xl">
 
           <FadeUp>
-            <h2 className="text-3xl font-black text-gray-900 mb-2">Education, Certifications &amp; Research</h2>
-            <p className="text-gray-500 text-lg mb-14">The foundation behind every system built.</p>
+            <h2 className="text-3xl font-black text-gray-900 mb-2">{get("edu_section_heading") || "Education, Certifications & Research"}</h2>
+            <p className="text-gray-500 text-lg mb-14">{get("edu_section_subtitle") || "The foundation behind every system built."}</p>
           </FadeUp>
 
           {/* Education */}
@@ -290,7 +290,7 @@ export default function About() {
             <FadeUp>
               <img
                 src="/family-photo.jpg"
-                alt="Bill Trampe and family"
+                alt="Bill Tamayo and family"
                 className="w-full rounded-2xl object-cover shadow-xl border border-gray-100"
                 style={{ maxHeight: "420px" }}
               />
@@ -302,23 +302,23 @@ export default function About() {
                 </span>
               </FadeUp>
               <FadeUp delay={140}>
-                <h2 className="text-3xl font-black text-gray-900 mb-5">Driven by Purpose. Grounded in Family.</h2>
+                <h2 className="text-3xl font-black text-gray-900 mb-5">{get("family_heading")}</h2>
               </FadeUp>
-              <FadeUp delay={200}>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  The same values that guide our family — commitment, accountability, service, and integrity — also guide the work we do at Insight Strategy Lab.
-                </p>
-              </FadeUp>
-              <FadeUp delay={260}>
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  Building systems that help organizations thrive is about more than efficiency.
-                </p>
-              </FadeUp>
-              <FadeUp delay={310}>
-                <p className="text-gray-600 leading-relaxed">
-                  When organizations operate effectively, employees experience less frustration, leaders make better decisions, families benefit, communities grow stronger, and important missions move forward. That's why this work matters.
-                </p>
-              </FadeUp>
+              {get("family_body_1") && (
+                <FadeUp delay={200}>
+                  <p className="text-gray-600 text-lg leading-relaxed mb-4">{get("family_body_1")}</p>
+                </FadeUp>
+              )}
+              {get("family_body_2") && (
+                <FadeUp delay={260}>
+                  <p className="text-gray-600 leading-relaxed mb-4">{get("family_body_2")}</p>
+                </FadeUp>
+              )}
+              {get("family_body_3") && (
+                <FadeUp delay={310}>
+                  <p className="text-gray-600 leading-relaxed">{get("family_body_3")}</p>
+                </FadeUp>
+              )}
             </div>
           </div>
         </div>
