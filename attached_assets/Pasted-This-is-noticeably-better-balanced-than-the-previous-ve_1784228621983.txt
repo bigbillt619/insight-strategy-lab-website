@@ -1,0 +1,188 @@
+This is noticeably better balanced than the previous version.
+
+### What Improved
+
+✅ Trust badges collapsed into a single row
+
+✅ Methodology statement moved into the BOS graphic
+
+✅ Right-side visual feels more meaningful
+
+✅ Hero now feels more focused and less cluttered
+
+***
+
+### What's Still Happening
+
+The headline is still carrying most of the visual weight.
+
+If you draw an imaginary center line down the page:
+
+* Left side = \~60-65% visual weight
+* Right side = \~35-40% visual weight
+
+The culprit is the headline wrapping into **7 lines**.
+
+Your eye immediately goes here:
+
+```text
+Finally get your
+people, processes,
+technology, data,
+and AI working
+together in one
+Business Operating
+System.
+```
+
+The BOS graphic is good, but it's visually functioning as a supporting element rather than a co-equal hero element.
+
+***
+
+## Best Fix (Recommended)
+
+Increase BOS graphic width.
+
+Try:
+
+```css
+grid-template-columns:
+0.9fr 1.1fr;
+```
+
+instead of:
+
+```css
+1fr 1fr;
+```
+
+or whatever the current split is.
+
+You want the graphic to feel more like:
+
+```text
+45% copy
+55% visual
+```
+
+This alone may solve the balance issue.
+
+***
+
+## Alternative Fix
+
+Reduce headline width.
+
+Current copy creates a lot of line breaks.
+
+Try:
+
+```text
+Finally get your people,
+processes, technology,
+data, and AI working
+together in one
+Business Operating System.
+```
+
+That reduces the headline by 1-2 lines without changing the message.
+
+A max-width adjustment can often accomplish this.
+
+Example:
+
+```css
+max-width: 620px;
+```
+
+instead of allowing it to wrap narrowly.
+
+***
+
+## What I'd Personally Test
+
+### Version A (Current)
+
+```text
+Finally get your people,
+processes, technology,
+data, and AI working
+together in one
+Business Operating
+System.
+```
+
+### Version B (Likely Better)
+
+```text
+Finally get your people,
+processes, technology,
+data, and AI working together
+
+in one Business Operating System.
+```
+
+Make "Business Operating System" its own premium sub-headline.
+
+Example:
+
+```text
+Finally get your people,
+processes, technology,
+data, and AI working together.
+
+Business Operating System
+```
+
+styled in blue.
+
+Cleaner.
+
+More premium.
+
+Better balance.
+
+***
+
+## Another Premium Enhancement
+
+Your BOS diagram could become wider and shallower.
+
+Currently:
+
+```text
+PEOPLE
+PROCESS
+TECHNOLOGY
+DATA
+AI
+
+↓
+
+BUSINESS OPERATING SYSTEM
+```
+
+Very tall.
+
+Consider reducing vertical spacing by 15-20%.
+
+That lets you expand the entire card horizontally and makes it feel more substantial.
+
+***
+
+## What I Would Do Right Now
+
+If I were optimizing this hero for production, I would:
+
+1. Increase BOS graphic width by 10-15%.
+2. Reduce headline width slightly so it breaks into fewer lines.
+3. Make the BOS card a little wider and less tall.
+4. Keep all current messaging.
+
+That would likely move the hero from:
+
+**9.5/10 → 9.8/10**
+
+without changing any content.
+
+The messaging is already there. This is now a visual weighting issue more than a copy issue. The right refinement isn't more words—it's giving the BOS framework slightly more real estate so it visually matches the strength of the headline.

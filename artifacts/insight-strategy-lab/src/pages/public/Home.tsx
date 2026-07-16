@@ -165,7 +165,7 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-12 items-start py-8 md:py-10">
+          <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-12 items-start py-8 md:py-10">
 
             {/* ── LEFT: Hero content ── */}
             <div>
@@ -183,26 +183,23 @@ export default function Home() {
               </div>
 
               {/* Credentials — single compact trust row */}
-              <div className="hero-animate flex flex-wrap items-center gap-x-3 gap-y-1 mb-4" style={{ animationDelay: "60ms" }}>
-                {[
-                  { icon: Award,      label: "Veteran-Owned" },
-                  { icon: Shield,     label: "SHRM-CP" },
-                  { icon: Brain,      label: "AI Business Strategy" },
-                  { icon: TrendingUp, label: "27 Years Leadership" },
-                ].map(({ icon: Icon, label }, i) => (
-                  <span key={label} className="flex items-center gap-1 text-xs font-semibold" style={{ color: "#1e40af" }}>
-                    {i > 0 && <span className="text-gray-300 mr-1" aria-hidden="true">·</span>}
-                    <Icon className="h-3 w-3" aria-hidden="true" />
-                    {label}
-                  </span>
-                ))}
-              </div>
+              <p className="hero-animate text-xs font-semibold mb-4 flex flex-wrap gap-x-2 gap-y-0.5" style={{ animationDelay: "60ms", color: "#1e40af" }}>
+                <span className="flex items-center gap-1"><Award className="h-3 w-3" aria-hidden="true" />Veteran-Owned</span>
+                <span className="text-gray-300" aria-hidden="true">·</span>
+                <span className="flex items-center gap-1"><Shield className="h-3 w-3" aria-hidden="true" />SHRM-CP</span>
+                <span className="text-gray-300" aria-hidden="true">·</span>
+                <span className="flex items-center gap-1"><Brain className="h-3 w-3" aria-hidden="true" />AI Business Strategy</span>
+                <span className="text-gray-300" aria-hidden="true">·</span>
+                <span className="flex items-center gap-1"><TrendingUp className="h-3 w-3" aria-hidden="true" />27 Yrs Leadership</span>
+              </p>
 
-              {/* Headline — tweak 1: BOS added */}
-              <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-3" style={{ animationDelay: "120ms" }}>
-                Finally get your people, processes, technology, data, and AI working together in one{" "}
-                <span style={{ color: "#2563EB" }}>Business Operating System.</span>
+              {/* Headline — split for visual balance */}
+              <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-1" style={{ animationDelay: "120ms" }}>
+                Finally get your people, processes, technology, data, and AI working together.
               </h1>
+              <p className="hero-animate text-xl md:text-2xl font-black tracking-tight mb-3" style={{ animationDelay: "160ms", color: "#2563EB" }}>
+                One Business Operating System.
+              </p>
 
               <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-2" style={{ animationDelay: "200ms" }}>
                 We help organizations integrate People, Processes, Technology, Data, and AI into a scalable Business Operating System that creates clarity, accountability, efficiency, and measurable growth.
