@@ -165,12 +165,12 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-10 md:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start py-10 md:py-16">
 
             {/* ── LEFT: Hero content ── */}
             <div>
-              {/* Review badge */}
-              <div className="hero-animate mb-3" style={{ animationDelay: "0ms" }}>
+              {/* Review badge + credibility tags — same row */}
+              <div className="hero-animate flex flex-wrap items-center gap-2 mb-4" style={{ animationDelay: "0ms" }}>
                 <a
                   href="https://g.page/r/CX2HyTtBwIIVEAE/review"
                   target="_blank"
@@ -178,21 +178,16 @@ export default function Home() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
                   style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
                 >
-                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
+                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses
                 </a>
-              </div>
-
-              {/* Credibility tags — above h1 for immediate authority */}
-              <div className="hero-animate flex flex-wrap gap-2 mb-4" style={{ animationDelay: "60ms" }}>
                 {[
-                  { icon: Shield, label: "SHRM-CP Certified" },
-                  { icon: Award,  label: "Marine Veteran" },
-                  { icon: Brain,  label: "AI Certified" },
-                  { icon: Heart,  label: "NonprofitReady Elite" },
+                  { icon: Brain,  label: "AI Business Strategy" },
+                  { icon: Shield, label: "SHRM-CP" },
+                  { icon: Award,  label: "Veteran" },
                 ].map(({ icon: Icon, label }) => (
                   <span
                     key={label}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border"
+                    className="inline-flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-semibold border"
                     style={{ background: "rgba(37,99,235,0.05)", borderColor: "rgba(37,99,235,0.18)", color: "#1e40af" }}
                   >
                     <Icon className="h-3.5 w-3.5" aria-hidden="true" />
