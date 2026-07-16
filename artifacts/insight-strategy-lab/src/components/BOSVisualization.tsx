@@ -108,14 +108,18 @@ export function BOSVisualization() {
               transition: "opacity 0.6s 650ms, transform 0.6s 650ms, box-shadow 0.6s 650ms",
             }}
           >
-            <div className="flex items-center justify-center gap-2 mb-1">
+            <div className="flex items-center justify-center gap-2 mb-2">
               <Layers className="h-5 w-5 text-white shrink-0" aria-hidden="true" />
               <div className="text-white font-black text-sm tracking-wide leading-snug">
                 BUSINESS OPERATING SYSTEM
               </div>
             </div>
-            <div className="text-blue-200 text-[10px] font-bold tracking-[0.18em]">
-              CLARITY · VISIBILITY · GROWTH
+            <div className="flex justify-center gap-x-4 flex-wrap">
+              {["Clarity", "Accountability", "Visibility", "Scalability", "Growth"].map((outcome) => (
+                <span key={outcome} className="text-blue-200 text-[10px] font-semibold whitespace-nowrap">
+                  ✓ {outcome}
+                </span>
+              ))}
             </div>
           </div>
         </div>

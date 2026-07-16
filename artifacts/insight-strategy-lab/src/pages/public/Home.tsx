@@ -178,7 +178,7 @@ export default function Home() {
                   className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
                   style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
                 >
-                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
+                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses, Nonprofits &amp; Mission-Driven Organizations
                 </a>
               </div>
 
@@ -208,7 +208,7 @@ export default function Home() {
               </h1>
 
               <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-2" style={{ animationDelay: "200ms" }}>
-                Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
+                We help organizations integrate People, Processes, Technology, Data, and AI into a scalable Business Operating System that creates clarity, accountability, efficiency, and measurable growth.
               </p>
 
               {/* Emotional line */}
@@ -236,6 +236,7 @@ export default function Home() {
                   "Eliminate manual work",
                   "Connect AI into one workflow",
                   "Real-time visibility",
+                  "Standardize operations",
                 ].map((item) => (
                   <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600">
                     <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
