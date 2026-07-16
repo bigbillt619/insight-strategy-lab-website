@@ -7,12 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Database, CheckCircle2, ArrowRight, Play } from "lucide-react";
 import { useState } from "react";
 import { FadeUp } from "@/components/FadeUp";
+import { resolveAppThumbnail } from "@/lib/utils";
 import type { AppItem } from "@/lib/types";
 
 function AppCard({ app }: { app: AppItem }) {
   const [playing, setPlaying] = useState(false);
   const [imgError, setImgError] = useState(false);
-  const thumbSrc = imgError ? null : app.thumbnail_url;
+  const thumbSrc = imgError ? null : resolveAppThumbnail(app.thumbnail_url, app.youtube_url);
   return (
     <FadeUp>
       <div className="group bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300">

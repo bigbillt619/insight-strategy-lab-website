@@ -13,6 +13,7 @@ import {
   Clock, Zap, X, ArrowRight, Star,
 } from "lucide-react";
 import { FadeUp } from "@/components/FadeUp";
+import { resolveAppThumbnail } from "@/lib/utils";
 import { usePublishedApps } from "@/features/apps/api";
 import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
@@ -44,15 +45,16 @@ function StatCard({ value, label, delay, active }: { value: number; label: strin
   );
 }
 
-function AppPreviewCard({ app }: { app: { id: string; title: string; description: string; thumbnail_url?: string } }) {
+function AppPreviewCard({ app }: { app: { id: string; title: string; description: string; thumbnail_url?: string; youtube_url?: string } }) {
   const [imgError, setImgError] = useState(false);
-  const showImg = app.thumbnail_url && !imgError;
+  const resolvedThumb = resolveAppThumbnail(app.thumbnail_url, app.youtube_url);
+  const showImg = resolvedThumb && !imgError;
   return (
     <div className="group flex flex-col bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 overflow-hidden">
       <div className="aspect-video bg-gray-100 overflow-hidden">
         {showImg ? (
           <img
-            src={app.thumbnail_url}
+            src={resolvedThumb!}
             alt={app.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             onError={() => setImgError(true)}
