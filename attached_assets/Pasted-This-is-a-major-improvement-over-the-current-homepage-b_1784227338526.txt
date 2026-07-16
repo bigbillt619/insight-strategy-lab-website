@@ -1,0 +1,274 @@
+This is a **major improvement over the current homepage**, but looking at it through a conversion lens, there are still a few issues preventing it from matching the high-performing examples you originally shared.
+
+## What's Working
+
+### ✅ Headline
+
+The headline is strong and outcome-focused:
+
+> "Finally get your people, processes, technology, data, and AI working together."
+
+This is much better than leading with consulting services.
+
+### ✅ CTA Placement
+
+Primary CTA is above the fold and clearly visible.
+
+### ✅ Visual Hierarchy
+
+The headline dominates the page, which is exactly what should happen.
+
+### ✅ Trust Pills
+
+Veteran, SHRM-CP, AI Business Strategy are good credibility indicators.
+
+***
+
+# Biggest Issue
+
+## The stats are stealing attention from the BOS visualization
+
+Your original spec called for:
+
+```text
+People
+↓
+Processes
+↓
+Technology
+↓
+Data
+↓
+AI
+↓
+Business Operating System
+```
+
+That graphic is the unique differentiator.
+
+Right now visitors see:
+
+```text
+Headline
++
+Statistics
+```
+
+rather than
+
+```text
+Headline
++
+Transformation Framework
+```
+
+The right column should sell the transformation.
+
+The stats belong BELOW the hero.
+
+***
+
+## Recommended Hero Layout
+
+### Left Side
+
+Keep mostly as-is.
+
+Add:
+
+```text
+★★★★★ Trusted by Small Businesses &
+Mission-Driven Organizations
+```
+
+Then:
+
+```text
+Finally get your people,
+processes, technology,
+data, and AI working together.
+```
+
+Then benefits.
+
+Then CTA.
+
+***
+
+### Right Side
+
+Replace the stats box completely with:
+
+### Animated BOS Framework
+
+```text
+      PEOPLE
+
+         ↓
+
+    PROCESSES
+
+         ↓
+
+    TECHNOLOGY
+
+         ↓
+
+       DATA
+
+         ↓
+
+        AI
+
+         ↓
+
+ ┌───────────────────┐
+ │ BUSINESS          │
+ │ OPERATING SYSTEM  │
+ └───────────────────┘
+```
+
+Use:
+
+* glowing lines
+* pulse animation
+* dashboard cards
+* floating data widgets
+
+This is what makes ISL different.
+
+***
+
+# Headline Improvement
+
+Current:
+
+> Finally get your people, processes, technology, data, and AI working together.
+
+Stronger:
+
+> Finally get your people, processes, technology, data, and AI working together in one operating system.
+
+Or:
+
+> Finally build an operating system that aligns your people, processes, technology, data, and AI.
+
+The phrase **"one operating system"** reinforces the BOS concept immediately.
+
+***
+
+# Missing Emotional Transformation
+
+The examples you showed weren't just logical.
+
+They sold control.
+
+For example:
+
+> "Finally feel understood, supported and in control..."
+
+or
+
+> "Get full visibility..."
+
+Your hero currently speaks to operations.
+
+Add one emotional line.
+
+Example:
+
+```text
+Stop managing disconnected systems
+and start leading with clarity,
+visibility, and confidence.
+```
+
+That speaks to an Executive Director, business owner, or nonprofit leader.
+
+***
+
+# Statistics Section
+
+Move it below the hero.
+
+Create a dedicated section:
+
+## The Hidden Cost of Operational Complexity
+
+Then the 4 cards:
+
+```text
+36%
+Admin Work
+
+31%
+Repetitive Tasks
+
+81%
+Digital Transformation Priority
+
+56%
+Exceeded Expected ROI
+```
+
+This becomes supporting proof rather than competing with the hero.
+
+***
+
+# Add a Social Proof Row
+
+Right below CTA:
+
+```text
+✓ Veteran-Owned Business
+✓ 27 Years Leadership Experience
+✓ SHRM-CP Certified
+✓ AI & Digital Transformation Expertise
+✓ Small Business & Nonprofit Focus
+```
+
+Five indicators feels more substantial than three.
+
+***
+
+# The Missing Metric
+
+You need one statement immediately under the hero:
+
+```text
+Helping organizations integrate
+People, Processes, Technology,
+Data, and AI into one Business
+Operating System.
+```
+
+or
+
+```text
+Operational clarity. Process discipline.
+Technology alignment. AI acceleration.
+```
+
+This becomes your "what we actually do" sentence.
+
+***
+
+# Conversion Rating
+
+Compared to your original homepage:
+
+**9/10 improvement**
+
+Compared to the examples you shared:
+
+**7.5/10**
+
+To get to a **9.5/10**, I would:
+
+1. Remove stats from hero
+2. Add BOS framework visualization
+3. Add emotional outcome language ("clarity", "visibility", "confidence")
+4. Move stats below hero
+5. Make "Business Operating System" visible above the fold
+
+The biggest missed opportunity right now is that a visitor still doesn't immediately *see* the BOS framework. That's your unique methodology and should be the dominant visual in the hero.

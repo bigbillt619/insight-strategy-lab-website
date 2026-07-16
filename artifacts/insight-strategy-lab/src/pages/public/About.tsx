@@ -149,18 +149,20 @@ export default function About() {
       )}
 
       {/* ─── Badges ───────────────────────────────────────── */}
-      {badges.length > 0 && (
-        <section className="py-16 md:py-24 bg-white">
-          <div className="container mx-auto px-6 max-w-4xl">
-            <FadeUp>
-              <h2 className="text-3xl font-black text-gray-900 mb-3">{get("badges_heading") || "Certifications"}</h2>
-            </FadeUp>
-            {get("badges_caption").trim() && (
-              <FadeUp delay={60}>
-                <p className="text-gray-600 text-lg mb-10">{get("badges_caption")}</p>
-              </FadeUp>
-            )}
-            <FadeUp delay={100}>
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <FadeUp>
+            <h2 className="text-3xl font-black text-gray-900 mb-3">
+              {get("badges_heading") || "Certifications & Badges"}
+            </h2>
+          </FadeUp>
+          <FadeUp delay={60}>
+            <p className="text-gray-600 text-lg mb-10">
+              {get("badges_caption") || "Additional certifications across analytics, systems, and digital transformation."}
+            </p>
+          </FadeUp>
+          <FadeUp delay={100}>
+            {badges.length > 0 ? (
               <div className="flex flex-wrap items-center gap-6">
                 {badges.map((b, i) => {
                   if (b.image) {
@@ -191,56 +193,68 @@ export default function About() {
                   );
                 })}
               </div>
-            </FadeUp>
-          </div>
-        </section>
-      )}
+            ) : (
+              <img
+                src="/certifications.png"
+                alt="Certifications and badges"
+                className="w-full max-w-3xl rounded-2xl border border-gray-100 shadow-sm"
+              />
+            )}
+          </FadeUp>
+        </div>
+      </section>
 
       {/* ─── Publications ─────────────────────────────────── */}
-      {publications.length > 0 && (
-        <section className="py-16 md:py-24" style={{ background: "#F3F4F6" }}>
-          <div className="container mx-auto px-6 max-w-4xl">
-            <FadeUp>
-              <h2 className="text-3xl font-black text-gray-900 mb-3">{get("pubs_heading") || "Publications"}</h2>
-            </FadeUp>
-            {get("pubs_intro").trim() && (
-              <FadeUp delay={60}>
-                <p className="text-gray-600 text-lg mb-10">{get("pubs_intro")}</p>
-              </FadeUp>
-            )}
-            <div className="space-y-3">
-              {publications.map((p, i) => {
-                const label = p.title || "View publication";
-                const content = (
-                  <>
-                    <FileText className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
-                    <span className="font-medium text-gray-800">{label}</span>
-                    {p.link && <ArrowRight className="h-4 w-4 ml-auto" style={{ color: "#2563EB" }} aria-hidden="true" />}
-                  </>
-                );
-                return p.link ? (
-                  <FadeUp key={i} delay={i * 50}>
-                    <a
-                      href={p.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-200"
-                    >
-                      {content}
-                    </a>
-                  </FadeUp>
-                ) : (
-                  <FadeUp key={i} delay={i * 50}>
-                    <div className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm">
-                      {content}
-                    </div>
-                  </FadeUp>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-      )}
+      <section className="py-16 md:py-24" style={{ background: "#F3F4F6" }}>
+        <div className="container mx-auto px-6 max-w-4xl">
+          <FadeUp>
+            <h2 className="text-3xl font-black text-gray-900 mb-3">
+              {get("pubs_heading") || "Research & Publications"}
+            </h2>
+          </FadeUp>
+          <FadeUp delay={60}>
+            <p className="text-gray-600 text-lg mb-10">
+              {get("pubs_intro") || "My work includes research on operational systems, workforce dynamics, and organizational performance, reinforcing a systems-driven approach to business design."}
+            </p>
+          </FadeUp>
+
+          {(() => {
+            const items = publications.length > 0
+              ? publications
+              : [
+                  { title: "Hardening Warfighting's Critical Vulnerability: The Need to Implement a Strategic HR Methodology in the Marine Corps", link: "" },
+                  { title: "Forecasting Enlisted Attrition in the Marine Corps by Grade and Years of Service", link: "" },
+                ];
+            return (
+              <div className="space-y-3">
+                {items.map((p, i) => {
+                  const label = p.title || "View publication";
+                  const content = (
+                    <>
+                      <FileText className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
+                      <span className="font-medium text-gray-800">{label}</span>
+                      {p.link && <ArrowRight className="h-4 w-4 ml-auto" style={{ color: "#2563EB" }} aria-hidden="true" />}
+                    </>
+                  );
+                  return p.link ? (
+                    <FadeUp key={i} delay={i * 50}>
+                      <a href={p.link} target="_blank" rel="noreferrer" className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-200">
+                        {content}
+                      </a>
+                    </FadeUp>
+                  ) : (
+                    <FadeUp key={i} delay={i * 50}>
+                      <div className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm">
+                        {content}
+                      </div>
+                    </FadeUp>
+                  );
+                })}
+              </div>
+            );
+          })()}
+        </div>
+      </section>
 
       {/* ─── Family & Values ──────────────────────────────── */}
       <section className="py-16 md:py-24 bg-white">
