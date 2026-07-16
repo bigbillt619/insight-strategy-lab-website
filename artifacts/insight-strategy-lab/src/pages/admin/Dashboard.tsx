@@ -5,7 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Database } from "lucide-react";
 import { LeadManager } from "./LeadManager";
 import { AppManager } from "./AppManager";
-import { SiteSettingsManager } from "./SiteSettingsManager";
 import { PageContentManager } from "./PageContentManager";
 
 export default function Dashboard() {
@@ -46,8 +45,7 @@ export default function Dashboard() {
         <TabsList className="w-full justify-start border-b rounded-none h-auto p-0 bg-transparent mb-6 flex-wrap">
           <TabsTrigger value="leads" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Leads Pipeline</TabsTrigger>
           <TabsTrigger value="apps" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Apps Manager</TabsTrigger>
-          <TabsTrigger value="pages" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Page Content</TabsTrigger>
-          <TabsTrigger value="settings" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Site Settings</TabsTrigger>
+          <TabsTrigger value="pages" className="data-[state=active]:bg-transparent data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none px-6 py-3">Content</TabsTrigger>
         </TabsList>
 
         <TabsContent value="leads" className="m-0">
@@ -60,10 +58,6 @@ export default function Dashboard() {
 
         <TabsContent value="pages" className="m-0">
           <PageContentManager />
-        </TabsContent>
-
-        <TabsContent value="settings" className="m-0">
-          <SiteSettingsManager />
         </TabsContent>
 
       </Tabs>
