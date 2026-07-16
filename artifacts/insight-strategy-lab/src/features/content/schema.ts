@@ -163,8 +163,8 @@ export const HOME_GROUP: ContentGroup = {
     // ── Final CTA ──
     { key: "final_cta_heading", section: "Final CTA", label: "Heading (use a new line for the line break)", type: "textarea", default: "Stop Managing Chaos.\nStart Operating With Clarity." },
     { key: "final_cta_body", section: "Final CTA", label: "Body", type: "textarea", default: "Get a clear understanding of your biggest operational opportunities and a practical roadmap for improvement." },
-    { key: "final_cta_1", section: "Final CTA", label: "Primary button", type: "text", default: "Book Your Free Strategy Session" },
-    { key: "final_cta_2", section: "Final CTA", label: "Secondary button", type: "text", default: "Schedule a Discovery Call" },
+    { key: "final_cta_1", section: "Final CTA", label: "Primary button (links to System Diagnostic)", type: "text", default: "Start Your System Diagnostic" },
+    { key: "final_cta_2", section: "Final CTA", label: "Secondary button (links to Contact form)", type: "text", default: "Schedule a Discovery Call" },
     { key: "final_cta_note", section: "Final CTA", label: "Footnote", type: "text", default: "No obligation. Just actionable insights and a clear path forward." },
   ],
 };
@@ -208,7 +208,7 @@ export const SERVICES_GROUP: ContentGroup = {
     { key: "get_heading", label: "What you get — heading", type: "text", default: "What You Get", help: "Leave empty to hide this section." },
     { key: "cta_heading", label: "Bottom CTA — heading", type: "text", default: "Ready to build the system your business actually needs?" },
     { key: "cta_body", label: "Bottom CTA — body", type: "textarea", default: "Start with a short system diagnostic to identify your biggest bottlenecks and the right system to build first." },
-    { key: "cta_button", label: "Bottom CTA — button", type: "text", default: "Start Your System Diagnostic" },
+    { key: "cta_button", label: "Bottom CTA — button (links to Contact form)", type: "text", default: "Book a Free Strategy Session" },
   ],
 };
 

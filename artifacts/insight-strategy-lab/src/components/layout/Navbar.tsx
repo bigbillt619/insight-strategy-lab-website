@@ -64,7 +64,7 @@ export default function Navbar() {
           </div>
 
           <Button asChild variant="default" size="sm" className="ml-2">
-            <Link href="/diagnostic">Free Strategy Call</Link>
+            <Link href="/contact">Free Strategy Call</Link>
           </Button>
         </div>
 
@@ -109,7 +109,7 @@ export default function Navbar() {
           </div>
 
           <Button asChild variant="default" className="w-full mt-4" onClick={() => setIsOpen(false)}>
-            <Link href="/diagnostic">Free Strategy Call</Link>
+            <Link href="/contact">Free Strategy Call</Link>
           </Button>
         </div>
       )}
