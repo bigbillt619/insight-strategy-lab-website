@@ -53,15 +53,10 @@ export const GLOBAL_GROUP: ContentGroup = {
 export const HOME_GROUP: ContentGroup = {
   page: "home",
   title: "Home Page",
-  description: "The home page layout and sections are fixed by design. These fields control SEO and the optional featured review shown below the hero.",
+  description: "The home page layout and sections are fixed by design. These fields control how the page appears in Google search results.",
   fields: [
     { key: "seo_title", label: "SEO page title", type: "text", default: "Business Operating Systems for Small Businesses | Insight Strategy Lab", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
     { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Insight Strategy Lab helps small businesses, nonprofits, and mission-driven organizations integrate people, processes, technology, data, and AI into a scalable Business Operating System that drives clarity, accountability, and growth.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
-    { key: "review_quote", label: "Featured review — quote", type: "textarea", default: "", help: "A client quote shown below the hero section. Leave empty to hide it entirely." },
-    { key: "review_author", label: "Featured review — author name", type: "text", default: "" },
-    { key: "review_role", label: "Featured review — author title / business", type: "text", default: "" },
-    { key: "review_rating", label: "Featured review — star rating (1–5)", type: "number", default: "5" },
-    { key: "review_link", label: "Featured review — Google link", type: "url", default: "", help: "Where 'Read on Google' opens. Leave empty to hide the link." },
   ],
 };
 
