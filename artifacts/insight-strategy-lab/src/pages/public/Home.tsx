@@ -165,7 +165,7 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start py-10 md:py-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 items-start py-8 md:py-10">
 
             {/* ── LEFT: Hero content ── */}
             <div>
@@ -205,8 +205,12 @@ export default function Home() {
                 <span style={{ color: "#2563EB" }}>working together.</span>
               </h1>
 
-              <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-4" style={{ animationDelay: "200ms" }}>
+              <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-2" style={{ animationDelay: "200ms" }}>
                 Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
+              </p>
+
+              <p className="hero-animate text-sm font-semibold mb-4" style={{ animationDelay: "240ms", color: "#2563EB" }}>
+                Stop managing disconnected systems — start leading with clarity, visibility, and confidence.
               </p>
 
               <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "280ms" }}>
@@ -232,39 +236,35 @@ export default function Home() {
               </div>
             </div>
 
-            {/* ── RIGHT: Hidden Cost stats ── */}
-            <div ref={statsRef} className="rounded-3xl p-6 md:p-8" style={{ background: "#F3F4F6" }}>
-              <FadeUp>
-                <h2 className="text-xl md:text-2xl font-black text-gray-900 mb-2">The Hidden Cost of Operational Complexity</h2>
-              </FadeUp>
-              <FadeUp delay={80}>
-                <p className="text-sm text-gray-600 mb-6 leading-relaxed">
-                  Most organizations struggle not from lack of effort, but from systems that consume time, visibility, and growth.
-                </p>
-              </FadeUp>
+            {/* ── RIGHT: BOS Framework Visualization ── */}
+            <BOSVisualization />
 
-              {/* 2×2 stat grid */}
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { value: 36, label: "of workweek spent on admin instead of growth" },
-                  { value: 31, label: "of owners spend half their time on repetitive tasks" },
-                  { value: 81, label: "of leaders say digital transformation is essential" },
-                  { value: 56, label: "of organizations exceeded expected ROI" },
-                ].map(({ value, label }, i) => (
-                  <div
-                    key={label}
-                    className="bg-white rounded-2xl border border-gray-100 shadow-sm py-6 px-4 flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
-                    style={{ opacity: statsInView ? 1 : 0, transform: statsInView ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.5s ${i * 100}ms, transform 0.5s ${i * 100}ms` }}
-                  >
-                    <div className="text-3xl md:text-4xl font-black mb-1.5" style={{ color: "#2563EB" }}>
-                      <StatNum value={value} active={statsInView} />%
-                    </div>
-                    <p className="text-gray-500 text-xs leading-snug">{label}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* ─── SECTION: HIDDEN COST STATS ─────────────────────────── */}
+      <section ref={statsRef} className="py-16 md:py-20" style={{ background: "#F3F4F6" }}>
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <FadeUp>
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">The Hidden Cost of Operational Complexity</h2>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
+                Most organizations struggle not from lack of effort, but from systems that consume time, visibility, and growth.
+              </p>
+            </FadeUp>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
+            {[
+              { value: 36, label: "of workweek spent on admin instead of growth" },
+              { value: 31, label: "of owners spend half their time on repetitive tasks" },
+              { value: 81, label: "of leaders say digital transformation is essential" },
+              { value: 56, label: "of organizations exceeded expected ROI with transformation" },
+            ].map(({ value, label }, i) => (
+              <StatCard key={label} value={value} label={label} delay={i * 100} active={statsInView} />
+            ))}
           </div>
         </div>
       </section>
