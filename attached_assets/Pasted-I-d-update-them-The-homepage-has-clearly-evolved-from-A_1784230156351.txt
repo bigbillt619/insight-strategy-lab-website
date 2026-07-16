@@ -1,0 +1,166 @@
+I'd update them. The homepage has clearly evolved from **"AI systems consultant"** to **"Business Operating System architect and implementation partner."**
+
+Right now, your SEO is telling Google one story while your homepage is telling another.
+
+## My Recommendations
+
+### 🏠 Home
+
+**Current issue:**
+
+* Too long
+* Overly geo-targeted
+* Doesn't reflect BOS positioning
+
+**Title**
+
+```text
+Business Operating Systems for Small Businesses | Insight Strategy Lab
+```
+
+**Description**
+
+```text
+Insight Strategy Lab helps small businesses, nonprofits, and mission-driven organizations integrate people, processes, technology, data, and AI into a scalable Business Operating System that drives clarity, accountability, and growth.
+```
+
+***
+
+### ⚙️ Services & Pricing
+
+**Title**
+
+```text
+Business Operating System Design & AI Integration | Insight Strategy Lab
+```
+
+**Description**
+
+```text
+Design and implementation of Business Operating Systems that align people, processes, technology, data, and AI to improve efficiency, visibility, and organizational performance.
+```
+
+***
+
+### 📱 Apps in Production
+
+This page should become proof that your BOS methodology produces solutions.
+
+**Title**
+
+```text
+Business Operating System Applications | Insight Strategy Lab
+```
+
+**Description**
+
+```text
+Explore real-world applications built to support Business Operating Systems through workflow automation, data management, AI integration, and operational visibility.
+```
+
+***
+
+### 👤 About
+
+Your About page is more than AI now.
+
+**Title**
+
+```text
+About Bill Tamayo Jr. | Founder, Insight Strategy Lab
+```
+
+**Description**
+
+```text
+Meet Bill Tamayo Jr., retired Marine Corps Lieutenant Colonel and founder of Insight Strategy Lab, helping organizations build Business Operating Systems that integrate people, processes, technology, data, and AI.
+```
+
+***
+
+### 📬 Contact
+
+**Title**
+
+```text
+Contact Insight Strategy Lab | Schedule a Strategy Session
+```
+
+**Description**
+
+```text
+Schedule a strategy session to explore how a Business Operating System can help your organization improve efficiency, visibility, accountability, and growth.
+```
+
+***
+
+### 🔬 Diagnostic
+
+This page is actually a strong BOS entry point.
+
+**Title**
+
+```text
+Business Operating System Assessment | Insight Strategy Lab
+```
+
+**Description**
+
+```text
+Identify operational gaps and opportunities across people, processes, technology, data, and AI with a Business Operating System assessment.
+```
+
+***
+
+## Local SEO Consideration
+
+Don't completely abandon Murrieta/Temecula terms.
+
+Instead:
+
+### Homepage SEO
+
+Focus on:
+
+```text
+Business Operating System
+AI Integration
+Digital Transformation
+```
+
+### Footer
+
+Add:
+
+```text
+Serving Murrieta, Temecula, Menifee, Wildomar,
+Lake Elsinore, and organizations nationwide.
+```
+
+### Contact Page
+
+Mention:
+
+```text
+Based in Murrieta, California
+```
+
+This gives you local relevance without stuffing the homepage title.
+
+***
+
+## If You Could Only Change One Thing
+
+Change the homepage title to:
+
+```text
+Business Operating Systems for Small Businesses | Insight Strategy Lab
+```
+
+And the homepage description to:
+
+```text
+Insight Strategy Lab helps small businesses, nonprofits, and mission-driven organizations integrate people, processes, technology, data, and AI into a scalable Business Operating System that drives clarity, accountability, and growth.
+```
+
+That would immediately align your SEO with the much stronger positioning you've built into the new homepage.
