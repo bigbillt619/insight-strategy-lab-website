@@ -95,11 +95,11 @@ export default function Services() {
                 </p>
               </div>
               <a
-                href="/#process"
+                href="/diagnostic"
                 className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold border transition-all hover:shadow-md"
                 style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
               >
-                See How It Works <ArrowRight className="h-4 w-4" />
+                Start System Diagnostic <ArrowRight className="h-4 w-4" />
               </a>
             </div>
           </FadeUp>
