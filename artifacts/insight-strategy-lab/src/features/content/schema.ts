@@ -280,6 +280,7 @@ export const ABOUT_GROUP: ContentGroup = {
     { key: "howiwork_items", label: "How I work — steps", type: "list", default: "Diagnose the current system (or lack of one)\nDesign a system aligned to how the business operates\nBuild and integrate the solution\nSupport adoption and evolution over time", help: "One step per line." },
     { key: "edu_section_heading", section: "Education", label: "Education section — heading", type: "text", default: "Education, Certifications & Research" },
     { key: "edu_section_subtitle", section: "Education", label: "Education section — subtitle", type: "text", default: "The foundation behind every system built." },
+    { key: "family_photo", section: "Family & Values", label: "Family photo", type: "image", default: "", help: "Upload or paste a URL for the family photo. Falls back to the default photo if left empty." },
     { key: "family_heading", section: "Family & Values", label: "Heading", type: "text", default: "Driven by Purpose. Grounded in Family." },
     { key: "family_body_1", section: "Family & Values", label: "Paragraph 1", type: "textarea", default: "The same values that guide our family — commitment, accountability, service, and integrity — also guide the work we do at Insight Strategy Lab." },
     { key: "family_body_2", section: "Family & Values", label: "Paragraph 2", type: "textarea", default: "Building systems that help organizations thrive is about more than efficiency." },

@@ -280,7 +280,7 @@ export default function About() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <FadeUp>
               <img
-                src="/family-photo.jpg"
+                src={get("family_photo") || "/family-photo.jpg"}
                 alt="Bill Tamayo and family"
                 className="w-full rounded-2xl object-cover shadow-xl border border-gray-100"
                 style={{ maxHeight: "420px" }}
