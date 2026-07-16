@@ -48,6 +48,11 @@ function StatCard({ value, suffix = "%", label, delay, active }: { value: number
 }
 
 
+function StatNum({ value, active }: { value: number; active: boolean }) {
+  const count = useCountUp(value, 1600, active);
+  return <>{count}</>;
+}
+
 function AppPreviewCard({ app }: { app: AppItem }) {
   const [playing, setPlaying] = useState(false);
   const thumb = youTubeThumb(app.youtube_url ?? "") ?? (app.thumbnail_url || "");
@@ -152,92 +157,104 @@ export default function Home() {
         }
       `}</style>
 
-      {/* ─── SECTION 1: HERO ─────────────────────────────────────── */}
-      <section className="relative bg-white pt-10 pb-6 md:pt-14 md:pb-10 overflow-hidden">
+      {/* ─── SECTION 1+2: HERO + STATS (two-column) ─────────────── */}
+      <section className="relative bg-white overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle,#2563EB,transparent)", transform: "translate(20%,-20%)" }} />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle,#2563EB,transparent)", transform: "translate(-30%,30%)" }} />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="hero-animate mb-5" style={{ animationDelay: "0ms" }}>
-              <a
-                href="https://g.page/r/CX2HyTtBwIIVEAE/review"
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
-                style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
-              >
-                <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
-              </a>
-            </div>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center py-10 md:py-16">
 
-            <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-4" style={{ animationDelay: "80ms" }}>
-              Finally get your people, processes, technology, data, and AI{" "}
-              <span style={{ color: "#2563EB" }}>working together.</span>
-            </h1>
+            {/* ── LEFT: Hero content ── */}
+            <div>
+              <div className="hero-animate mb-5" style={{ animationDelay: "0ms" }}>
+                <a
+                  href="https://g.page/r/CX2HyTtBwIIVEAE/review"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
+                  style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
+                >
+                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
+                </a>
+              </div>
 
-            <p className="hero-animate text-base text-gray-600 leading-relaxed mb-5" style={{ animationDelay: "160ms" }}>
-              Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
-            </p>
+              <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-4" style={{ animationDelay: "80ms" }}>
+                Finally get your people, processes, technology, data, and AI{" "}
+                <span style={{ color: "#2563EB" }}>working together.</span>
+              </h1>
 
-            <div className="hero-animate flex flex-col sm:flex-row gap-3 justify-center mb-5" style={{ animationDelay: "240ms" }}>
-              <Button asChild size="lg" className="text-base h-12 px-7 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                <Link href="/contact">Book Free Strategy Session</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="text-base h-12 px-7 font-semibold">
-                <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
-              </Button>
-            </div>
-
-            <div className="hero-animate flex flex-wrap justify-center gap-x-6 gap-y-2" style={{ animationDelay: "300ms" }}>
-              {[
-                "Eliminate manual work",
-                "Connect AI into one workflow",
-                "Real-time operational visibility",
-              ].map((item) => (
-                <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600">
-                  <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
-                  {item}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── SECTION 2: WHY THIS MATTERS (Stats) ────────────────── */}
-      <section ref={statsRef} className="py-12 md:py-16" style={{ background: "#F3F4F6" }}>
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-8">
-            <FadeUp>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">The Hidden Cost of Operational Complexity</h2>
-            </FadeUp>
-            <FadeUp delay={100}>
-              <p className="text-gray-600 max-w-xl mx-auto">
-                Most organizations aren't struggling because people aren't working hard — they're struggling because inefficient systems consume time, visibility, and growth.
+              <p className="hero-animate text-base text-gray-600 leading-relaxed mb-6" style={{ animationDelay: "160ms" }}>
+                Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
               </p>
-            </FadeUp>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-            <StatCard value={36} label="of an entrepreneur's workweek is spent on administrative work instead of strategic growth." delay={0} active={statsInView} />
-            <StatCard value={31} label="of business owners spend up to half their time managing repetitive, low-value tasks." delay={100} active={statsInView} />
-            <StatCard value={81} label="of business leaders consider digital transformation essential to long-term success." delay={200} active={statsInView} />
-            <StatCard value={56} label="of organizations report digital transformation initiatives exceeded expected ROI." delay={300} active={statsInView} />
-          </div>
+              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-6" style={{ animationDelay: "240ms" }}>
+                <Button asChild size="lg" className="text-base h-12 px-7 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
+                  <Link href="/contact">Book Free Strategy Session</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="text-base h-12 px-7 font-semibold">
+                  <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
+                </Button>
+              </div>
 
-          <FadeUp delay={200}>
-            <p className="text-center text-gray-500 italic mb-8 max-w-xl mx-auto">The goal isn't to work harder. It's to build an operating system that helps your organization perform at a higher level.</p>
-          </FadeUp>
-          <FadeUp delay={300}>
-            <div className="flex justify-center">
-              <Button asChild size="lg" className="text-base h-12 px-8 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                <Link href="/contact">See How We Can Help</Link>
-              </Button>
+              <div className="hero-animate flex flex-wrap gap-x-5 gap-y-2" style={{ animationDelay: "300ms" }}>
+                {[
+                  "Eliminate manual work",
+                  "Connect AI into one workflow",
+                  "Real-time operational visibility",
+                ].map((item) => (
+                  <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600">
+                    <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
+                    {item}
+                  </span>
+                ))}
+              </div>
             </div>
-          </FadeUp>
+
+            {/* ── RIGHT: Hidden Cost stats ── */}
+            <div ref={statsRef} className="rounded-3xl p-6 md:p-8" style={{ background: "#F3F4F6" }}>
+              <FadeUp>
+                <h2 className="text-xl md:text-2xl font-black text-gray-900 mb-2">The Hidden Cost of Operational Complexity</h2>
+              </FadeUp>
+              <FadeUp delay={80}>
+                <p className="text-sm text-gray-600 mb-6 leading-relaxed">
+                  Most organizations struggle not from lack of effort, but from systems that consume time, visibility, and growth.
+                </p>
+              </FadeUp>
+
+              {/* 2×2 square stat grid */}
+              <div className="grid grid-cols-2 gap-3">
+                {[
+                  { value: 36, label: "of workweek spent on admin instead of growth" },
+                  { value: 31, label: "of owners spend half their time on repetitive tasks" },
+                  { value: 81, label: "of leaders say digital transformation is essential" },
+                  { value: 56, label: "of organizations exceeded expected ROI" },
+                ].map(({ value, label }, i) => (
+                  <div
+                    key={label}
+                    className="aspect-square bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    style={{ opacity: statsInView ? 1 : 0, transform: statsInView ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.5s ${i * 100}ms, transform 0.5s ${i * 100}ms` }}
+                  >
+                    <div className="text-3xl md:text-4xl font-black mb-2" style={{ color: "#2563EB" }}>
+                      <StatNum value={value} active={statsInView} />%
+                    </div>
+                    <p className="text-gray-500 text-xs leading-snug">{label}</p>
+                  </div>
+                ))}
+              </div>
+
+              <FadeUp delay={400}>
+                <div className="mt-5 flex justify-center">
+                  <Button asChild size="sm" className="font-semibold px-6" style={{ background: "#2563EB", color: "white" }}>
+                    <Link href="/contact">See How We Can Help</Link>
+                  </Button>
+                </div>
+              </FadeUp>
+            </div>
+
+          </div>
         </div>
       </section>
 
