@@ -536,7 +536,7 @@ export default function Home() {
           <FadeUp delay={300}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
               <Button asChild size="lg" className="text-base h-12 px-8 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                <Link href="/contact">{get("final_cta_1")}</Link>
+                <Link href="/diagnostic">{get("final_cta_1")}</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="text-base h-12 px-8 font-semibold text-white border-white/20 hover:bg-white/5">
                 <Link href="/contact">{get("final_cta_2")}</Link>
