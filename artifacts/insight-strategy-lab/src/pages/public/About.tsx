@@ -138,137 +138,148 @@ export default function About() {
         </section>
       )}
 
-      {/* ─── Credentials ──────────────────────────────────── */}
-      {creds.length > 0 && (
-        <section className="py-16 md:py-24" style={{ background: "#F3F4F6" }}>
-          <div className="container mx-auto px-6 max-w-4xl">
-            <FadeUp>
-              <h2 className="text-3xl font-black text-gray-900 mb-3">{get("creds_heading") || "Credentials"}</h2>
-            </FadeUp>
-            {get("creds_intro").trim() && (
-              <FadeUp delay={60}>
-                <p className="text-gray-600 text-lg mb-10">{get("creds_intro")}</p>
-              </FadeUp>
-            )}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {creds.map((c, i) => (
-                <FadeUp key={i} delay={i * 50}>
-                  <div className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                    <CheckCircle2 className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
-                    <span className="font-medium text-gray-800">{c}</span>
-                  </div>
-                </FadeUp>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
-
-      {/* ─── Badges ───────────────────────────────────────── */}
-      <section className="py-16 md:py-24 bg-white">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <FadeUp>
-            <h2 className="text-3xl font-black text-gray-900 mb-3">
-              {get("badges_heading") || "Certifications & Badges"}
-            </h2>
-          </FadeUp>
-          <FadeUp delay={60}>
-            <p className="text-gray-600 text-lg mb-10">
-              {get("badges_caption") || "Additional certifications across analytics, systems, and digital transformation."}
-            </p>
-          </FadeUp>
-          <FadeUp delay={100}>
-            {badges.length > 0 ? (
-              <div className="flex flex-wrap items-center gap-6">
-                {badges.map((b, i) => {
-                  if (b.image) {
-                    const img = (
-                      <img
-                        src={b.image}
-                        alt=""
-                        className="relative z-0 h-24 w-auto origin-center object-contain rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition-transform duration-300 ease-out hover:z-30 hover:scale-[2.5] hover:shadow-2xl"
-                      />
-                    );
-                    return b.link ? (
-                      <a key={i} href={b.link} target="_blank" rel="noreferrer" className="block">{img}</a>
-                    ) : (
-                      <div key={i}>{img}</div>
-                    );
-                  }
-                  return (
-                    <a
-                      key={i}
-                      href={b.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="inline-flex items-center gap-2 rounded-xl border border-gray-100 bg-white px-5 py-4 text-sm font-medium text-gray-800 shadow-sm transition-all duration-300 hover:scale-105 hover:border-blue-200 hover:shadow-md"
-                    >
-                      <Award className="h-5 w-5" style={{ color: "#2563EB" }} aria-hidden="true" />
-                      View Certificate
-                    </a>
-                  );
-                })}
-              </div>
-            ) : (
-              <img
-                src="/certifications.png"
-                alt="Certifications and badges"
-                className="w-full max-w-3xl rounded-2xl border border-gray-100 shadow-sm"
-              />
-            )}
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ─── Publications ─────────────────────────────────── */}
+      {/* ─── Education, Certifications & Research ─────────── */}
       <section className="py-16 md:py-24" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6 max-w-4xl">
+
           <FadeUp>
-            <h2 className="text-3xl font-black text-gray-900 mb-3">
-              {get("pubs_heading") || "Research & Publications"}
-            </h2>
-          </FadeUp>
-          <FadeUp delay={60}>
-            <p className="text-gray-600 text-lg mb-10">
-              {get("pubs_intro") || "My work includes research on operational systems, workforce dynamics, and organizational performance, reinforcing a systems-driven approach to business design."}
-            </p>
+            <h2 className="text-3xl font-black text-gray-900 mb-2">Education, Certifications &amp; Research</h2>
+            <p className="text-gray-500 text-lg mb-14">The foundation behind every system built.</p>
           </FadeUp>
 
-          {(() => {
-            const items = publications.length > 0
-              ? publications
-              : [
-                  { title: "Hardening Warfighting's Critical Vulnerability: The Need to Implement a Strategic HR Methodology in the Marine Corps", link: "" },
-                  { title: "Forecasting Enlisted Attrition in the Marine Corps by Grade and Years of Service", link: "" },
-                ];
-            return (
-              <div className="space-y-3">
-                {items.map((p, i) => {
-                  const label = p.title || "View publication";
-                  const content = (
-                    <>
-                      <FileText className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
-                      <span className="font-medium text-gray-800">{label}</span>
-                      {p.link && <ArrowRight className="h-4 w-4 ml-auto" style={{ color: "#2563EB" }} aria-hidden="true" />}
-                    </>
-                  );
-                  return p.link ? (
-                    <FadeUp key={i} delay={i * 50}>
-                      <a href={p.link} target="_blank" rel="noreferrer" className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-200">
-                        {content}
-                      </a>
-                    </FadeUp>
-                  ) : (
-                    <FadeUp key={i} delay={i * 50}>
-                      <div className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm">
-                        {content}
-                      </div>
-                    </FadeUp>
-                  );
-                })}
+          {/* Education */}
+          {creds.length > 0 && (
+            <div className="mb-12">
+              <FadeUp>
+                <h3 className="text-lg font-bold text-gray-900 uppercase tracking-wider mb-2" style={{ color: "#2563EB" }}>
+                  {get("creds_heading") || "Education"}
+                </h3>
+              </FadeUp>
+              {get("creds_intro").trim() && (
+                <FadeUp delay={40}>
+                  <p className="text-gray-600 mb-6">{get("creds_intro")}</p>
+                </FadeUp>
+              )}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {creds.map((c, i) => (
+                  <FadeUp key={i} delay={60 + i * 40}>
+                    <div className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                      <CheckCircle2 className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
+                      <span className="font-medium text-gray-800">{c}</span>
+                    </div>
+                  </FadeUp>
+                ))}
               </div>
-            );
-          })()}
+            </div>
+          )}
+
+          {/* Certifications & Badges */}
+          <div className="mb-12">
+            <FadeUp>
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-2" style={{ color: "#2563EB" }}>
+                {get("badges_heading") || "Certifications & Badges"}
+              </h3>
+            </FadeUp>
+            {get("badges_caption").trim() && (
+              <FadeUp delay={40}>
+                <p className="text-gray-600 mb-6">{get("badges_caption")}</p>
+              </FadeUp>
+            )}
+            <FadeUp delay={80}>
+              {badges.length > 0 ? (
+                <div className="flex flex-wrap items-center gap-6">
+                  {badges.map((b, i) => {
+                    if (b.image) {
+                      const img = (
+                        <img
+                          src={b.image}
+                          alt=""
+                          className="relative z-0 h-24 w-auto origin-center object-contain rounded-xl border border-gray-100 bg-white p-3 shadow-sm transition-transform duration-300 ease-out hover:z-30 hover:scale-[2.5] hover:shadow-2xl"
+                        />
+                      );
+                      return b.link ? (
+                        <a key={i} href={b.link} target="_blank" rel="noreferrer" className="block">{img}</a>
+                      ) : (
+                        <div key={i}>{img}</div>
+                      );
+                    }
+                    return (
+                      <a
+                        key={i}
+                        href={b.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-xl border border-gray-100 bg-white px-5 py-4 text-sm font-medium text-gray-800 shadow-sm transition-all duration-300 hover:scale-105 hover:border-blue-200 hover:shadow-md"
+                      >
+                        <Award className="h-5 w-5" style={{ color: "#2563EB" }} aria-hidden="true" />
+                        View Certificate
+                      </a>
+                    );
+                  })}
+                </div>
+              ) : (
+                <img
+                  src="/certifications.png"
+                  alt="Certifications and badges"
+                  className="w-full max-w-3xl rounded-2xl border border-gray-100 shadow-sm"
+                />
+              )}
+            </FadeUp>
+          </div>
+
+          {/* Research & Publications */}
+          <div>
+            <FadeUp>
+              <h3 className="text-lg font-bold uppercase tracking-wider mb-2" style={{ color: "#2563EB" }}>
+                {get("pubs_heading") || "Research & Publications"}
+              </h3>
+            </FadeUp>
+            {get("pubs_intro").trim() && (
+              <FadeUp delay={40}>
+                <div className="text-gray-600 mb-6 space-y-3">
+                  {get("pubs_intro").split(/\n\s*\n/).map((p, i) => (
+                    <p key={i}>{p.trim()}</p>
+                  ))}
+                </div>
+              </FadeUp>
+            )}
+            {(() => {
+              const items = publications.length > 0
+                ? publications
+                : [
+                    { title: "Hardening Warfighting's Critical Vulnerability: The Need to Implement a Strategic HR Methodology in the Marine Corps", link: "" },
+                    { title: "Forecasting Enlisted Attrition in the Marine Corps by Grade and Years of Service", link: "" },
+                  ];
+              return (
+                <div className="space-y-3">
+                  {items.map((p, i) => {
+                    const label = p.title || "View publication";
+                    const content = (
+                      <>
+                        <FileText className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
+                        <span className="font-medium text-gray-800">{label}</span>
+                        {p.link && <ArrowRight className="h-4 w-4 ml-auto" style={{ color: "#2563EB" }} aria-hidden="true" />}
+                      </>
+                    );
+                    return p.link ? (
+                      <FadeUp key={i} delay={60 + i * 50}>
+                        <a href={p.link} target="_blank" rel="noreferrer" className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 hover:border-blue-200">
+                          {content}
+                        </a>
+                      </FadeUp>
+                    ) : (
+                      <FadeUp key={i} delay={60 + i * 50}>
+                        <div className="flex items-center gap-4 bg-white border border-gray-100 p-5 rounded-2xl shadow-sm">
+                          {content}
+                        </div>
+                      </FadeUp>
+                    );
+                  })}
+                </div>
+              );
+            })()}
+          </div>
+
         </div>
       </section>
 
