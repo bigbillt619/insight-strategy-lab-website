@@ -165,9 +165,15 @@ export default function Home() {
             {/* Left column */}
             <div className="space-y-7">
               <div className="hero-animate" style={{ animationDelay: "0ms" }}>
-                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
+                <a
+                  href="https://g.page/r/CX2HyTtBwIIVEAE/review"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
+                  style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
+                >
                   <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
-                </span>
+                </a>
               </div>
 
               <h1 className="hero-animate text-4xl md:text-5xl lg:text-[52px] font-black leading-[1.1] tracking-tight text-gray-900" style={{ animationDelay: "100ms" }}>
