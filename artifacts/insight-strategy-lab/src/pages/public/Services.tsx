@@ -91,7 +91,7 @@ export default function Services() {
               <div>
                 <span className="text-xs font-bold uppercase tracking-widest mb-1 block" style={{ color: "#2563EB" }}>Our Methodology</span>
                 <p className="text-gray-800 font-semibold text-lg">
-                  Every engagement follows our structured <span style={{ color: "#2563EB" }}>6-Phase Approach</span> — from Discovery to Optimization.
+                  Every engagement follows our structured <a href="/#process" style={{ color: "#2563EB", textDecoration: "underline", textUnderlineOffset: "3px" }}>6-Phase Approach</a> — from Discovery to Optimization.
                 </p>
               </div>
               <a
