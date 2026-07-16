@@ -153,98 +153,70 @@ export default function Home() {
       `}</style>
 
       {/* ─── SECTION 1: HERO ─────────────────────────────────────── */}
-      <section className="relative bg-white pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+      <section className="relative bg-white pt-10 pb-6 md:pt-14 md:pb-10 overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 right-0 w-[600px] h-[600px] rounded-full opacity-[0.04]" style={{ background: "radial-gradient(circle,#2563EB,transparent)", transform: "translate(20%,-20%)" }} />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.03]" style={{ background: "radial-gradient(circle,#2563EB,transparent)", transform: "translate(-30%,30%)" }} />
         </div>
 
         <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-
-            {/* Left column */}
-            <div className="space-y-7">
-              <div className="hero-animate" style={{ animationDelay: "0ms" }}>
-                <a
-                  href="https://g.page/r/CX2HyTtBwIIVEAE/review"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
-                  style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
-                >
-                  <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
-                </a>
-              </div>
-
-              <h1 className="hero-animate text-4xl md:text-5xl lg:text-[52px] font-black leading-[1.1] tracking-tight text-gray-900" style={{ animationDelay: "100ms" }}>
-                Finally get your people, processes, technology, data, and AI{" "}
-                <span style={{ color: "#2563EB" }}>working together</span> in one operating system.
-              </h1>
-
-              <p className="hero-animate text-lg text-gray-600 leading-relaxed max-w-xl" style={{ animationDelay: "200ms" }}>
-                Stop wasting time on disconnected tools, manual processes, and operational chaos. We help organizations build scalable operating systems that create clarity, efficiency, accountability, and measurable growth.
-              </p>
-
-              <ul className="hero-animate space-y-3" style={{ animationDelay: "300ms" }} aria-label="Key benefits">
-                {[
-                  "Eliminate manual work and duplicate effort",
-                  "Create repeatable systems that scale",
-                  "Connect technology, data, and AI into one workflow",
-                  "Gain real-time visibility into operations",
-                  "Improve decision-making and execution",
-                ].map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-gray-700">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" style={{ color: "#2563EB" }} aria-hidden="true" />
-                    <span className="text-[15px]">{item}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="hero-animate flex flex-col sm:flex-row gap-3 pt-2" style={{ animationDelay: "400ms" }}>
-                <Button asChild size="lg" className="text-base h-12 px-7 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
-                  <Link href="/contact">Book Free Strategy Session</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="text-base h-12 px-7 font-semibold" onClick={handleProcessScroll}>
-                  <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
-                </Button>
-              </div>
-
-              <div className="hero-animate grid grid-cols-2 gap-3 pt-1" style={{ animationDelay: "500ms" }}>
-                {[
-                  { icon: Shield, label: "Veteran-Owned Business" },
-                  { icon: Award, label: "27 Years Leadership Experience" },
-                  { icon: Cpu, label: "AI & Digital Transformation" },
-                  { icon: Heart, label: "Small Business & Nonprofit Focus" },
-                ].map(({ icon: Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2 text-xs text-gray-600 font-medium">
-                    <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
-                    <span>{label}</span>
-                  </div>
-                ))}
-              </div>
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="hero-animate mb-5" style={{ animationDelay: "0ms" }}>
+              <a
+                href="https://g.page/r/CX2HyTtBwIIVEAE/review"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border hover:opacity-80 transition-opacity"
+                style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}
+              >
+                <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses &amp; Mission-Driven Organizations
+              </a>
             </div>
 
-            {/* Right column — BOS Visualization */}
-            <div className="hero-animate flex items-center justify-center lg:justify-end" style={{ animationDelay: "200ms" }}>
-              <div className="w-full max-w-[320px] rounded-2xl p-6 border border-blue-100 shadow-xl" style={{ background: "linear-gradient(145deg,#f8fbff,#eff6ff)" }}>
-                <p className="text-center text-xs font-semibold uppercase tracking-widest mb-4" style={{ color: "#2563EB" }}>How It All Connects</p>
-                <BOSVisualization mode="hero" />
-              </div>
+            <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-4" style={{ animationDelay: "80ms" }}>
+              Finally get your people, processes, technology, data, and AI{" "}
+              <span style={{ color: "#2563EB" }}>working together.</span>
+            </h1>
+
+            <p className="hero-animate text-base text-gray-600 leading-relaxed mb-5" style={{ animationDelay: "160ms" }}>
+              Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
+            </p>
+
+            <div className="hero-animate flex flex-col sm:flex-row gap-3 justify-center mb-5" style={{ animationDelay: "240ms" }}>
+              <Button asChild size="lg" className="text-base h-12 px-7 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
+                <Link href="/contact">Book Free Strategy Session</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="text-base h-12 px-7 font-semibold">
+                <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
+              </Button>
+            </div>
+
+            <div className="hero-animate flex flex-wrap justify-center gap-x-6 gap-y-2" style={{ animationDelay: "300ms" }}>
+              {[
+                "Eliminate manual work",
+                "Connect AI into one workflow",
+                "Real-time operational visibility",
+              ].map((item) => (
+                <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600">
+                  <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />
+                  {item}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
       {/* ─── SECTION 2: WHY THIS MATTERS (Stats) ────────────────── */}
-      <section ref={statsRef} className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
+      <section ref={statsRef} className="py-12 md:py-16" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
+          <div className="text-center mb-8">
             <FadeUp>
-              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">The Hidden Cost of Operational Complexity</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-3">The Hidden Cost of Operational Complexity</h2>
             </FadeUp>
             <FadeUp delay={100}>
-              <p className="text-gray-600 max-w-2xl mx-auto text-lg">
-                Most organizations aren't struggling because people aren't working hard. They're struggling because inefficient systems consume time, visibility, and growth opportunities.
+              <p className="text-gray-600 max-w-xl mx-auto">
+                Most organizations aren't struggling because people aren't working hard — they're struggling because inefficient systems consume time, visibility, and growth.
               </p>
             </FadeUp>
           </div>
