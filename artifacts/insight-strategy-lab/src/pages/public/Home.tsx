@@ -243,7 +243,7 @@ export default function Home() {
                 </p>
               </FadeUp>
 
-              {/* 2×2 square stat grid */}
+              {/* 2×2 stat grid */}
               <div className="grid grid-cols-2 gap-3">
                 {[
                   { value: 36, label: "of workweek spent on admin instead of growth" },
@@ -253,24 +253,16 @@ export default function Home() {
                 ].map(({ value, label }, i) => (
                   <div
                     key={label}
-                    className="aspect-square bg-white rounded-2xl border border-gray-100 shadow-sm p-4 flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    className="bg-white rounded-2xl border border-gray-100 shadow-sm py-6 px-4 flex flex-col items-center justify-center text-center hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
                     style={{ opacity: statsInView ? 1 : 0, transform: statsInView ? "translateY(0)" : "translateY(16px)", transition: `opacity 0.5s ${i * 100}ms, transform 0.5s ${i * 100}ms` }}
                   >
-                    <div className="text-3xl md:text-4xl font-black mb-2" style={{ color: "#2563EB" }}>
+                    <div className="text-3xl md:text-4xl font-black mb-1.5" style={{ color: "#2563EB" }}>
                       <StatNum value={value} active={statsInView} />%
                     </div>
                     <p className="text-gray-500 text-xs leading-snug">{label}</p>
                   </div>
                 ))}
               </div>
-
-              <FadeUp delay={400}>
-                <div className="mt-5 flex justify-center">
-                  <Button asChild size="sm" className="font-semibold px-6" style={{ background: "#2563EB", color: "white" }}>
-                    <Link href="/contact">See How We Can Help</Link>
-                  </Button>
-                </div>
-              </FadeUp>
             </div>
 
           </div>
