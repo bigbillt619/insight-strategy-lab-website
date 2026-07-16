@@ -20,7 +20,6 @@ export default function About() {
   const { get } = useContent("about");
   usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
-  const photo = get("photo");
   const lead = paragraphs(get("lead"));
   const body = paragraphs(get("body"));
   const philosophy = paragraphs(get("philosophy_body"));
@@ -62,15 +61,7 @@ export default function About() {
             </span>
           </FadeUp>
 
-          {photo && (
-            <FadeUp delay={60}>
-              <img
-                src={photo}
-                alt=""
-                className="mb-10 h-64 w-64 md:h-80 md:w-80 rounded-2xl object-cover border border-gray-100 shadow-xl"
-              />
-            </FadeUp>
-          )}
+
 
           <FadeUp delay={120}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 mb-8 leading-[1.05]">
