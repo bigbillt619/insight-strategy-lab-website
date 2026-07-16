@@ -169,7 +169,8 @@ export default function Home() {
 
             {/* ── LEFT: Hero content ── */}
             <div>
-              <div className="hero-animate mb-5" style={{ animationDelay: "0ms" }}>
+              {/* Review badge */}
+              <div className="hero-animate mb-3" style={{ animationDelay: "0ms" }}>
                 <a
                   href="https://g.page/r/CX2HyTtBwIIVEAE/review"
                   target="_blank"
@@ -181,29 +182,48 @@ export default function Home() {
                 </a>
               </div>
 
-              <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-4" style={{ animationDelay: "80ms" }}>
+              {/* Credibility tags — above h1 for immediate authority */}
+              <div className="hero-animate flex flex-wrap gap-2 mb-4" style={{ animationDelay: "60ms" }}>
+                {[
+                  { icon: Shield, label: "SHRM-CP Certified" },
+                  { icon: Award,  label: "Marine Veteran" },
+                  { icon: Brain,  label: "AI Certified" },
+                  { icon: Heart,  label: "NonprofitReady Elite" },
+                ].map(({ icon: Icon, label }) => (
+                  <span
+                    key={label}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border"
+                    style={{ background: "rgba(37,99,235,0.05)", borderColor: "rgba(37,99,235,0.18)", color: "#1e40af" }}
+                  >
+                    <Icon className="h-3.5 w-3.5" aria-hidden="true" />
+                    {label}
+                  </span>
+                ))}
+              </div>
+
+              <h1 className="hero-animate text-3xl md:text-4xl lg:text-5xl font-black leading-[1.1] tracking-tight text-gray-900 mb-3" style={{ animationDelay: "120ms" }}>
                 Finally get your people, processes, technology, data, and AI{" "}
                 <span style={{ color: "#2563EB" }}>working together.</span>
               </h1>
 
-              <p className="hero-animate text-base text-gray-600 leading-relaxed mb-6" style={{ animationDelay: "160ms" }}>
+              <p className="hero-animate text-sm text-gray-600 leading-relaxed mb-4" style={{ animationDelay: "200ms" }}>
                 Build a scalable operating system that creates clarity, efficiency, accountability, and measurable growth — without adding complexity.
               </p>
 
-              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-6" style={{ animationDelay: "240ms" }}>
-                <Button asChild size="lg" className="text-base h-12 px-7 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
+              <div className="hero-animate flex flex-col sm:flex-row gap-3 mb-4" style={{ animationDelay: "280ms" }}>
+                <Button asChild size="lg" className="text-base h-11 px-6 font-semibold" style={{ background: "#2563EB", borderColor: "#2563EB", color: "white" }}>
                   <Link href="/contact">Book Free Strategy Session</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="text-base h-12 px-7 font-semibold">
+                <Button asChild variant="outline" size="lg" className="text-base h-11 px-6 font-semibold">
                   <a href="#process" onClick={handleProcessScroll}>See How It Works</a>
                 </Button>
               </div>
 
-              <div className="hero-animate flex flex-wrap gap-x-5 gap-y-2" style={{ animationDelay: "300ms" }}>
+              <div className="hero-animate flex flex-wrap gap-x-4 gap-y-1.5" style={{ animationDelay: "340ms" }}>
                 {[
                   "Eliminate manual work",
                   "Connect AI into one workflow",
-                  "Real-time operational visibility",
+                  "Real-time visibility",
                 ].map((item) => (
                   <span key={item} className="flex items-center gap-1.5 text-sm text-gray-600">
                     <CheckCircle2 className="h-4 w-4 shrink-0" style={{ color: "#2563EB" }} aria-hidden="true" />

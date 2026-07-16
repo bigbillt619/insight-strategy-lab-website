@@ -242,6 +242,42 @@ export default function About() {
         </section>
       )}
 
+      {/* ─── Family & Values ──────────────────────────────── */}
+      <section className="py-16 md:py-24 bg-white">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+            <FadeUp>
+              <img
+                src="/family-photo.jpg"
+                alt="Bill Trampe and family"
+                className="w-full rounded-2xl object-cover shadow-xl border border-gray-100"
+                style={{ maxHeight: "420px" }}
+              />
+            </FadeUp>
+            <div>
+              <FadeUp delay={80}>
+                <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-widest border mb-5" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
+                  Family &amp; Values
+                </span>
+              </FadeUp>
+              <FadeUp delay={140}>
+                <h2 className="text-3xl font-black text-gray-900 mb-5">Driven by Purpose, Grounded in Family</h2>
+              </FadeUp>
+              <FadeUp delay={200}>
+                <p className="text-gray-600 text-lg leading-relaxed mb-4">
+                  The same values that guide our family — commitment, accountability, and showing up for each other — are the same values that drive the work at Insight Strategy Lab.
+                </p>
+              </FadeUp>
+              <FadeUp delay={260}>
+                <p className="text-gray-600 leading-relaxed">
+                  Building systems that actually work for people isn't just a business philosophy — it's personal. When organizations run well, families thrive, communities strengthen, and missions get fulfilled.
+                </p>
+              </FadeUp>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ─── How I Work ───────────────────────────────────── */}
       {get("howiwork_heading").trim() && howIWork.length > 0 && (
         <section className="py-16 md:py-24 bg-white">
