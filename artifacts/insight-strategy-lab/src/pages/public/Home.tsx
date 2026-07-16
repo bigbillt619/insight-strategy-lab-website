@@ -169,8 +169,8 @@ export default function Home() {
 
             {/* ── LEFT: Hero content ── */}
             <div>
-              {/* Review badge + credibility tags — same row */}
-              <div className="hero-animate flex flex-wrap items-center gap-2 mb-4" style={{ animationDelay: "0ms" }}>
+              {/* Review badge */}
+              <div className="hero-animate mb-2" style={{ animationDelay: "0ms" }}>
                 <a
                   href="https://g.page/r/CX2HyTtBwIIVEAE/review"
                   target="_blank"
@@ -180,6 +180,10 @@ export default function Home() {
                 >
                   <span aria-hidden="true">★★★★★</span> Trusted by Small Businesses
                 </a>
+              </div>
+
+              {/* Credibility tags — row below badge */}
+              <div className="hero-animate flex flex-wrap items-center gap-2 mb-4" style={{ animationDelay: "60ms" }}>
                 {[
                   { icon: Brain,  label: "AI Business Strategy" },
                   { icon: Shield, label: "SHRM-CP" },
