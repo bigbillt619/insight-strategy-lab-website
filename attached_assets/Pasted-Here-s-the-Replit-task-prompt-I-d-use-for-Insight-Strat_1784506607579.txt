@@ -1,0 +1,333 @@
+Here's the Replit task prompt I'd use for Insight Strategy Lab:
+
+***
+
+# New Feature: Rename "Apps in Production" to "Solutions in Production" and Add Trainer Tools Hub Case Study
+
+## What & Why
+
+Trainer Tools Hub has evolved beyond a software application and is now the strongest proof-of-concept for the Insight Strategy Lab methodology.
+
+Update the website navigation and solutions showcase to better communicate business outcomes rather than software products.
+
+The goal is to position Trainer Tools Hub as a digital transformation case study demonstrating the strategic integration of people, processes, technology, data, and AI.
+
+This aligns with Insight Strategy Lab's MCTR framework:
+
+* Methodological
+* Comprehensive
+* Transparent
+* Repeatable
+
+The emphasis should be on operational transformation, not software features.
+
+***
+
+## Done Looks Like
+
+### Navigation
+
+Rename:
+
+```text
+Apps in Production
+```
+
+to:
+
+```text
+Solutions in Production
+```
+
+across:
+
+* Navigation menus
+* Page titles
+* Internal links
+* Metadata
+* Admin content (if applicable)
+
+***
+
+### Solutions Page Enhancement
+
+Trainer Tools Hub becomes the featured solution.
+
+Display a prominent visual badge:
+
+```text
+FEATURED CASE STUDY
+```
+
+above the Trainer Tools Hub card.
+
+***
+
+### Trainer Tools Hub Card
+
+Title:
+
+```text
+Trainer Tools Hub
+```
+
+Subtitle:
+
+```text
+Digital Transformation Case Study
+```
+
+Description:
+
+```text
+Transforming a fragmented personal training operation into a scalable, technology-enabled coaching ecosystem through the strategic integration of people, processes, technology, data, and AI.
+```
+
+***
+
+### CTA Buttons
+
+Primary:
+
+```text
+View Case Study
+```
+
+Secondary:
+
+```text
+Explore Solution
+```
+
+If the full case study page is not yet built, the primary CTA should temporarily route to a placeholder page or downloadable PDF location.
+
+***
+
+### Featured Highlights Section
+
+Under Trainer Tools Hub display:
+
+```text
+Challenge:
+Disconnected tools, manual workflows, and limited visibility.
+
+Approach:
+MCTR-driven operating system design.
+
+Outcome:
+A centralized coaching ecosystem supporting intake, assessments, programming, nutrition, progress tracking, and workout delivery.
+```
+
+***
+
+## New Trainer Tools Hub Case Study Page
+
+Create:
+
+```text
+/case-studies/trainer-tools-hub
+```
+
+or
+
+```text
+/solutions/trainer-tools-hub
+```
+
+follow existing routing conventions.
+
+***
+
+### Case Study Structure
+
+#### Hero
+
+Title:
+
+```text
+Trainer Tools Hub
+```
+
+Subtitle:
+
+```text
+A Digital Transformation Case Study
+```
+
+Supporting Text:
+
+```text
+Transforming a fragmented personal training operation into a scalable coaching ecosystem through strategic integration and system design.
+```
+
+***
+
+#### Business Challenge
+
+Summarize:
+
+* Disconnected systems
+* Spreadsheets
+* Paper forms
+* Manual processes
+* Administrative burden
+
+***
+
+#### Transformation Approach
+
+Introduce:
+
+```text
+People
+Process
+Technology
+Data
+AI
+```
+
+and the MCTR framework.
+
+***
+
+#### Before vs After
+
+Create a visually prominent transformation section.
+
+```text
+BEFORE
+
+Paper Forms
+Spreadsheets
+Text Messages
+PDFs
+Disconnected Tools
+
+↓
+
+AFTER
+
+Trainer Tools Hub
+
+Client Intake
+Assessments
+Workout Builder
+Nutrition Planning
+Progress Tracking
+TV Workout Delivery
+```
+
+This should be the centerpiece of the page.
+
+***
+
+#### Solution Overview
+
+Show screenshots and summarize:
+
+* Client Intake
+* Assessments
+* Workout Builder
+* Program Builder
+* Nutrition Planning
+* Progress Tracking
+* TV Workout
+
+Focus on business outcomes rather than technical implementation.
+
+***
+
+#### Results & Lessons Learned
+
+Highlight:
+
+* Standardized coaching workflows
+* Reduced administrative complexity
+* Improved information visibility
+* Data-driven service delivery
+* Scalable operating model
+
+***
+
+#### Download Case Study
+
+Add:
+
+```text
+Download Full Case Study PDF
+```
+
+Placeholder link acceptable initially.
+
+***
+
+#### CTA
+
+```text
+Ready to transform how your organization operates?
+
+Schedule a Free Strategy Call.
+```
+
+***
+
+## Content Guidance
+
+Maintain Insight Strategy Lab positioning.
+
+Avoid:
+
+```text
+Software showcase
+Feature dump
+Technical jargon
+```
+
+Prioritize:
+
+```text
+Business outcomes
+Digital transformation
+Operational efficiency
+Scalability
+Strategic integration
+```
+
+The story should be:
+
+```text
+Problem
+→ Transformation Strategy
+→ System Design
+→ Operational Improvement
+→ Business Outcome
+```
+
+not:
+
+```text
+Feature
+→ Feature
+→ Feature
+```
+
+***
+
+## Architectural Requirements
+
+* Reuse existing page templates and components where possible
+* Follow current CMS/content architecture
+* Keep content editable through the CMS
+* Ensure mobile responsiveness
+* Maintain SEO support
+
+***
+
+## Definition of Success
+
+A visitor should leave the website understanding:
+
+1. Insight Strategy Lab helps organizations solve operational problems.
+2. Trainer Tools Hub is evidence of that methodology in action.
+3. Technology is an amplifier of well-designed people, processes, data, and operating systems.
+4. Insight Strategy Lab delivers business transformation, not just software development.
