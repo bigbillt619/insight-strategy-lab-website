@@ -10,10 +10,9 @@ import { FadeUp } from "@/components/FadeUp";
 import { resolveAppThumbnail } from "@/lib/utils";
 import type { AppItem } from "@/lib/types";
 
-const TRAINER_TOOLS_HUB = "trainer hub";
-
 function isFeatured(app: AppItem) {
-  return app.title.toLowerCase().includes(TRAINER_TOOLS_HUB);
+  const t = app.title.toLowerCase();
+  return t.includes("trainer") && t.includes("hub");
 }
 
 function FeaturedCaseStudyCard({ app, subtitle, description, ctaPrimary, ctaSecondary }: {
