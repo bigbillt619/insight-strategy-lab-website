@@ -15,12 +15,13 @@ function isFeatured(app: AppItem) {
   return t.includes("trainer") && t.includes("hub");
 }
 
-function FeaturedCaseStudyCard({ app, subtitle, description, ctaPrimary, ctaSecondary }: {
+function FeaturedCaseStudyCard({ app, subtitle, description, ctaPrimary, ctaSecondary, demoUrl }: {
   app: AppItem;
   subtitle: string;
   description: string;
   ctaPrimary: string;
   ctaSecondary: string;
+  demoUrl: string;
 }) {
   const [playing, setPlaying] = useState(false);
   const [imgError, setImgError] = useState(false);
@@ -79,15 +80,12 @@ function FeaturedCaseStudyCard({ app, subtitle, description, ctaPrimary, ctaSeco
                   {ctaPrimary} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              {app.youtube_url && (
-                <Button
-                  variant="outline"
-                  size="default"
-                  onClick={() => setPlaying(true)}
-                  className="border-gray-300 text-gray-700 hover:border-blue-300"
-                >
-                  <Play className="mr-2 h-4 w-4" />
-                  {ctaSecondary}
+              {demoUrl && (
+                <Button asChild variant="outline" size="default" className="border-gray-300 text-gray-700 hover:border-blue-300">
+                  <a href={demoUrl} target="_blank" rel="noreferrer">
+                    <Play className="mr-2 h-4 w-4" />
+                    {ctaSecondary}
+                  </a>
                 </Button>
               )}
             </div>
@@ -252,6 +250,7 @@ export default function Apps() {
                   description={getSolutions("ttb_card_description") || featuredApp.description || ""}
                   ctaPrimary={getSolutions("ttb_cta_primary") || "View Case Study"}
                   ctaSecondary={getSolutions("ttb_cta_secondary") || "Explore Solution"}
+                  demoUrl={getSolutions("ttb_demo_url")}
                 />
               )}
               {otherApps.length > 0 && (

@@ -383,6 +383,7 @@ export const SOLUTIONS_GROUP: ContentGroup = {
     { key: "ttb_card_description", section: "Featured Card", label: "Card description", type: "textarea", default: "Transforming a fragmented personal training operation into a scalable, technology-enabled coaching ecosystem through the strategic integration of people, processes, technology, data, and AI." },
     { key: "ttb_cta_primary", section: "Featured Card", label: "Primary CTA button", type: "text", default: "View Case Study" },
     { key: "ttb_cta_secondary", section: "Featured Card", label: "Secondary CTA button", type: "text", default: "Explore Solution" },
+    { key: "ttb_demo_url", section: "Featured Card", label: "Demo link URL", type: "url", default: "https://trainer-hub-tools.replit.app/demo", help: "Where the 'Explore Solution' button links. Leave empty to hide the button." },
     // ── Hero ──
     { key: "ttb_hero_badge", section: "Hero", label: "Hero badge", type: "text", default: "Featured Case Study" },
     { key: "ttb_hero_title", section: "Hero", label: "Hero title", type: "text", default: "Trainer Tools Hub" },
