@@ -8,6 +8,7 @@
  * No new page component or structural changes are needed.
  */
 
+import { useState } from "react";
 import { Link } from "wouter";
 import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
@@ -15,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/FadeUp";
 import {
   ArrowRight, CheckCircle2, Download, Users, Cog, Monitor, Database, Brain,
-  ArrowDown, Star,
+  ArrowDown, Star, ChevronLeft, ChevronRight,
 } from "lucide-react";
 
 const MODULE_ICONS = [Users, CheckCircle2, Cog, Monitor, ArrowRight, Monitor];
@@ -64,6 +65,15 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
   const resultsItems = get("results_items").split("\n").map((s) => s.trim()).filter(Boolean);
   const downloadUrl = get("download_url");
   const downloadHeading = get("download_heading");
+
+  const slides = [1, 2, 3, 4, 5, 6, 7, 8]
+    .map((n) => ({ image: get(`slide_${n}_image`), caption: get(`slide_${n}_caption`) }))
+    .filter((s) => s.image);
+  const slidesHeading = get("slides_heading");
+
+  const [activeSlide, setActiveSlide] = useState(0);
+  const prevSlide = () => setActiveSlide((i) => (i - 1 + slides.length) % slides.length);
+  const nextSlide = () => setActiveSlide((i) => (i + 1) % slides.length);
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -307,7 +317,115 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
         </div>
       </section>
 
-      {/* ─── 8. Download Case Study ──────────────────────── */}
+      {/* ─── 8. Screenshot Slideshow ─────────────────────── */}
+      {slides.length > 0 && slidesHeading && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Screenshots</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{slidesHeading}</h2>
+            </FadeUp>
+
+            <FadeUp delay={80}>
+              <div className="relative rounded-2xl overflow-hidden shadow-xl bg-gray-900 select-none" style={{ border: "1px solid rgba(37,99,235,0.15)" }}>
+                {/* Slide image */}
+                <div className="relative aspect-video overflow-hidden">
+                  {slides.map((slide, i) => (
+                    <img
+                      key={i}
+                      src={slide.image}
+                      alt={slide.caption || `Screenshot ${i + 1}`}
+                      className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
+                      style={{ opacity: i === activeSlide ? 1 : 0, pointerEvents: i === activeSlide ? "auto" : "none" }}
+                    />
+                  ))}
+
+                  {/* Prev / Next arrows */}
+                  {slides.length > 1 && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={prevSlide}
+                        aria-label="Previous slide"
+                        className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                      >
+                        <ChevronLeft className="h-5 w-5" />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={nextSlide}
+                        aria-label="Next slide"
+                        className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+                      >
+                        <ChevronRight className="h-5 w-5" />
+                      </button>
+                    </>
+                  )}
+
+                  {/* Slide counter */}
+                  {slides.length > 1 && (
+                    <div className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-black/50 text-white text-xs font-semibold tabular-nums">
+                      {activeSlide + 1} / {slides.length}
+                    </div>
+                  )}
+                </div>
+
+                {/* Caption + dots */}
+                <div className="px-6 py-4 flex items-center justify-between gap-4" style={{ background: "#0F172A" }}>
+                  <p className="text-sm text-gray-400 min-h-[1.25rem]">
+                    {slides[activeSlide]?.caption || ""}
+                  </p>
+                  {slides.length > 1 && (
+                    <div className="flex gap-1.5 shrink-0">
+                      {slides.map((_, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setActiveSlide(i)}
+                          aria-label={`Go to slide ${i + 1}`}
+                          className="h-1.5 rounded-full transition-all duration-300"
+                          style={{
+                            width: i === activeSlide ? "1.5rem" : "0.375rem",
+                            background: i === activeSlide ? "#2563EB" : "rgba(255,255,255,0.3)",
+                          }}
+                        />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </FadeUp>
+
+            {/* Thumbnail strip for 3+ slides */}
+            {slides.length >= 3 && (
+              <FadeUp delay={120}>
+                <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+                  {slides.map((slide, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setActiveSlide(i)}
+                      aria-label={`View screenshot ${i + 1}`}
+                      className="shrink-0 rounded-lg overflow-hidden transition-all duration-200"
+                      style={{
+                        width: "5rem",
+                        aspectRatio: "16/9",
+                        outline: i === activeSlide ? "2px solid #2563EB" : "2px solid transparent",
+                        outlineOffset: "2px",
+                        opacity: i === activeSlide ? 1 : 0.55,
+                      }}
+                    >
+                      <img src={slide.image} alt={slide.caption || `Slide ${i + 1}`} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </FadeUp>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ─── 9. Download Case Study ──────────────────────── */}
       {downloadUrl && (
         <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-6 max-w-3xl text-center">
