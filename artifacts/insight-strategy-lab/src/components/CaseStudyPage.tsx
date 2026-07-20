@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/FadeUp";
 import {
   ArrowRight, CheckCircle2, Download, Users, Cog, Monitor, Database, Brain,
-  ArrowDown, Star, ChevronLeft, ChevronRight,
+  ArrowDown, Star,
 } from "lucide-react";
 
 const MODULE_ICONS = [Users, CheckCircle2, Cog, Monitor, ArrowRight, Monitor];
@@ -64,16 +64,7 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
 
   const resultsItems = get("results_items").split("\n").map((s) => s.trim()).filter(Boolean);
   const downloadUrl = get("download_url");
-  const downloadHeading = get("download_heading");
-
-  const slides = [1, 2, 3, 4, 5, 6, 7, 8]
-    .map((n) => ({ image: get(`slide_${n}_image`), caption: get(`slide_${n}_caption`) }))
-    .filter((s) => s.image);
   const slidesHeading = get("slides_heading");
-
-  const [activeSlide, setActiveSlide] = useState(0);
-  const prevSlide = () => setActiveSlide((i) => (i - 1 + slides.length) % slides.length);
-  const nextSlide = () => setActiveSlide((i) => (i + 1) % slides.length);
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -317,109 +308,36 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
         </div>
       </section>
 
-      {/* ─── 8. PDF Slideshow ────────────────────────────── */}
-      {(downloadUrl || slides.length > 0) && slidesHeading && (
+      {/* ─── 8. PDF Preview ──────────────────────────────── */}
+      {downloadUrl && slidesHeading && (
         <section className="py-20 md:py-28 bg-white">
           <div className="container mx-auto px-6 max-w-5xl">
             <FadeUp>
               <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Preview</span>
               <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-10">{slidesHeading}</h2>
             </FadeUp>
-
-            {downloadUrl ? (
-              /* ── PDF viewer ── */
-              <FadeUp delay={80}>
-                <div className="rounded-2xl overflow-hidden shadow-xl" style={{ border: "1px solid rgba(37,99,235,0.15)" }}>
-                  <iframe
-                    src={`https://docs.google.com/viewer?url=${encodeURIComponent(downloadUrl)}&embedded=true`}
-                    title="Case Study PDF"
-                    className="w-full"
-                    style={{ height: "780px", display: "block" }}
-                  />
-                  <div className="flex items-center justify-between px-5 py-3" style={{ background: "#0F172A" }}>
-                    <span className="text-gray-400 text-sm">{get("download_heading") || "Full Case Study"}</span>
-                    <a
-                      href={downloadUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-1.5 text-sm font-semibold hover:text-white transition-colors"
-                      style={{ color: "#60A5FA" }}
-                    >
-                      <Download className="h-4 w-4" />
-                      Open / Download
-                    </a>
-                  </div>
+            <FadeUp delay={80}>
+              <div className="rounded-2xl overflow-hidden shadow-xl" style={{ border: "1px solid rgba(37,99,235,0.15)" }}>
+                <iframe
+                  src={`https://docs.google.com/viewer?url=${encodeURIComponent(downloadUrl)}&embedded=true`}
+                  title="Case Study PDF"
+                  className="w-full"
+                  style={{ height: "780px", display: "block" }}
+                />
+                <div className="flex items-center justify-between px-5 py-3" style={{ background: "#0F172A" }}>
+                  <span className="text-gray-400 text-sm">{get("download_heading") || "Full Case Study"}</span>
+                  <a
+                    href={downloadUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-1.5 text-sm font-semibold hover:text-white transition-colors"
+                    style={{ color: "#60A5FA" }}
+                  >
+                    <Download className="h-4 w-4" />
+                    Open / Download
+                  </a>
                 </div>
-              </FadeUp>
-            ) : (
-              /* ── Image carousel fallback ── */
-              <FadeUp delay={80}>
-                <div className="relative rounded-2xl overflow-hidden shadow-xl bg-gray-900 select-none" style={{ border: "1px solid rgba(37,99,235,0.15)" }}>
-                  <div className="relative aspect-video overflow-hidden">
-                    {slides.map((slide, i) => (
-                      <img
-                        key={i}
-                        src={slide.image}
-                        alt={slide.caption || `Screenshot ${i + 1}`}
-                        className="absolute inset-0 w-full h-full object-cover transition-opacity duration-500"
-                        style={{ opacity: i === activeSlide ? 1 : 0, pointerEvents: i === activeSlide ? "auto" : "none" }}
-                      />
-                    ))}
-                    {slides.length > 1 && (
-                      <>
-                        <button type="button" onClick={prevSlide} aria-label="Previous slide" className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors">
-                          <ChevronLeft className="h-5 w-5" />
-                        </button>
-                        <button type="button" onClick={nextSlide} aria-label="Next slide" className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors">
-                          <ChevronRight className="h-5 w-5" />
-                        </button>
-                        <div className="absolute top-3 right-3 z-10 px-2.5 py-1 rounded-full bg-black/50 text-white text-xs font-semibold tabular-nums">
-                          {activeSlide + 1} / {slides.length}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                  <div className="px-6 py-4 flex items-center justify-between gap-4" style={{ background: "#0F172A" }}>
-                    <p className="text-sm text-gray-400 min-h-[1.25rem]">{slides[activeSlide]?.caption || ""}</p>
-                    {slides.length > 1 && (
-                      <div className="flex gap-1.5 shrink-0">
-                        {slides.map((_, i) => (
-                          <button key={i} type="button" onClick={() => setActiveSlide(i)} aria-label={`Go to slide ${i + 1}`} className="h-1.5 rounded-full transition-all duration-300" style={{ width: i === activeSlide ? "1.5rem" : "0.375rem", background: i === activeSlide ? "#2563EB" : "rgba(255,255,255,0.3)" }} />
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                </div>
-                {slides.length >= 3 && (
-                  <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
-                    {slides.map((slide, i) => (
-                      <button key={i} type="button" onClick={() => setActiveSlide(i)} aria-label={`View screenshot ${i + 1}`} className="shrink-0 rounded-lg overflow-hidden transition-all duration-200" style={{ width: "5rem", aspectRatio: "16/9", outline: i === activeSlide ? "2px solid #2563EB" : "2px solid transparent", outlineOffset: "2px", opacity: i === activeSlide ? 1 : 0.55 }}>
-                        <img src={slide.image} alt={slide.caption || `Slide ${i + 1}`} className="w-full h-full object-cover" />
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </FadeUp>
-            )}
-          </div>
-        </section>
-      )}
-
-      {/* ─── 9. Download Case Study ──────────────────────── */}
-      {downloadUrl && (
-        <section className="py-16 bg-white border-t border-gray-100">
-          <div className="container mx-auto px-6 max-w-3xl text-center">
-            <FadeUp>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
-                {downloadHeading || "Download the Full Case Study"}
-              </h2>
-              <p className="text-gray-600 mb-8">{get("download_body")}</p>
-              <Button asChild size="lg" variant="outline" className="h-12 px-8 text-base font-semibold border-2" style={{ borderColor: "#2563EB", color: "#2563EB" }}>
-                <a href={downloadUrl} target="_blank" rel="noreferrer">
-                  <Download className="mr-2 h-5 w-5" />
-                  {get("download_button") || "Download Full Case Study PDF"}
-                </a>
-              </Button>
+              </div>
             </FadeUp>
           </div>
         </section>
