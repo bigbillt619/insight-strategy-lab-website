@@ -308,25 +308,20 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
       </section>
 
       {/* ─── 8. Download Case Study ──────────────────────── */}
-      {downloadHeading && (
+      {downloadUrl && (
         <section className="py-16 bg-white border-t border-gray-100">
           <div className="container mx-auto px-6 max-w-3xl text-center">
             <FadeUp>
-              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">{downloadHeading}</h2>
+              <h2 className="text-2xl md:text-3xl font-black text-gray-900 mb-4">
+                {downloadHeading || "Download the Full Case Study"}
+              </h2>
               <p className="text-gray-600 mb-8">{get("download_body")}</p>
-              {downloadUrl ? (
-                <Button asChild size="lg" variant="outline" className="h-12 px-8 text-base font-semibold border-2" style={{ borderColor: "#2563EB", color: "#2563EB" }}>
-                  <a href={downloadUrl} target="_blank" rel="noreferrer">
-                    <Download className="mr-2 h-5 w-5" />
-                    {get("download_button") || "Download Full Case Study PDF"}
-                  </a>
-                </Button>
-              ) : (
-                <div className="inline-flex items-center gap-2 px-6 py-3 rounded-lg border-2 border-dashed border-gray-300 text-gray-400 text-sm font-medium">
-                  <Download className="h-4 w-4" />
-                  PDF coming soon
-                </div>
-              )}
+              <Button asChild size="lg" variant="outline" className="h-12 px-8 text-base font-semibold border-2" style={{ borderColor: "#2563EB", color: "#2563EB" }}>
+                <a href={downloadUrl} target="_blank" rel="noreferrer">
+                  <Download className="mr-2 h-5 w-5" />
+                  {get("download_button") || "Download Full Case Study PDF"}
+                </a>
+              </Button>
             </FadeUp>
           </div>
         </section>

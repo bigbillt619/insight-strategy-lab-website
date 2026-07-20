@@ -10,6 +10,7 @@ export type FieldType =
   | "url"
   | "image"
   | "video"
+  | "file"
   | "color"
   | "number";
 
@@ -449,7 +450,7 @@ export const SOLUTIONS_GROUP: ContentGroup = {
     { key: "ttb_download_heading", section: "Download", label: "Download section heading", type: "text", default: "Download the Full Case Study", help: "Leave empty to hide this section." },
     { key: "ttb_download_body", section: "Download", label: "Download section body", type: "textarea", default: "Get the complete Trainer Tools Hub case study — including the transformation framework, system architecture, and business outcomes." },
     { key: "ttb_download_button", section: "Download", label: "Download button text", type: "text", default: "Download Full Case Study PDF" },
-    { key: "ttb_download_url", section: "Download", label: "Download PDF URL", type: "url", default: "", help: "Paste the link to the PDF. The download section is hidden until this is filled in." },
+    { key: "ttb_download_url", section: "Download", label: "Download PDF", type: "file", default: "", help: "Upload a PDF or paste a direct link. The download button appears once this is filled in." },
     // ── Bottom CTA ──
     { key: "ttb_cta_heading", section: "Bottom CTA", label: "CTA heading", type: "text", default: "Ready to transform how your organization operates?" },
     { key: "ttb_cta_body", section: "Bottom CTA", label: "CTA body", type: "textarea", default: "Trainer Tools Hub is one example of what's possible. Every business has its own operational challenge — and its own transformation story waiting to be written." },

@@ -73,6 +73,71 @@ function MediaField({
   );
 }
 
+function FileField({
+  field,
+  page,
+  value,
+  onChange,
+}: {
+  field: ContentField;
+  page: string;
+  value: string;
+  onChange: (v: string) => void;
+}) {
+  const { toast } = useToast();
+  const [uploading, setUploading] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const handleFile = async (file: File | undefined) => {
+    if (!file) return;
+    setUploading(true);
+    try {
+      const url = await uploadMedia(page, field.key, file);
+      onChange(url);
+      toast({ title: "PDF uploaded", description: "The download button is now live on the case study page." });
+    } catch (e) {
+      toast({ title: "Upload failed", description: (e as Error).message, variant: "destructive" });
+    } finally {
+      setUploading(false);
+      if (inputRef.current) inputRef.current.value = "";
+    }
+  };
+
+  const fileName = value ? value.split("/").pop()?.split("?")[0] : "";
+
+  return (
+    <div className="space-y-2">
+      <Input
+        placeholder="Paste a direct PDF link, or upload below"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      />
+      <div className="flex items-center gap-3">
+        <input
+          ref={inputRef}
+          type="file"
+          accept="application/pdf,.pdf"
+          className="hidden"
+          onChange={(e) => handleFile(e.target.files?.[0])}
+        />
+        <Button type="button" variant="outline" size="sm" disabled={uploading} onClick={() => inputRef.current?.click()}>
+          {uploading ? "Uploading…" : "Upload PDF"}
+        </Button>
+        {value && (
+          <>
+            <a href={value} target="_blank" rel="noreferrer" className="text-xs text-blue-600 hover:underline truncate max-w-[260px]">
+              {fileName || "View PDF"}
+            </a>
+            <Button type="button" variant="ghost" size="sm" onClick={() => onChange("")}>
+              Clear
+            </Button>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 function FieldInput({
   field,
   page,
@@ -128,6 +193,8 @@ function FieldInput({
     case "image":
     case "video":
       return <MediaField field={field} page={page} value={value} onChange={onChange} />;
+    case "file":
+      return <FileField field={field} page={page} value={value} onChange={onChange} />;
     default:
       return <Input value={value} onChange={(e) => onChange(e.target.value)} />;
   }
