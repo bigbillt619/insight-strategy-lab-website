@@ -22,7 +22,7 @@ export default function Navbar() {
   const links = [
     { href: "/", label: "Home" },
     { href: "/services", label: "Services & Pricing" },
-    { href: "/apps", label: "Apps in Production" },
+    { href: "/apps", label: "Solutions in Production" },
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];

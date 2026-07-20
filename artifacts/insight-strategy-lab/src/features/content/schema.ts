@@ -212,16 +212,16 @@ export const SERVICES_GROUP: ContentGroup = {
   ],
 };
 
-// ─── APPS ────────────────────────────────────────────────────────────────────
+// ─── APPS (Solutions in Production) ──────────────────────────────────────────
 
 export const APPS_GROUP: ContentGroup = {
   page: "apps",
-  title: "Apps in Production",
-  description: "Text sections on the Apps page. The individual app cards (title, description, video, outcome) are managed in the Apps Manager tab.",
+  title: "Solutions in Production",
+  description: "Text sections on the Solutions page. The individual solution cards (title, description, video, outcome) are managed in the Apps Manager tab.",
   fields: [
-    { key: "seo_title", label: "SEO page title", type: "text", default: "Business Operating System Applications | Insight Strategy Lab", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
-    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Explore real-world applications built to support Business Operating Systems through workflow automation, data management, AI integration, and operational visibility.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
-    { key: "hero_title", label: "Page title", type: "text", default: "Real Systems Running Inside Businesses" },
+    { key: "seo_title", label: "SEO page title", type: "text", default: "Solutions in Production | Insight Strategy Lab", help: "Shown in browser tab and Google search results (~50–60 chars ideal)." },
+    { key: "seo_description", label: "SEO meta description", type: "textarea", default: "Explore real-world business transformation case studies built through strategic integration of people, processes, technology, data, and AI.", help: "Shown in Google search snippets (~140–160 chars ideal)." },
+    { key: "hero_title", label: "Page title", type: "text", default: "Real Business Transformation. Real Results." },
     { key: "hero_subtitle", label: "Page subtitle", type: "textarea", default: "These aren't prototypes or templates. These are production systems actively used to run operations, manage clients, and drive decisions." },
     { key: "gallery_label", label: "Label above the systems grid", type: "text", default: "See the systems in action", help: "Small eyebrow label shown above the app cards. Leave empty to hide." },
     { key: "includes_heading", label: "'Every system includes' — heading", type: "text", default: "Every System We Build Includes", help: "Leave empty to hide this section." },
@@ -366,6 +366,96 @@ export const VEHICLE_QR_GROUP: ContentGroup = {
   ],
 };
 
+// ─── SOLUTIONS (Case Studies) ─────────────────────────────────────────────────
+// Keys prefixed ttb_ = Trainer Tools Hub (case study #1).
+// Future case studies use their own prefix (e.g. l2l_, rdf_) in this same group.
+
+export const SOLUTIONS_GROUP: ContentGroup = {
+  page: "solutions",
+  title: "Case Studies",
+  description: "Content for the Trainer Tools Hub case study page (/solutions/trainer-tools-hub). Keys prefixed ttb_ belong to Trainer Tools Hub; future case studies get their own prefix in this same group.",
+  fields: [
+    // ── SEO ──
+    { key: "ttb_seo_title", section: "SEO", label: "SEO — page title", type: "text", default: "Trainer Tools Hub Case Study | Insight Strategy Lab" },
+    { key: "ttb_seo_description", section: "SEO", label: "SEO — meta description", type: "textarea", default: "How Insight Strategy Lab transformed a fragmented personal training operation into a scalable coaching ecosystem through strategic integration of people, processes, technology, data, and AI." },
+    // ── Featured card (on Solutions page) ──
+    { key: "ttb_card_subtitle", section: "Featured Card", label: "Card subtitle", type: "text", default: "Digital Transformation Case Study" },
+    { key: "ttb_card_description", section: "Featured Card", label: "Card description", type: "textarea", default: "Transforming a fragmented personal training operation into a scalable, technology-enabled coaching ecosystem through the strategic integration of people, processes, technology, data, and AI." },
+    { key: "ttb_cta_primary", section: "Featured Card", label: "Primary CTA button", type: "text", default: "View Case Study" },
+    { key: "ttb_cta_secondary", section: "Featured Card", label: "Secondary CTA button", type: "text", default: "Explore Solution" },
+    // ── Hero ──
+    { key: "ttb_hero_badge", section: "Hero", label: "Hero badge", type: "text", default: "Featured Case Study" },
+    { key: "ttb_hero_title", section: "Hero", label: "Hero title", type: "text", default: "Trainer Tools Hub" },
+    { key: "ttb_hero_subtitle", section: "Hero", label: "Hero subtitle", type: "text", default: "Business Transformation Through Strategic Integration" },
+    { key: "ttb_hero_body", section: "Hero", label: "Hero supporting text", type: "textarea", default: "Transforming a fragmented personal training operation into a scalable coaching ecosystem through strategic integration and system design." },
+    // ── Business Challenge ──
+    { key: "ttb_challenge_heading", section: "Business Challenge", label: "Section heading", type: "text", default: "The Business Challenge" },
+    { key: "ttb_challenge_body", section: "Business Challenge", label: "Section body", type: "textarea", default: "Tina Smoot, a personal trainer, was running her entire coaching business through a combination of paper forms, text messages, spreadsheets, and disconnected apps. Each client required manual coordination across multiple platforms with no central system to manage intake, programming, nutrition, or progress." },
+    { key: "ttb_challenge_items", section: "Business Challenge", label: "Challenge items", type: "list", default: "Disconnected systems with no single source of truth\nPaper forms and manual data entry for every client\nSpreadsheets that couldn't scale\nAdministrative burden consuming coaching time\nNo visibility into client progress or business performance", help: "One item per line." },
+    // ── Why This Matters ──
+    { key: "ttb_why_heading", section: "Why This Matters", label: "Section heading", type: "text", default: "Why This Matters" },
+    { key: "ttb_why_body", section: "Why This Matters", label: "Section body", type: "textarea", default: "Tina's time should be spent coaching clients — not managing forms, spreadsheets, disconnected tools, and manual administrative processes.\n\nEvery fragmented workflow creates friction that limits growth, consistency, and client experience." },
+    // ── Transformation Approach ──
+    { key: "ttb_approach_heading", section: "Transformation Approach", label: "Section heading", type: "text", default: "The Transformation Approach" },
+    { key: "ttb_approach_body", section: "Transformation Approach", label: "Section intro", type: "textarea", default: "The system was designed around the five pillars of the Business Operating System framework, guided by the MCTR methodology." },
+    { key: "ttb_pillar_people_label", section: "Transformation Approach", label: "Pillar — People label", type: "text", default: "People" },
+    { key: "ttb_pillar_people_desc", section: "Transformation Approach", label: "Pillar — People description", type: "textarea", default: "Designed for Tina's coaching workflow and client experience — not forced into a generic template." },
+    { key: "ttb_pillar_process_label", section: "Transformation Approach", label: "Pillar — Process label", type: "text", default: "Process" },
+    { key: "ttb_pillar_process_desc", section: "Transformation Approach", label: "Pillar — Process description", type: "textarea", default: "Standardized intake, programming, nutrition, and progress workflows that run consistently for every client." },
+    { key: "ttb_pillar_technology_label", section: "Transformation Approach", label: "Pillar — Technology label", type: "text", default: "Technology" },
+    { key: "ttb_pillar_technology_desc", section: "Transformation Approach", label: "Pillar — Technology description", type: "textarea", default: "Integrated platform replacing paper forms, spreadsheets, and disconnected apps with one unified system." },
+    { key: "ttb_pillar_data_label", section: "Transformation Approach", label: "Pillar — Data label", type: "text", default: "Data" },
+    { key: "ttb_pillar_data_desc", section: "Transformation Approach", label: "Pillar — Data description", type: "textarea", default: "Centralized client records, progress tracking, and business performance data visible in real time." },
+    { key: "ttb_pillar_ai_label", section: "Transformation Approach", label: "Pillar — AI label", type: "text", default: "AI" },
+    { key: "ttb_pillar_ai_desc", section: "Transformation Approach", label: "Pillar — AI description", type: "textarea", default: "Intelligent recommendations and automation to reduce manual work and improve coaching outcomes." },
+    // ── MCTR ──
+    { key: "ttb_mctr_heading", section: "MCTR Framework", label: "Section heading", type: "text", default: "The MCTR Framework" },
+    { key: "ttb_mctr_body", section: "MCTR Framework", label: "Section intro", type: "textarea", default: "Every Insight Strategy Lab engagement follows the MCTR framework — ensuring solutions are built to last, not just to launch." },
+    { key: "ttb_mctr_m_label", section: "MCTR Framework", label: "M — label", type: "text", default: "Methodological" },
+    { key: "ttb_mctr_m_desc", section: "MCTR Framework", label: "M — description", type: "textarea", default: "Every decision follows a structured approach rooted in the BOS framework — not improvised solutions." },
+    { key: "ttb_mctr_c_label", section: "MCTR Framework", label: "C — label", type: "text", default: "Comprehensive" },
+    { key: "ttb_mctr_c_desc", section: "MCTR Framework", label: "C — description", type: "textarea", default: "The system addresses all five pillars — people, process, technology, data, and AI — not just one symptom." },
+    { key: "ttb_mctr_t_label", section: "MCTR Framework", label: "T — label", type: "text", default: "Transparent" },
+    { key: "ttb_mctr_t_desc", section: "MCTR Framework", label: "T — description", type: "textarea", default: "Every design decision is documented, explainable, and visible to the client at every stage." },
+    { key: "ttb_mctr_r_label", section: "MCTR Framework", label: "R — label", type: "text", default: "Repeatable" },
+    { key: "ttb_mctr_r_desc", section: "MCTR Framework", label: "R — description", type: "textarea", default: "Built on standardized workflows so the system delivers consistent outcomes regardless of volume." },
+    // ── Before vs After ──
+    { key: "ttb_bva_heading", section: "Before vs After", label: "Section heading", type: "text", default: "Before & After" },
+    { key: "ttb_before_label", section: "Before vs After", label: "Before column label", type: "text", default: "Before" },
+    { key: "ttb_before_items", section: "Before vs After", label: "Before items", type: "list", default: "Paper Forms\nSpreadsheets\nText Messages\nPDFs\nDisconnected Tools", help: "One item per line." },
+    { key: "ttb_after_label", section: "Before vs After", label: "After column label", type: "text", default: "Trainer Tools Hub" },
+    { key: "ttb_after_items", section: "Before vs After", label: "After items", type: "list", default: "Client Intake\nAssessments\nWorkout Builder\nNutrition Planning\nProgress Tracking\nTV Workout Delivery", help: "One item per line." },
+    // ── Solution Overview ──
+    { key: "ttb_overview_heading", section: "Solution Overview", label: "Section heading", type: "text", default: "Solution Overview" },
+    { key: "ttb_overview_body", section: "Solution Overview", label: "Section intro", type: "textarea", default: "The Trainer Tools Hub replaced every manual process with an integrated module — each focused on a specific coaching outcome." },
+    { key: "ttb_mod_1_title", section: "Solution Overview", label: "Module 1 — title", type: "text", default: "Client Intake" },
+    { key: "ttb_mod_1_desc", section: "Solution Overview", label: "Module 1 — description", type: "textarea", default: "Structured onboarding process that captures goals, health history, and preferences — replacing paper forms and scattered text messages." },
+    { key: "ttb_mod_2_title", section: "Solution Overview", label: "Module 2 — title", type: "text", default: "Assessments" },
+    { key: "ttb_mod_2_desc", section: "Solution Overview", label: "Module 2 — description", type: "textarea", default: "Standardized fitness assessments with automated scoring and baseline tracking for every client." },
+    { key: "ttb_mod_3_title", section: "Solution Overview", label: "Module 3 — title", type: "text", default: "Workout Builder" },
+    { key: "ttb_mod_3_desc", section: "Solution Overview", label: "Module 3 — description", type: "textarea", default: "Customizable workout programming tool that creates consistent, client-specific plans without manual duplication." },
+    { key: "ttb_mod_4_title", section: "Solution Overview", label: "Module 4 — title", type: "text", default: "Nutrition Planning" },
+    { key: "ttb_mod_4_desc", section: "Solution Overview", label: "Module 4 — description", type: "textarea", default: "Integrated nutrition guidance aligned with each client's goals and program — no separate spreadsheets needed." },
+    { key: "ttb_mod_5_title", section: "Solution Overview", label: "Module 5 — title", type: "text", default: "Progress Tracking" },
+    { key: "ttb_mod_5_desc", section: "Solution Overview", label: "Module 5 — description", type: "textarea", default: "Real-time visibility into client progress with data-driven insights to guide coaching decisions." },
+    { key: "ttb_mod_6_title", section: "Solution Overview", label: "Module 6 — title", type: "text", default: "TV Workout Delivery" },
+    { key: "ttb_mod_6_desc", section: "Solution Overview", label: "Module 6 — description", type: "textarea", default: "Workout programs delivered directly to TV — removing friction from the client experience and elevating perceived value." },
+    // ── Results ──
+    { key: "ttb_results_heading", section: "Results & Lessons Learned", label: "Section heading", type: "text", default: "Results & Lessons Learned" },
+    { key: "ttb_results_items", section: "Results & Lessons Learned", label: "Result items", type: "list", default: "Standardized coaching workflows across every client\nReduced administrative complexity and manual data entry\nImproved visibility into client progress and business performance\nData-driven service delivery replacing guesswork\nScalable operating model that grows without adding overhead", help: "One item per line." },
+    { key: "ttb_results_lesson", section: "Results & Lessons Learned", label: "Key lesson", type: "textarea", default: "The most important lesson: the technology was never the problem. The system was. Once the operating model was designed correctly, the right tools followed naturally." },
+    // ── Download ──
+    { key: "ttb_download_heading", section: "Download", label: "Download section heading", type: "text", default: "Download the Full Case Study", help: "Leave empty to hide this section." },
+    { key: "ttb_download_body", section: "Download", label: "Download section body", type: "textarea", default: "Get the complete Trainer Tools Hub case study — including the transformation framework, system architecture, and business outcomes." },
+    { key: "ttb_download_button", section: "Download", label: "Download button text", type: "text", default: "Download Full Case Study PDF" },
+    { key: "ttb_download_url", section: "Download", label: "Download PDF URL", type: "url", default: "", help: "Paste the link to the PDF. The download section is hidden until this is filled in." },
+    // ── Bottom CTA ──
+    { key: "ttb_cta_heading", section: "Bottom CTA", label: "CTA heading", type: "text", default: "Ready to transform how your organization operates?" },
+    { key: "ttb_cta_body", section: "Bottom CTA", label: "CTA body", type: "textarea", default: "Trainer Tools Hub is one example of what's possible. Every business has its own operational challenge — and its own transformation story waiting to be written." },
+    { key: "ttb_cta_button", section: "Bottom CTA", label: "CTA button", type: "text", default: "Schedule a Free Strategy Call" },
+  ],
+};
+
 // ─── EXPORTS ─────────────────────────────────────────────────────────────────
 
 export const CONTENT_GROUPS: ContentGroup[] = [
@@ -373,6 +463,7 @@ export const CONTENT_GROUPS: ContentGroup[] = [
   HOME_GROUP,
   SERVICES_GROUP,
   APPS_GROUP,
+  SOLUTIONS_GROUP,
   ABOUT_GROUP,
   CONTACT_GROUP,
   DIAGNOSTIC_GROUP,
@@ -383,6 +474,7 @@ export const PAGE_GROUPS: ContentGroup[] = [
   HOME_GROUP,
   SERVICES_GROUP,
   APPS_GROUP,
+  SOLUTIONS_GROUP,
   ABOUT_GROUP,
   CONTACT_GROUP,
   DIAGNOSTIC_GROUP,

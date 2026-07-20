@@ -4,11 +4,100 @@ import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
 import { VideoEmbed } from "@/components/MediaEmbed";
 import { Button } from "@/components/ui/button";
-import { Database, CheckCircle2, ArrowRight, Play } from "lucide-react";
+import { Database, CheckCircle2, ArrowRight, Play, Star } from "lucide-react";
 import { useState } from "react";
 import { FadeUp } from "@/components/FadeUp";
 import { resolveAppThumbnail } from "@/lib/utils";
 import type { AppItem } from "@/lib/types";
+
+const TRAINER_TOOLS_HUB = "trainer hub";
+
+function isFeatured(app: AppItem) {
+  return app.title.toLowerCase().includes(TRAINER_TOOLS_HUB);
+}
+
+function FeaturedCaseStudyCard({ app, subtitle, description, ctaPrimary, ctaSecondary }: {
+  app: AppItem;
+  subtitle: string;
+  description: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+  const [imgError, setImgError] = useState(false);
+  const thumbSrc = imgError ? null : resolveAppThumbnail(app.thumbnail_url, app.youtube_url);
+
+  return (
+    <FadeUp>
+      <div className="relative bg-white border-2 rounded-2xl overflow-hidden shadow-lg mb-12" style={{ borderColor: "#2563EB" }}>
+        <div className="absolute top-0 left-0 z-10">
+          <div className="flex items-center gap-1.5 px-4 py-2 text-xs font-black uppercase tracking-widest text-white" style={{ background: "#2563EB" }}>
+            <Star className="h-3 w-3 fill-current" />
+            Featured Case Study
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          {/* Media */}
+          <div className="aspect-video lg:aspect-auto lg:min-h-[320px] bg-gray-900 relative overflow-hidden">
+            {playing && app.youtube_url ? (
+              <VideoEmbed url={app.youtube_url} autoPlay className="absolute inset-0 h-full w-full rounded-none" />
+            ) : app.youtube_url ? (
+              <>
+                {thumbSrc && (
+                  <img src={thumbSrc} alt={app.title} onError={() => setImgError(true)} className="absolute inset-0 h-full w-full object-cover opacity-80" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
+                <button
+                  type="button"
+                  onClick={() => setPlaying(true)}
+                  aria-label={`Play ${app.title} demo`}
+                  className="absolute inset-0 flex items-center justify-center"
+                >
+                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-xl hover:scale-105 transition-transform">
+                    <Play className="h-7 w-7 translate-x-0.5 fill-current" style={{ color: "#2563EB" }} aria-hidden="true" />
+                  </span>
+                </button>
+              </>
+            ) : thumbSrc ? (
+              <img src={thumbSrc} alt={app.title} onError={() => setImgError(true)} className="absolute inset-0 h-full w-full object-cover" />
+            ) : (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gray-800">
+                <Database className="h-12 w-12 text-gray-600" />
+              </div>
+            )}
+          </div>
+
+          {/* Content */}
+          <div className="p-8 lg:p-10 flex flex-col justify-center">
+            <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: "#2563EB" }}>{subtitle}</p>
+            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight">{app.title}</h2>
+            <p className="text-gray-600 leading-relaxed mb-6">{description}</p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button asChild size="default" style={{ background: "#2563EB", color: "white" }}>
+                <Link href="/solutions/trainer-tools-hub">
+                  {ctaPrimary} <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              {app.youtube_url && (
+                <Button
+                  variant="outline"
+                  size="default"
+                  onClick={() => setPlaying(true)}
+                  className="border-gray-300 text-gray-700 hover:border-blue-300"
+                >
+                  <Play className="mr-2 h-4 w-4" />
+                  {ctaSecondary}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </FadeUp>
+  );
+}
 
 function AppCard({ app }: { app: AppItem }) {
   const [playing, setPlaying] = useState(false);
@@ -94,12 +183,16 @@ function AppCard({ app }: { app: AppItem }) {
 export default function Apps() {
   const { data: apps = [], isLoading } = usePublishedApps();
   const { get } = useContent("apps");
+  const { get: getSolutions } = useContent("solutions");
   usePageMeta({ title: get("seo_title"), description: get("seo_description") });
 
   const includesHeading = get("includes_heading");
   const includesItems = get("includes_items").split("\n").map((s) => s.trim()).filter(Boolean);
   const galleryLabel = get("gallery_label");
   const ctaHeading = get("cta_heading");
+
+  const featuredApp = apps.find(isFeatured);
+  const otherApps = apps.filter((a) => !isFeatured(a));
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -112,12 +205,12 @@ export default function Apps() {
         <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <FadeUp>
             <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border mb-6" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
-              Apps in Production
+              Solutions in Production
             </span>
           </FadeUp>
           <FadeUp delay={80}>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight text-gray-900 mb-6 leading-[1.05]">
-              {get("hero_title") || "Real Systems Running Inside Businesses"}
+              {get("hero_title") || "Real Business Transformation. Real Results."}
             </h1>
           </FadeUp>
           <FadeUp delay={160}>
@@ -143,11 +236,7 @@ export default function Apps() {
                 <div key={i} className="h-96 rounded-2xl bg-gray-200 animate-pulse" />
               ))}
             </div>
-          ) : apps.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {apps.map((app) => <AppCard key={app.id} app={app} />)}
-            </div>
-          ) : (
+          ) : apps.length === 0 ? (
             <FadeUp>
               <div className="text-center py-24 bg-white border border-gray-100 rounded-2xl shadow-sm">
                 <Database className="h-12 w-12 mx-auto mb-4" style={{ color: "rgba(37,99,235,0.3)" }} aria-hidden="true" />
@@ -155,6 +244,23 @@ export default function Apps() {
                 <p className="text-gray-500">{get("empty_body") || "Production apps will appear here."}</p>
               </div>
             </FadeUp>
+          ) : (
+            <>
+              {featuredApp && (
+                <FeaturedCaseStudyCard
+                  app={featuredApp}
+                  subtitle={getSolutions("ttb_card_subtitle") || "Digital Transformation Case Study"}
+                  description={getSolutions("ttb_card_description") || featuredApp.description || ""}
+                  ctaPrimary={getSolutions("ttb_cta_primary") || "View Case Study"}
+                  ctaSecondary={getSolutions("ttb_cta_secondary") || "Explore Solution"}
+                />
+              )}
+              {otherApps.length > 0 && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  {otherApps.map((app) => <AppCard key={app.id} app={app} />)}
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
