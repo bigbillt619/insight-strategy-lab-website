@@ -331,7 +331,7 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
               <FadeUp delay={80}>
                 <div className="rounded-2xl overflow-hidden shadow-xl" style={{ border: "1px solid rgba(37,99,235,0.15)" }}>
                   <iframe
-                    src={downloadUrl}
+                    src={`https://docs.google.com/viewer?url=${encodeURIComponent(downloadUrl)}&embedded=true`}
                     title="Case Study PDF"
                     className="w-full"
                     style={{ height: "780px", display: "block" }}
