@@ -1,0 +1,185 @@
+I strongly agree with these revised versions. They are exactly the kind of targeted refinements I'd make after a major overhaul.
+
+Recommendation: Approve #29
+Why
+
+This is a funnel optimization, not a redesign.
+
+Current flow:
+
+Homepage
+    ↓
+Strategy Session
+
+
+Desired flow:
+
+Homepage
+    ↓
+BOS Assessment
+    ↓
+Operating System Review
+
+
+Your analytics show the homepage is the dominant entry point, accounting for roughly 79% of all page views.
+
+The BOS Assessment is your strongest differentiator and should be accessible immediately.
+
+My Preferred CTA Label
+
+Primary CTA (leave unchanged):
+
+Get My Free Strategy Session
+
+
+Secondary CTA:
+
+Take the BOS Assessment
+
+
+Simple and clear.
+
+One Small Addition
+
+When updating the schema, include a default destination field so that in the future you can change the secondary CTA target from the CMS without modifying code.
+
+Otherwise, I would approve #29 exactly as written.
+
+Recommendation: Approve #27
+Why
+
+This addresses messaging inconsistencies without disrupting SEO momentum.
+
+I like that you're intentionally leaving:
+
+AI Systems
+AI Tools
+AI Automation
+
+alone for now.
+
+Those pages are still receiving traffic and helping people discover ISL.
+
+The goal should be:
+
+AI = Discovery
+BOS = Positioning
+
+
+not
+
+Remove all AI references
+
+Changes I Fully Support
+Replace
+AI Business Diagnostic
+
+
+with
+
+Business Operating System Assessment
+
+Replace
+Start Your AI Transformation
+
+
+with
+
+Get Your Operating System Review
+
+
+or
+
+Start Your BOS Assessment
+
+FAQ Change
+
+Excellent idea.
+
+Instead of:
+
+Can you help implement AI?
+
+
+Use:
+
+Does a Business Operating System include AI?
+
+
+That reinforces the framework every time someone reads the FAQ.
+
+Services SEO Title
+
+I particularly like:
+
+Business Operating System Design & Implementation | Insight Strategy Lab
+
+
+Better than:
+
+Business Operating System Design | Insight Strategy Lab
+
+
+because prospects typically buy implementation, not design.
+
+Recommendation: Hold #28
+
+I still would not publish the Living 2 Live case study yet.
+
+Not because it's a bad idea.
+
+Because right now you're gathering data on:
+
+New homepage
+New BOS positioning
+New SEO
+New assessment
+New social branding
+
+Analytics show traffic has stabilized after the redesign, which is actually a positive sign.
+
+I'd let the current system run for another month before introducing another major content asset.
+
+Final Priority Order
+Execute Now
+#29
+
+Homepage → BOS Assessment Funnel
+
+Impact: High
+
+Risk: Very Low
+
+Effort: Low
+
+#27
+
+Legacy AI Copy Cleanup
+
+Impact: Medium-High
+
+Risk: Very Low
+
+Effort: Low
+
+Delay
+#28
+
+Living 2 Live BOS Case Study
+
+Impact: High
+
+Risk: Low
+
+Effort: Medium
+
+Recommended timing: After another 30-60 days of assessment and conversion data.
+
+If this were my roadmap for ISL over the next few weeks, I'd focus entirely on measuring:
+
+BOS Assessment Starts
+BOS Assessment Completions
+Operating System Review Requests
+Contact Form Submissions
+
+The branding work is largely done. Now it's time to see whether the funnel converts.
