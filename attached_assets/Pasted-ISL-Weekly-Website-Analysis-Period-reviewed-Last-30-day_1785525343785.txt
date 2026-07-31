@@ -1,0 +1,265 @@
+ISL Weekly Website Analysis
+
+Period reviewed: Last 30 days ending July 30, 2026
+
+Bill, the short version is this:
+
+The overhaul appears to be working from a branding and engagement perspective, but you are now entering the phase where conversions matter more than traffic.
+
+Executive Scorecard
+Metric	Prior Week	Current Week	ChangeActive Users	111	112	Flat
+New Users	110	110	Flat
+Page Views	817	802	-1.8%
+Engagement Time	32s	30s	-6%
+Form Starts	8	8	Flat
+Organic Social	24	25	+4%
+Organic Search	8	7	-1
+Direct Traffic	118	117	Flat
+
+citeturn35search1turn37search2
+
+My Biggest Takeaway
+
+This week is not a traffic story.
+
+It's a stabilization story.
+
+After a significant website overhaul, I would normally expect one of two outcomes:
+
+Bad Outcome
+Traffic drops
+Engagement drops
+Users leave
+
+Good Outcome
+Traffic holds
+Engagement holds
+Messaging improves
+
+
+What happened?
+
+Traffic held almost exactly where it was. citeturn35search1turn37search2
+
+That's positive.
+
+Your BOS Positioning Is Taking Hold
+
+The most encouraging page-level data is this:
+
+Business Operating Systems for Small Businesses
+18 views
+13 active users
+24-second engagement time
+
+citeturn37search1
+
+Compare that to:
+
+AI Tools & Applications
+17 views
+10 active users
+4-second engagement time
+
+citeturn37search1
+
+The BOS content is generating substantially deeper engagement.
+
+That suggests:
+
+Visitors interested in Business Operating Systems are more qualified than visitors landing on generic AI content.
+
+Your Homepage Is Still Carrying Everything
+
+Homepage:
+
+634 views
+110 active users
+20-second engagement
+
+citeturn37search1
+
+Almost 80% of all page views are still occurring on the homepage. citeturn37search1
+
+This means:
+
+Good News
+
+Your homepage messaging matters most.
+
+Opportunity
+
+You need stronger pathways from:
+
+Homepage
+    ↓
+BOS Assessment
+    ↓
+Operating System Review
+
+Social Is Becoming Important
+
+Organic Social:
+
+16
+↓
+24
+↓
+25
+
+
+over the past few reports. citeturn19search1turn35search1turn37search2
+
+This tells me your:
+
+LinkedIn updates
+Facebook updates
+Personal network activity
+BOS messaging
+
+are generating awareness.
+
+You're beginning to build a brand rather than just a website.
+
+What Concerns Me
+The Conversion Picture Is Still Unknown
+
+You currently have:
+
+Form Starts = 8
+Clicks = 7
+No Key Events
+
+citeturn37search2
+
+The biggest analytics gap today isn't traffic.
+
+It's conversion tracking.
+
+You still cannot answer:
+
+How many BOS assessments started?
+How many assessments completed?
+How many operating system reviews requested?
+How many contact forms submitted?
+
+Those are now the most important business metrics.
+
+Legacy AI Messaging Remains
+
+Several high-traffic pages still show old positioning:
+
+"AI Systems for Small Business"
+"Start Your AI Transformation"
+"AI Business Diagnostic"
+
+citeturn37search1
+
+Meanwhile your strategy has evolved toward:
+
+Business Operating Systems
+People
+Processes
+Technology
+Data
+AI
+
+
+I would continue migrating these pages over the next month.
+
+Not removing AI.
+
+Reframing it.
+
+Example:
+
+From
+AI Business Diagnostic
+
+To
+Business Operating System Assessment
+
+SEO Observation
+
+Your BOS page has already become your #3 most viewed content page. citeturn37search1
+
+That happened remarkably quickly after the redesign.
+
+This suggests the market is responding to the concept of:
+
+Business Operating Systems
+
+which is exactly the category you're trying to establish.
+
+What I'd Do Next Week
+Priority 1
+
+Launch and track BOS Assessment metrics.
+
+Track:
+
+Assessment Start
+Assessment Complete
+Review Request
+Contact Form Submit
+Priority 2
+
+Publish the Living 2 Live BOS story.
+
+Not merely as a client story.
+
+As:
+
+Building a Mission-Driven Business Operating System
+
+That content will strengthen your BOS authority.
+
+Priority 3
+
+Continue platform alignment.
+
+You have already aligned:
+
+✅ Website
+
+✅ Facebook
+
+✅ LinkedIn
+
+✅ YouTube
+
+around Business Operating Systems.
+
+Now do the same with your remaining page titles and calls to action.
+
+My Overall Assessment
+
+Three weeks ago, I viewed ISL as:
+
+Growing AI consulting website
+
+
+Today I view ISL as:
+
+Emerging Business Operating System Architecture firm
+
+
+The numbers indicate that traffic growth has stabilized after rapid gains, while BOS-focused content is showing stronger engagement than traditional AI-focused content. citeturn35search1turn37search1turn37search2
+
+Current Grade
+
+Traffic: A-
+
+Brand Positioning: A
+
+Engagement: B+
+
+SEO Direction: A-
+
+Conversion Tracking: C
+
+Overall: A-
+
+The next phase is no longer about getting more visitors.
+
+The next phase is proving that the new BOS positioning converts visitors into conversations, assessments, and operating system reviews. That's the metric I'd be watching most closely over the next 30 days.
