@@ -145,11 +145,6 @@ export default function Home() {
     return () => obs.disconnect();
   }, []);
 
-  const handleProcessScroll = (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById("process")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
       <style>{`
@@ -217,7 +212,7 @@ export default function Home() {
                   <Link href="/contact">{get("hero_cta_1")}</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="text-base h-11 px-6 font-semibold">
-                  <a href="#process" onClick={handleProcessScroll}>{get("hero_cta_2")}</a>
+                  <Link href={get("hero_cta_2_href") || "/diagnostic"}>{get("hero_cta_2")}</Link>
                 </Button>
               </div>
 
