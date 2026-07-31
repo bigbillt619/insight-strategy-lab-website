@@ -1,0 +1,250 @@
+I agree with your instinct.
+
+Do not do #28 (Living 2 Live Case Study) yet.
+
+You just completed a significant brand repositioning, homepage overhaul, BOS assessment redesign, SEO updates, privacy pages, LinkedIn/Facebook/YouTube alignment, and messaging changes. Right now you're still observing the effects.
+
+My recommendation:
+
+Priority Ranking
+✅ Do Now
+
+#29 - Strengthen Homepage → BOS Assessment Funnel
+
+✅ Do Now (Lightly)
+
+#27 - Reframe Remaining Legacy AI Language
+
+⏳ Wait 30-60 Days
+
+#28 - Living 2 Live BOS Case Study
+
+#29 Homepage Funnel
+
+This is the highest ROI change because it doesn't fundamentally alter the site.
+
+The analytics are telling us:
+
+~80% of traffic lands on homepage
+
+
+but most visitors still have to discover the BOS Assessment themselves.
+
+What I'd Modify
+
+I'd actually reduce the scope.
+
+Don't
+
+Add a new section.
+
+Do
+
+Simply make the secondary hero CTA:
+
+Take the BOS Assessment
+
+
+Current user journey:
+
+Homepage
+    ↓
+Contact
+
+
+New user journey:
+
+Homepage
+    ↓
+BOS Assessment
+    ↓
+Operating System Review
+
+
+Much cleaner.
+
+Revised Ticket #29
+
+I'd scale it back to:
+
+Required
+
+Make secondary homepage hero CTA link to /diagnostic
+
+Label:
+
+Take the BOS Assessment
+Discover Your BOS Score
+Assess My Business Operating System
+
+Keep primary CTA:
+
+Get My Free Operating System Review
+Book a Strategy Call
+Defer
+Mid-page BOS Assessment prompts
+Additional homepage sections
+Any homepage redesign
+
+Reason:
+
+You just redesigned the homepage.
+
+Let it breathe.
+
+#27 Legacy AI Messaging
+
+I agree with the objective.
+
+I would not do the entire ticket.
+
+Instead:
+
+Phase 1
+
+Fix only obvious contradictions.
+
+Current examples:
+
+AI Business Diagnostic
+
+
+should become:
+
+Business Operating System Assessment
+
+Start Your AI Transformation
+
+
+should become:
+
+Start Your BOS Assessment
+
+
+or
+
+Get Your Operating System Review
+
+Phase 2
+
+Leave these for now:
+
+AI Systems
+AI Tools
+AI Automation
+
+
+Because analytics still show these pages performing.
+
+I don't want to remove all AI terminology while Google is still figuring out your new positioning.
+
+Remember:
+
+AI
+    ↓
+Systems
+    ↓
+Business Operating Systems
+
+
+The AI pages are currently part of your discovery mechanism.
+
+Services SEO
+
+I would modify one thing:
+
+Current proposed:
+
+Business Operating System Design
+
+
+Instead use:
+
+Business Operating System Design & Implementation
+
+
+That's a stronger consulting keyword.
+
+#28 Living 2 Live
+
+I'd postpone.
+
+Not because it's a bad idea.
+
+Because the timing isn't right.
+
+Why Wait
+
+Right now you're measuring:
+
+New Homepage
+New Positioning
+New SEO
+New Social Branding
+New BOS Assessment
+
+
+all simultaneously.
+
+Adding a major case study introduces another variable.
+
+What I'd Do Instead
+
+Create a note in your roadmap:
+
+Trigger Point
+
+Launch the Living 2 Live case study when one of these happens:
+
+150+ monthly active users
+
+
+or
+
+10+ BOS Assessment completions
+
+
+or
+
+First ISL client acquired through new BOS positioning
+
+
+At that point you'll have cleaner evidence regarding what's driving engagement.
+
+My Recommended Replit Queue
+#29 (Modified)
+
+Approve
+
+But only:
+
+Hero BOS Assessment CTA
+CMS-editable label
+
+No additional homepage sections.
+
+#27 (Modified)
+
+Approve
+
+But only:
+
+AI Business Diagnostic → BOS Assessment
+Start Your AI Transformation → BOS Review
+FAQ BOS wording
+
+Leave most AI pages alone for now.
+
+#28
+
+Hold
+
+Revisit in 30-60 days after more BOS Assessment and traffic data accumulates.
+
+If this were my site, I'd spend the next month focused on only three metrics:
+
+BOS Assessment Starts
+BOS Assessment Completions
+Operating System Review Requests
+
+Everything else is secondary right now. The positioning work is largely done; now it's time to see whether the funnel converts.
