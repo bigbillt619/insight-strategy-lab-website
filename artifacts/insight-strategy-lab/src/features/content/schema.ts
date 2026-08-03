@@ -23,10 +23,18 @@ export interface ContentField {
   section?: string;
 }
 
+export interface ContentGroupTab {
+  label: string;
+  /** Fields whose key starts with this prefix belong to this tab. */
+  keyPrefix: string;
+}
+
 export interface ContentGroup {
   page: string;
   title: string;
   description?: string;
+  /** When set, the form renders a tab bar instead of one long list. */
+  tabs?: ContentGroupTab[];
   fields: ContentField[];
 }
 
@@ -375,7 +383,11 @@ export const VEHICLE_QR_GROUP: ContentGroup = {
 export const SOLUTIONS_GROUP: ContentGroup = {
   page: "solutions",
   title: "Case Studies",
-  description: "Content for the Trainer Tools Hub case study page (/solutions/trainer-tools-hub). Keys prefixed ttb_ belong to Trainer Tools Hub; future case studies get their own prefix in this same group.",
+  description: "Transformation story pages. Each story has its own tab — select a tab to edit that story's content.",
+  tabs: [
+    { label: "Living 2 Live", keyPrefix: "l2l_" },
+    { label: "Trainer Tools Hub", keyPrefix: "ttb_" },
+  ],
   fields: [
     // ── SEO ──
     { key: "ttb_seo_title", section: "SEO", label: "SEO — page title", type: "text", default: "Trainer Tools Hub Case Study | Insight Strategy Lab" },

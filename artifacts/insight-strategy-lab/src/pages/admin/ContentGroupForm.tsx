@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { useContentBlocks, useUpsertContent, uploadMedia } from "@/features/content/api";
 import type { ContentField, ContentGroup } from "@/features/content/schema";
@@ -261,38 +262,72 @@ export function ContentGroupForm({ group }: { group: ContentGroup }) {
 
   if (isLoading) return <div className="p-8 text-center animate-pulse">Loading content...</div>;
 
+  /** Renders a flat list of fields (used both in tabbed and non-tabbed modes). */
+  function FieldList({ fields }: { fields: ContentField[] }) {
+    return (
+      <div className="grid grid-cols-1 gap-6">
+        {fields.map((f, idx) => {
+          const prevSection = idx > 0 ? fields[idx - 1].section : undefined;
+          const showDivider = f.section && f.section !== prevSection;
+          return (
+            <div key={f.key}>
+              {showDivider && (
+                <div className={`${idx > 0 ? "pt-4 mt-2 border-t border-border" : ""} pb-1`}>
+                  <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{f.section}</p>
+                </div>
+              )}
+              <div className="space-y-2">
+                <Label className="text-sm font-medium">{f.label}</Label>
+                {f.help && <p className="text-xs text-muted-foreground">{f.help}</p>}
+                <FieldInput
+                  field={f}
+                  page={group.page}
+                  value={values[f.key] ?? ""}
+                  onChange={(v) => setValues((prev) => ({ ...prev, [f.key]: v }))}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
-      <Card className="border-border">
-        <CardContent className="p-6 space-y-6">
-          {group.description && <p className="text-sm text-muted-foreground">{group.description}</p>}
-          <div className="grid grid-cols-1 gap-6">
-            {group.fields.map((f, idx) => {
-              const prevSection = idx > 0 ? group.fields[idx - 1].section : undefined;
-              const showDivider = f.section && f.section !== prevSection;
-              return (
-                <div key={f.key}>
-                  {showDivider && (
-                    <div className={`${idx > 0 ? "pt-4 mt-2 border-t border-border" : ""} pb-1`}>
-                      <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">{f.section}</p>
-                    </div>
-                  )}
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">{f.label}</Label>
-                    {f.help && <p className="text-xs text-muted-foreground">{f.help}</p>}
-                    <FieldInput
-                      field={f}
-                      page={group.page}
-                      value={values[f.key] ?? ""}
-                      onChange={(v) => setValues((prev) => ({ ...prev, [f.key]: v }))}
-                    />
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </CardContent>
-      </Card>
+      {group.tabs ? (
+        /* ── Tabbed layout (e.g. Case Studies) ── */
+        <Tabs defaultValue={group.tabs[0].keyPrefix}>
+          <TabsList className="mb-2">
+            {group.tabs.map((tab) => (
+              <TabsTrigger key={tab.keyPrefix} value={tab.keyPrefix}>
+                {tab.label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {group.tabs.map((tab) => {
+            const tabFields = group.fields.filter((f) => f.key.startsWith(tab.keyPrefix));
+            return (
+              <TabsContent key={tab.keyPrefix} value={tab.keyPrefix}>
+                <Card className="border-border">
+                  <CardContent className="p-6 space-y-6">
+                    {group.description && <p className="text-sm text-muted-foreground">{group.description}</p>}
+                    <FieldList fields={tabFields} />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            );
+          })}
+        </Tabs>
+      ) : (
+        /* ── Flat layout (all other groups) ── */
+        <Card className="border-border">
+          <CardContent className="p-6 space-y-6">
+            {group.description && <p className="text-sm text-muted-foreground">{group.description}</p>}
+            <FieldList fields={group.fields} />
+          </CardContent>
+        </Card>
+      )}
       <div className="sticky bottom-4 flex justify-end">
         <Button onClick={handleSave} disabled={upsert.isPending} size="lg" className="shadow-lg">
           {upsert.isPending ? "Saving..." : "Save Changes"}
