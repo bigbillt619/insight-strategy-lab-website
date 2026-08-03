@@ -10,85 +10,46 @@ import { FadeUp } from "@/components/FadeUp";
 import { resolveAppThumbnail } from "@/lib/utils";
 import type { AppItem } from "@/lib/types";
 
-function isFeatured(app: AppItem) {
-  const t = app.title.toLowerCase();
-  return t.includes("trainer") && t.includes("hub");
-}
-
-function FeaturedCaseStudyCard({ app, subtitle, description, ctaPrimary, ctaSecondary, demoUrl }: {
-  app: AppItem;
+/** Static transformation story card — driven by schema keys, no DB dependency */
+function TransformationStoryCard({ storyUrl, subtitle, title, description, ctaPrimary, ctaSecondary, ctaSecondaryUrl, order }: {
+  storyUrl: string;
   subtitle: string;
+  title: string;
   description: string;
   ctaPrimary: string;
-  ctaSecondary: string;
-  demoUrl: string;
+  ctaSecondary?: string;
+  ctaSecondaryUrl?: string;
+  order: number;
 }) {
-  const [playing, setPlaying] = useState(false);
-  const [imgError, setImgError] = useState(false);
-  const thumbSrc = imgError ? null : resolveAppThumbnail(app.thumbnail_url, app.youtube_url);
-
   return (
     <FadeUp>
-      <div className="relative bg-white border-2 rounded-2xl overflow-hidden shadow-lg mb-12" style={{ borderColor: "#2563EB" }}>
-        <div className="absolute top-0 left-0 z-10">
-          <div className="flex items-center gap-1.5 px-4 py-2 text-xs font-black uppercase tracking-widest text-white" style={{ background: "#2563EB" }}>
-            <Star className="h-3 w-3 fill-current" />
-            Featured Case Study
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {/* Media */}
-          <div className="aspect-video lg:aspect-auto lg:min-h-[320px] bg-gray-900 relative overflow-hidden">
-            {playing && app.youtube_url ? (
-              <VideoEmbed url={app.youtube_url} autoPlay className="absolute inset-0 h-full w-full rounded-none" />
-            ) : app.youtube_url ? (
-              <>
-                {thumbSrc && (
-                  <img src={thumbSrc} alt={app.title} onError={() => setImgError(true)} className="absolute inset-0 h-full w-full object-cover opacity-80" />
-                )}
-                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent" />
-                <button
-                  type="button"
-                  onClick={() => setPlaying(true)}
-                  aria-label={`Play ${app.title} demo`}
-                  className="absolute inset-0 flex items-center justify-center"
-                >
-                  <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-xl hover:scale-105 transition-transform">
-                    <Play className="h-7 w-7 translate-x-0.5 fill-current" style={{ color: "#2563EB" }} aria-hidden="true" />
-                  </span>
-                </button>
-              </>
-            ) : thumbSrc ? (
-              <img src={thumbSrc} alt={app.title} onError={() => setImgError(true)} className="absolute inset-0 h-full w-full object-cover" />
-            ) : (
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gray-800">
-                <Database className="h-12 w-12 text-gray-600" />
-              </div>
-            )}
-          </div>
-
-          {/* Content */}
-          <div className="p-8 lg:p-10 flex flex-col justify-center">
-            <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: "#2563EB" }}>{subtitle}</p>
-            <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight">{app.title}</h2>
-            <p className="text-gray-600 leading-relaxed mb-6">{description}</p>
-
-            <div className="flex flex-col sm:flex-row gap-3">
-              <Button asChild size="default" style={{ background: "#2563EB", color: "white" }}>
-                <Link href="/solutions/trainer-tools-hub">
-                  {ctaPrimary} <ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-              {demoUrl && (
-                <Button asChild variant="outline" size="default" className="border-gray-300 text-gray-700 hover:border-blue-300">
-                  <a href={demoUrl} target="_blank" rel="noreferrer">
-                    <Play className="mr-2 h-4 w-4" />
-                    {ctaSecondary}
-                  </a>
-                </Button>
-              )}
+      <div className="relative bg-white border-2 rounded-2xl overflow-hidden shadow-lg mb-8" style={{ borderColor: order === 1 ? "#2563EB" : "#E5E7EB" }}>
+        {order === 1 && (
+          <div className="absolute top-0 left-0 z-10">
+            <div className="flex items-center gap-1.5 px-4 py-2 text-xs font-black uppercase tracking-widest text-white" style={{ background: "#2563EB" }}>
+              <Star className="h-3 w-3 fill-current" />
+              Flagship Story
             </div>
+          </div>
+        )}
+        <div className="p-8 lg:p-10 pt-12 lg:pt-12">
+          <p className="text-sm font-bold uppercase tracking-widest mb-2" style={{ color: "#2563EB" }}>{subtitle}</p>
+          <h2 className="text-2xl lg:text-3xl font-black text-gray-900 mb-4 leading-tight">{title}</h2>
+          <p className="text-gray-600 leading-relaxed mb-6 max-w-3xl">{description}</p>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button asChild size="default" style={{ background: "#2563EB", color: "white" }}>
+              <Link href={storyUrl}>
+                {ctaPrimary || "View Transformation Story"} <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+            {ctaSecondary && ctaSecondaryUrl && (
+              <Button asChild variant="outline" size="default" className="border-gray-300 text-gray-700 hover:border-blue-300">
+                <a href={ctaSecondaryUrl} target="_blank" rel="noreferrer">
+                  <Play className="mr-2 h-4 w-4" />
+                  {ctaSecondary}
+                </a>
+              </Button>
+            )}
           </div>
         </div>
       </div>
@@ -185,11 +146,7 @@ export default function Apps() {
 
   const includesHeading = get("includes_heading");
   const includesItems = get("includes_items").split("\n").map((s) => s.trim()).filter(Boolean);
-  const galleryLabel = get("gallery_label");
   const ctaHeading = get("cta_heading");
-
-  const featuredApp = apps.find(isFeatured);
-  const otherApps = apps.filter((a) => !isFeatured(a));
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
@@ -202,7 +159,7 @@ export default function Apps() {
         <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <FadeUp>
             <span className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold border mb-6" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
-              Solutions in Production
+              Transformation Stories
             </span>
           </FadeUp>
           <FadeUp delay={80}>
@@ -218,47 +175,48 @@ export default function Apps() {
         </div>
       </section>
 
-      {/* ─── Gallery ──────────────────────────────────────── */}
+      {/* ─── Transformation Stories ────────────────────────── */}
       <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
         <div className="container mx-auto px-6 max-w-6xl">
-          {galleryLabel && apps.length > 0 && (
-            <FadeUp>
-              <p className="text-xs font-bold uppercase tracking-[0.2em] mb-10" style={{ color: "#2563EB" }}>{galleryLabel}</p>
-            </FadeUp>
-          )}
+          <FadeUp>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] mb-10" style={{ color: "#2563EB" }}>Transformation Stories</p>
+          </FadeUp>
 
+          {/* 1. Living 2 Live — Flagship (schema-driven) */}
+          <TransformationStoryCard
+            order={1}
+            storyUrl="/solutions/living-2-live"
+            subtitle={getSolutions("l2l_card_subtitle") || "Organizational Operating System Transformation"}
+            title="Living 2 Live Operations Hub"
+            description={getSolutions("l2l_card_description") || "Transforming founder-led operations into an integrated organizational operating system that aligns people, programs, fundraising, community engagement, governance, and insights."}
+            ctaPrimary={getSolutions("l2l_cta_primary") || "View Transformation Story"}
+            ctaSecondary={getSolutions("l2l_cta_secondary") || undefined}
+            ctaSecondaryUrl={getSolutions("l2l_demo_url") || undefined}
+          />
+
+          {/* 2. Trainer Tools Hub (schema-driven) */}
+          <TransformationStoryCard
+            order={2}
+            storyUrl="/solutions/trainer-tools-hub"
+            subtitle={getSolutions("ttb_card_subtitle") || "Small Business Digital Transformation"}
+            title="Trainer Tools Hub"
+            description={getSolutions("ttb_card_description") || "Transforming manual coaching operations into an integrated digital platform."}
+            ctaPrimary={getSolutions("ttb_cta_primary") || "View Transformation Story"}
+            ctaSecondary={getSolutions("ttb_cta_secondary") || undefined}
+            ctaSecondaryUrl={getSolutions("ttb_demo_url") || undefined}
+          />
+
+          {/* Other published apps from DB */}
           {isLoading ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[1, 2, 3, 4].map((i) => (
-                <div key={i} className="h-96 rounded-2xl bg-gray-200 animate-pulse" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              {[1, 2].map((i) => (
+                <div key={i} className="h-64 rounded-2xl bg-gray-200 animate-pulse" />
               ))}
             </div>
-          ) : apps.length === 0 ? (
-            <FadeUp>
-              <div className="text-center py-24 bg-white border border-gray-100 rounded-2xl shadow-sm">
-                <Database className="h-12 w-12 mx-auto mb-4" style={{ color: "rgba(37,99,235,0.3)" }} aria-hidden="true" />
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{get("empty_heading") || "Coming Soon"}</h3>
-                <p className="text-gray-500">{get("empty_body") || "Production apps will appear here."}</p>
-              </div>
-            </FadeUp>
-          ) : (
-            <>
-              {featuredApp && (
-                <FeaturedCaseStudyCard
-                  app={featuredApp}
-                  subtitle={getSolutions("ttb_card_subtitle") || "Digital Transformation Case Study"}
-                  description={getSolutions("ttb_card_description") || featuredApp.description || ""}
-                  ctaPrimary={getSolutions("ttb_cta_primary") || "View Case Study"}
-                  ctaSecondary={getSolutions("ttb_cta_secondary") || "Explore Solution"}
-                  demoUrl={getSolutions("ttb_demo_url")}
-                />
-              )}
-              {otherApps.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {otherApps.map((app) => <AppCard key={app.id} app={app} />)}
-                </div>
-              )}
-            </>
+          ) : apps.length > 0 && (
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+              {apps.map((app) => <AppCard key={app.id} app={app} />)}
+            </div>
           )}
         </div>
       </section>

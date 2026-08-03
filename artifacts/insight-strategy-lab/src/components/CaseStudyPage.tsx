@@ -2,13 +2,14 @@
  * Generic case study page renderer.
  *
  * Adding a new case study only requires:
- *  1. Adding <prefix>_* keys to SOLUTIONS_GROUP in schema.ts (same structure as ttb_* keys)
+ *  1. Adding <prefix>_* keys to SOLUTIONS_GROUP in schema.ts
  *  2. A new route in App.tsx that renders <CaseStudyPage prefix="xxx_" />
  *
- * No new page component or structural changes are needed.
+ * Sections are shown/hidden based on whether their heading key has content,
+ * so L2L-specific sections (OS hub, metric grid, video, demo, roadmap, etc.)
+ * are automatically invisible on the Trainer Tools Hub page and vice-versa.
  */
 
-import { useState } from "react";
 import { Link } from "wouter";
 import { useContent } from "@/features/content/api";
 import { usePageMeta } from "@/lib/usePageMeta";
@@ -16,10 +17,17 @@ import { Button } from "@/components/ui/button";
 import { FadeUp } from "@/components/FadeUp";
 import {
   ArrowRight, CheckCircle2, Download, Users, Cog, Monitor, Database, Brain,
-  ArrowDown, Star,
+  ArrowDown, Star, Play, FileText, Zap, TrendingUp, Shield, BarChart3, GitBranch,
 } from "lucide-react";
 
 const MODULE_ICONS = [Users, CheckCircle2, Cog, Monitor, ArrowRight, Monitor];
+const IMPACT_ICONS = [Zap, Shield, Cog, TrendingUp, GitBranch, BarChart3];
+
+function extractYouTubeId(url: string): string | null {
+  if (!url) return null;
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|watch\?v=|shorts\/))([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
 
 interface CaseStudyPageProps {
   prefix: string;
@@ -27,7 +35,6 @@ interface CaseStudyPageProps {
 
 export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
   const { get: getRaw } = useContent("solutions");
-
   const get = (suffix: string) => getRaw(`${prefix}${suffix}`);
 
   usePageMeta({ title: get("seo_title"), description: get("seo_description") });
@@ -63,13 +70,56 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
   ];
 
   const resultsItems = get("results_items").split("\n").map((s) => s.trim()).filter(Boolean);
+  const supportAttrs = get("support_attrs").split("\n").map((s) => s.trim()).filter(Boolean);
+  const osSpokes = get("os_spoke_items").split("\n").map((s) => s.trim()).filter(Boolean);
+  const impactItems = get("impact_items").split("\n").map((s) => s.trim()).filter(Boolean);
   const downloadUrl = get("download_url");
   const slidesHeading = get("slides_heading");
+
+  // Hero CTA overrides
+  const heroPrimary = get("hero_cta_primary");
+  const heroPrimaryUrl = get("hero_cta_primary_url");
+  const heroSecondary = get("hero_cta_secondary");
+  const heroSecondaryUrl = get("hero_cta_secondary_url");
+
+  // L2L metric grid
+  const metricStats = [1, 2, 3, 4, 5, 6].map((n) => ({
+    value: get(`results_stat_${n}_value`),
+    label: get(`results_stat_${n}_label`),
+  })).filter((s) => s.value);
+
+  const platformStats = [1, 2, 3].map((n) => ({
+    value: get(`platform_stat_${n}_value`),
+    label: get(`platform_stat_${n}_label`),
+  })).filter((s) => s.value);
+
+  // Roadmap phases
+  const roadmapPhases = [1, 2, 3, 4, 5, 6].map((n) => ({
+    num: `0${n}`,
+    label: get(`roadmap_phase_${n}_label`),
+    status: get(`roadmap_phase_${n}_status`),
+  })).filter((p) => p.label);
+
+  // Resources
+  const resources = [1, 2, 3].map((n) => ({
+    label: get(`resource_${n}_label`),
+    url: get(`resource_${n}_url`),
+  })).filter((r) => r.label);
+
+  // Demo callout paragraphs
+  const demoCalloutParas = get("demo_callout").split("\n\n").filter(Boolean);
+
+  // Video
+  const videoUrl = get("video_url");
+  const ytId = extractYouTubeId(videoUrl);
+
+  // CTA body paragraphs (L2L has multi-paragraph cta_body)
+  const ctaBodyParas = get("cta_body").split("\n\n").filter(Boolean);
 
   return (
     <div className="flex flex-col min-h-screen overflow-x-hidden">
 
-      {/* ─── 1. Hero ─────────────────────────────────────── */}
+      {/* ─── 1. Hero ──────────────────────────────────────── */}
       <section className="relative overflow-hidden pt-20 pb-20 md:pt-28 md:pb-28" style={{ background: "#0F172A" }}>
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-full opacity-10" style={{ background: "radial-gradient(circle,#2563EB,transparent)" }} />
@@ -98,18 +148,66 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
           </FadeUp>
           <FadeUp delay={260}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button asChild size="lg" className="h-12 px-8 text-base font-semibold" style={{ background: "#2563EB", color: "white" }}>
-                <Link href="/contact">{get("cta_button") || "Schedule a Free Strategy Call"} <ArrowRight className="ml-2 h-5 w-5" /></Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base font-semibold border-gray-600 text-gray-300 hover:border-blue-400 hover:text-white">
-                <Link href="/apps">← Back to Solutions</Link>
-              </Button>
+              {heroPrimary ? (
+                <Button asChild size="lg" className="h-12 px-8 text-base font-semibold" style={{ background: "#2563EB", color: "white" }}>
+                  {heroPrimaryUrl && !heroPrimaryUrl.startsWith("#") ? (
+                    <a href={heroPrimaryUrl} target="_blank" rel="noreferrer">{heroPrimary} <ArrowRight className="ml-2 h-5 w-5" /></a>
+                  ) : (
+                    <Link href={heroPrimaryUrl || "/contact"}>{heroPrimary} <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                  )}
+                </Button>
+              ) : (
+                <Button asChild size="lg" className="h-12 px-8 text-base font-semibold" style={{ background: "#2563EB", color: "white" }}>
+                  <Link href="/contact">{get("cta_button") || "Schedule a Free Strategy Call"} <ArrowRight className="ml-2 h-5 w-5" /></Link>
+                </Button>
+              )}
+              {heroSecondary ? (
+                <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base font-semibold border-gray-600 text-gray-300 hover:border-blue-400 hover:text-white">
+                  {heroSecondaryUrl?.startsWith("#") ? (
+                    <a href={heroSecondaryUrl}>{heroSecondary}</a>
+                  ) : heroSecondaryUrl ? (
+                    <a href={heroSecondaryUrl} target="_blank" rel="noreferrer">{heroSecondary}</a>
+                  ) : (
+                    <Link href="/apps">{heroSecondary}</Link>
+                  )}
+                </Button>
+              ) : (
+                <Button asChild variant="outline" size="lg" className="h-12 px-8 text-base font-semibold border-gray-600 text-gray-300 hover:border-blue-400 hover:text-white">
+                  <Link href="/apps">← Back to Solutions</Link>
+                </Button>
+              )}
             </div>
           </FadeUp>
         </div>
       </section>
 
-      {/* ─── 2. Business Challenge ───────────────────────── */}
+      {/* ─── 2. Credibility Banner (L2L) ──────────────────── */}
+      {get("cred_heading") && (
+        <section style={{ background: "#2563EB" }}>
+          <div className="container mx-auto px-6 py-6 max-w-5xl">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <span className="text-white font-black text-xs uppercase tracking-widest text-center sm:text-left">
+                {get("cred_heading")}
+              </span>
+              <div className="flex flex-wrap gap-8 justify-center">
+                {[1, 2, 3, 4].map((n) => {
+                  const val = get(`cred_stat_${n}_value`);
+                  const lbl = get(`cred_stat_${n}_label`);
+                  if (!val) return null;
+                  return (
+                    <div key={n} className="text-center">
+                      <div className="text-2xl font-black text-white leading-none">{val}</div>
+                      <div className="text-blue-200 text-xs font-semibold mt-0.5">{lbl}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 3. Business Challenge ────────────────────────── */}
       <section className="py-20 md:py-28 bg-white">
         <div className="container mx-auto px-6 max-w-5xl">
           <FadeUp>
@@ -136,179 +234,458 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
         </div>
       </section>
 
-      {/* ─── 3. Why This Matters ─────────────────────────── */}
-      <section className="py-20 md:py-24" style={{ background: "#F8FAFF" }}>
-        <div className="container mx-auto px-6 max-w-4xl text-center">
-          <FadeUp>
-            <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Context</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-10">{get("why_heading") || "Why This Matters"}</h2>
-          </FadeUp>
-          <FadeUp delay={80}>
-            <div className="relative rounded-2xl p-8 md:p-12 text-left" style={{ background: "#EFF6FF", borderLeft: "4px solid #2563EB" }}>
-              <div className="absolute top-4 left-4 text-blue-200 text-7xl font-black leading-none select-none">"</div>
-              <div className="relative z-10 space-y-4">
-                {whyBody.map((para, i) => (
-                  <p key={i} className="text-gray-800 text-lg leading-relaxed font-medium">{para}</p>
-                ))}
+      {/* ─── 4. Why This Matters (TTH only) ───────────────── */}
+      {get("why_heading") && (
+        <section className="py-20 md:py-24" style={{ background: "#F8FAFF" }}>
+          <div className="container mx-auto px-6 max-w-4xl text-center">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Context</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-10">{get("why_heading")}</h2>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <div className="relative rounded-2xl p-8 md:p-12 text-left" style={{ background: "#EFF6FF", borderLeft: "4px solid #2563EB" }}>
+                <div className="absolute top-4 left-4 text-blue-200 text-7xl font-black leading-none select-none">"</div>
+                <div className="relative z-10 space-y-4">
+                  {whyBody.map((para, i) => (
+                    <p key={i} className="text-gray-800 text-lg leading-relaxed font-medium">{para}</p>
+                  ))}
+                </div>
               </div>
+            </FadeUp>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 5. Transformation Approach ───────────────────── */}
+      {get("approach_heading") && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Methodology</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">{get("approach_heading")}</h2>
+              <p className="text-gray-600 text-lg max-w-3xl mb-14 leading-relaxed">{get("approach_body")}</p>
+            </FadeUp>
+
+            {/* Five Pillars */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mb-8">
+              {pillars.map(({ labelSuffix, descSuffix, Icon }, i) => (
+                get(labelSuffix) ? (
+                  <FadeUp key={i} delay={i * 60}>
+                    <div className="flex flex-col items-center text-center p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
+                        <Icon className="h-6 w-6" style={{ color: "#2563EB" }} />
+                      </div>
+                      <h3 className="font-black text-gray-900 mb-2">{get(labelSuffix)}</h3>
+                      <p className="text-sm text-gray-500 leading-relaxed">{get(descSuffix)}</p>
+                    </div>
+                  </FadeUp>
+                ) : null
+              ))}
             </div>
-          </FadeUp>
-        </div>
-      </section>
 
-      {/* ─── 4. Transformation Approach ─────────────────── */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <FadeUp>
-            <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Methodology</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">{get("approach_heading") || "The Transformation Approach"}</h2>
-            <p className="text-gray-600 text-lg max-w-3xl mb-14 leading-relaxed">{get("approach_body")}</p>
-          </FadeUp>
-
-          {/* Five Pillars */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 mb-16">
-            {pillars.map(({ labelSuffix, descSuffix, Icon }, i) => (
-              <FadeUp key={i} delay={i * 60}>
-                <div className="flex flex-col items-center text-center p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
-                    <Icon className="h-6 w-6" style={{ color: "#2563EB" }} />
-                  </div>
-                  <h3 className="font-black text-gray-900 mb-2">{get(labelSuffix)}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{get(descSuffix)}</p>
+            {/* Supporting attributes (L2L) */}
+            {supportAttrs.length > 0 && (
+              <FadeUp delay={80}>
+                <div className="flex flex-wrap gap-3 justify-center mb-14">
+                  {supportAttrs.map((attr) => (
+                    <span key={attr} className="px-4 py-2 rounded-full text-sm font-bold border" style={{ background: "rgba(37,99,235,0.06)", borderColor: "rgba(37,99,235,0.2)", color: "#2563EB" }}>
+                      {attr}
+                    </span>
+                  ))}
                 </div>
               </FadeUp>
-            ))}
-          </div>
+            )}
 
-          {/* MCTR Framework */}
-          <FadeUp>
-            <div className="rounded-2xl p-8 md:p-10" style={{ background: "#0F172A" }}>
-              <div className="text-center mb-8">
-                <span className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2 block">Framework</span>
-                <h3 className="text-2xl md:text-3xl font-black text-white">{get("mctr_heading") || "The MCTR Framework"}</h3>
-                <p className="text-gray-400 mt-3 max-w-2xl mx-auto">{get("mctr_body")}</p>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-                {mctrKeys.map(({ letter, labelSuffix, descSuffix }, i) => (
-                  <div key={i} className="rounded-xl p-5" style={{ background: "rgba(37,99,235,0.12)", border: "1px solid rgba(37,99,235,0.2)" }}>
-                    <div className="text-3xl font-black mb-2" style={{ color: "#60A5FA" }}>{letter}</div>
-                    <h4 className="font-black text-white mb-2">{get(labelSuffix)}</h4>
-                    <p className="text-sm text-gray-400 leading-relaxed">{get(descSuffix)}</p>
+            {/* MCTR Framework (TTH only) */}
+            {get("mctr_heading") && (
+              <FadeUp>
+                <div className="rounded-2xl p-8 md:p-10" style={{ background: "#0F172A" }}>
+                  <div className="text-center mb-8">
+                    <span className="text-xs font-bold uppercase tracking-widest text-blue-400 mb-2 block">Framework</span>
+                    <h3 className="text-2xl md:text-3xl font-black text-white">{get("mctr_heading")}</h3>
+                    <p className="text-gray-400 mt-3 max-w-2xl mx-auto">{get("mctr_body")}</p>
                   </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    {mctrKeys.map(({ letter, labelSuffix, descSuffix }, i) => (
+                      <div key={i} className="rounded-xl p-5" style={{ background: "rgba(37,99,235,0.12)", border: "1px solid rgba(37,99,235,0.2)" }}>
+                        <div className="text-3xl font-black mb-2" style={{ color: "#60A5FA" }}>{letter}</div>
+                        <h4 className="font-black text-white mb-2">{get(labelSuffix)}</h4>
+                        <p className="text-sm text-gray-400 leading-relaxed">{get(descSuffix)}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </FadeUp>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ─── 6. OS Hub Visual (L2L) ───────────────────────── */}
+      {get("os_heading") && (
+        <section className="py-20 md:py-28" style={{ background: "#F8FAFF" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Operating System</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">{get("os_heading")}</h2>
+              <p className="text-gray-600 text-lg max-w-3xl mb-14 leading-relaxed">{get("os_body")}</p>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-3xl mx-auto items-stretch">
+                {/* Left column */}
+                <div className="flex flex-col gap-4 justify-center">
+                  {osSpokes.slice(0, 3).map((spoke, i) => (
+                    <div key={i} className="p-4 rounded-xl text-center font-bold text-gray-800 border border-gray-200 bg-white shadow-sm" style={{ borderLeft: "3px solid #2563EB" }}>
+                      {spoke}
+                    </div>
+                  ))}
+                </div>
+                {/* Center hub */}
+                <div className="flex items-center justify-center py-6 md:py-0">
+                  <div className="relative w-44 h-44 rounded-full flex items-center justify-center text-center shadow-2xl" style={{ background: "linear-gradient(135deg,#1e40af,#2563EB)" }}>
+                    <div className="absolute inset-0 rounded-full opacity-20 animate-pulse" style={{ background: "radial-gradient(circle,#60A5FA,transparent)" }} />
+                    <span className="relative text-white font-black text-2xl leading-tight">
+                      {get("os_hub_label") || "Insights"}
+                    </span>
+                  </div>
+                </div>
+                {/* Right column */}
+                <div className="flex flex-col gap-4 justify-center">
+                  {osSpokes.slice(3, 6).map((spoke, i) => (
+                    <div key={i} className="p-4 rounded-xl text-center font-bold text-gray-800 border border-gray-200 bg-white shadow-sm" style={{ borderRight: "3px solid #2563EB" }}>
+                      {spoke}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 7. Before vs After (TTH) ─────────────────────── */}
+      {get("bva_heading") && (
+        <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Transformation</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("bva_heading")}</h2>
+            </FadeUp>
+            <FadeUp delay={80}>
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
+                <div className="rounded-2xl border-2 border-red-200 bg-white overflow-hidden shadow-sm">
+                  <div className="px-6 py-4 border-b border-red-100 bg-red-50">
+                    <h3 className="font-black text-red-700 uppercase tracking-wide text-sm">{get("before_label") || "Before"}</h3>
+                  </div>
+                  <div className="p-6 space-y-3">
+                    {beforeItems.map((item, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <span className="h-5 w-5 shrink-0 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-xs font-black">✕</span>
+                        <span className="text-gray-800 font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="flex items-center justify-center">
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style={{ background: "#2563EB" }}>
+                    <ArrowDown className="h-6 w-6 text-white md:hidden" />
+                    <ArrowRight className="h-6 w-6 text-white hidden md:block" />
+                  </div>
+                </div>
+                <div className="rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: "#2563EB", background: "white" }}>
+                  <div className="px-6 py-4 border-b" style={{ borderColor: "rgba(37,99,235,0.2)", background: "rgba(37,99,235,0.06)" }}>
+                    <h3 className="font-black uppercase tracking-wide text-sm" style={{ color: "#2563EB" }}>{get("after_label") || "After"}</h3>
+                  </div>
+                  <div className="p-6 space-y-3">
+                    {afterItems.map((item, i) => (
+                      <div key={i} className="flex items-center gap-3">
+                        <CheckCircle2 className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} />
+                        <span className="text-gray-800 font-medium">{item}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </FadeUp>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 8. Solution Overview (TTH) ───────────────────── */}
+      {get("overview_heading") && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-6xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>The System</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">{get("overview_heading")}</h2>
+              <p className="text-gray-600 text-lg max-w-3xl mb-14 leading-relaxed">{get("overview_body")}</p>
+            </FadeUp>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {modules.map(({ titleSuffix, descSuffix }, i) => {
+                const Icon = MODULE_ICONS[i] ?? Cog;
+                const title = get(titleSuffix);
+                if (!title) return null;
+                return (
+                  <FadeUp key={i} delay={i * 60}>
+                    <div className="p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
+                        <Icon className="h-5 w-5" style={{ color: "#2563EB" }} />
+                      </div>
+                      <h3 className="font-black text-gray-900 mb-2">{title}</h3>
+                      <p className="text-sm text-gray-600 leading-relaxed">{get(descSuffix)}</p>
+                    </div>
+                  </FadeUp>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 9a. Results — List style (TTH) ───────────────── */}
+      {resultsItems.length > 0 && (
+        <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Outcomes</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("results_heading") || "Results & Lessons Learned"}</h2>
+            </FadeUp>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+              <div className="space-y-4">
+                {resultsItems.map((item, i) => (
+                  <FadeUp key={i} delay={i * 60}>
+                    <div className="flex items-start gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm">
+                      <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" style={{ color: "#2563EB" }} />
+                      <span className="text-gray-800 leading-relaxed">{item}</span>
+                    </div>
+                  </FadeUp>
                 ))}
               </div>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ─── 5. Before vs After ──────────────────────────── */}
-      <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
-        <div className="container mx-auto px-6 max-w-5xl">
-          <FadeUp>
-            <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Transformation</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("bva_heading") || "Before & After"}</h2>
-          </FadeUp>
-          <FadeUp delay={80}>
-            <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-6 items-center">
-              {/* Before */}
-              <div className="rounded-2xl border-2 border-red-200 bg-white overflow-hidden shadow-sm">
-                <div className="px-6 py-4 border-b border-red-100 bg-red-50">
-                  <h3 className="font-black text-red-700 uppercase tracking-wide text-sm">{get("before_label") || "Before"}</h3>
-                </div>
-                <div className="p-6 space-y-3">
-                  {beforeItems.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <span className="h-5 w-5 shrink-0 rounded-full bg-red-100 flex items-center justify-center text-red-600 text-xs font-black">✕</span>
-                      <span className="text-gray-800 font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Arrow */}
-              <div className="flex items-center justify-center">
-                <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style={{ background: "#2563EB" }}>
-                  <ArrowDown className="h-6 w-6 text-white md:hidden" />
-                  <ArrowRight className="h-6 w-6 text-white hidden md:block" />
-                </div>
-              </div>
-
-              {/* After */}
-              <div className="rounded-2xl border-2 overflow-hidden shadow-sm" style={{ borderColor: "#2563EB", background: "white" }}>
-                <div className="px-6 py-4 border-b" style={{ borderColor: "rgba(37,99,235,0.2)", background: "rgba(37,99,235,0.06)" }}>
-                  <h3 className="font-black uppercase tracking-wide text-sm" style={{ color: "#2563EB" }}>{get("after_label") || "After"}</h3>
-                </div>
-                <div className="p-6 space-y-3">
-                  {afterItems.map((item, i) => (
-                    <div key={i} className="flex items-center gap-3">
-                      <CheckCircle2 className="h-5 w-5 shrink-0" style={{ color: "#2563EB" }} />
-                      <span className="text-gray-800 font-medium">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </FadeUp>
-        </div>
-      </section>
-
-      {/* ─── 6. Solution Overview ────────────────────────── */}
-      <section className="py-20 md:py-28 bg-white">
-        <div className="container mx-auto px-6 max-w-6xl">
-          <FadeUp>
-            <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>The System</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-4">{get("overview_heading") || "Solution Overview"}</h2>
-            <p className="text-gray-600 text-lg max-w-3xl mb-14 leading-relaxed">{get("overview_body")}</p>
-          </FadeUp>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {modules.map(({ titleSuffix, descSuffix }, i) => {
-              const Icon = MODULE_ICONS[i] ?? Cog;
-              return (
-                <FadeUp key={i} delay={i * 60}>
-                  <div className="p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
-                    <div className="w-10 h-10 rounded-lg flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
-                      <Icon className="h-5 w-5" style={{ color: "#2563EB" }} />
-                    </div>
-                    <h3 className="font-black text-gray-900 mb-2">{get(titleSuffix)}</h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">{get(descSuffix)}</p>
+              {get("results_lesson") && (
+                <FadeUp delay={100}>
+                  <div className="rounded-2xl p-8 relative" style={{ background: "#EFF6FF", borderLeft: "4px solid #2563EB" }}>
+                    <div className="absolute top-4 left-4 text-blue-200 text-7xl font-black leading-none select-none">"</div>
+                    <p className="relative z-10 text-gray-800 text-lg leading-relaxed font-medium italic">{get("results_lesson")}</p>
                   </div>
                 </FadeUp>
-              );
-            })}
+              )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* ─── 7. Results & Lessons Learned ───────────────── */}
-      <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
-        <div className="container mx-auto px-6 max-w-5xl">
-          <FadeUp>
-            <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Outcomes</span>
-            <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("results_heading") || "Results & Lessons Learned"}</h2>
-          </FadeUp>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-            <div className="space-y-4">
-              {resultsItems.map((item, i) => (
+      {/* ─── 9b. Results — Metric Grid (L2L) ──────────────── */}
+      {metricStats.length > 0 && get("results_heading") && (
+        <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Results</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("results_heading")}</h2>
+            </FadeUp>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5 mb-12">
+              {metricStats.map((s, i) => (
                 <FadeUp key={i} delay={i * 60}>
-                  <div className="flex items-start gap-4 p-5 bg-white border border-gray-100 rounded-2xl shadow-sm">
-                    <CheckCircle2 className="h-5 w-5 shrink-0 mt-0.5" style={{ color: "#2563EB" }} />
-                    <span className="text-gray-800 leading-relaxed">{item}</span>
+                  <div className="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                    <div className="text-3xl md:text-4xl font-black mb-1" style={{ color: "#2563EB" }}>{s.value}</div>
+                    <div className="text-gray-600 text-sm leading-snug">{s.label}</div>
                   </div>
                 </FadeUp>
               ))}
             </div>
+            {platformStats.length > 0 && get("platform_heading") && (
+              <>
+                <FadeUp>
+                  <h3 className="text-lg font-black text-gray-700 uppercase tracking-wider mb-6 text-center">{get("platform_heading")}</h3>
+                </FadeUp>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  {platformStats.map((s, i) => (
+                    <FadeUp key={i} delay={i * 60}>
+                      <div className="bg-white rounded-2xl p-6 text-center border border-gray-100 shadow-sm">
+                        <div className="text-2xl font-black mb-1 text-gray-700">{s.value}</div>
+                        <div className="text-gray-500 text-sm">{s.label}</div>
+                      </div>
+                    </FadeUp>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ─── 10. Strategic Impact (L2L) ───────────────────── */}
+      {get("impact_heading") && impactItems.length > 0 && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Strategic Impact</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("impact_heading")}</h2>
+            </FadeUp>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+              {impactItems.map((item, i) => {
+                const Icon = IMPACT_ICONS[i % IMPACT_ICONS.length];
+                return (
+                  <FadeUp key={i} delay={i * 60}>
+                    <div className="flex flex-col items-center text-center p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                      <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-4" style={{ background: "rgba(37,99,235,0.08)" }}>
+                        <Icon className="h-6 w-6" style={{ color: "#2563EB" }} />
+                      </div>
+                      <span className="font-black text-gray-900 text-sm">{item}</span>
+                    </div>
+                  </FadeUp>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 11. Video (L2L) ──────────────────────────────── */}
+      {get("video_heading") && (
+        <section id="video" className="py-20 md:py-28 scroll-mt-20" style={{ background: "#0F172A" }}>
+          <div className="container mx-auto px-6 max-w-4xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block text-blue-400">Watch</span>
+              <h2 className="text-3xl md:text-4xl font-black text-white mb-4">{get("video_heading")}</h2>
+              {get("video_body") && (
+                <p className="text-gray-400 text-lg max-w-2xl mb-10 leading-relaxed">{get("video_body")}</p>
+              )}
+            </FadeUp>
+            {ytId ? (
+              <FadeUp delay={80}>
+                <div className="rounded-2xl overflow-hidden shadow-2xl aspect-video" style={{ border: "1px solid rgba(37,99,235,0.3)" }}>
+                  <iframe
+                    src={`https://www.youtube.com/embed/${ytId}?rel=0`}
+                    title={get("video_heading")}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                  />
+                </div>
+              </FadeUp>
+            ) : (
+              <FadeUp delay={80}>
+                <div className="rounded-2xl flex items-center justify-center gap-3 p-12 text-gray-500 border border-dashed" style={{ borderColor: "rgba(37,99,235,0.3)" }}>
+                  <Play className="h-6 w-6" style={{ color: "#2563EB" }} />
+                  <span className="text-sm">Video coming soon — add YouTube URL in admin CMS</span>
+                </div>
+              </FadeUp>
+            )}
+          </div>
+        </section>
+      )}
+
+      {/* ─── 12. Interactive Demo (L2L) ───────────────────── */}
+      {get("demo_heading") && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-4xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Experience It</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-6">{get("demo_heading")}</h2>
+            </FadeUp>
+            {demoCalloutParas.length > 0 && (
+              <FadeUp delay={60}>
+                <div className="rounded-2xl p-8 mb-8" style={{ background: "#EFF6FF", borderLeft: "4px solid #2563EB" }}>
+                  {demoCalloutParas.map((para, i) => (
+                    <p key={i} className={`text-gray-800 leading-relaxed ${i === 0 ? "text-xl font-black mb-2" : "text-base"}`}>{para}</p>
+                  ))}
+                </div>
+              </FadeUp>
+            )}
             <FadeUp delay={100}>
-              <div className="rounded-2xl p-8 relative" style={{ background: "#EFF6FF", borderLeft: "4px solid #2563EB" }}>
-                <div className="absolute top-4 left-4 text-blue-200 text-7xl font-black leading-none select-none">"</div>
-                <p className="relative z-10 text-gray-800 text-lg leading-relaxed font-medium italic">{get("results_lesson")}</p>
+              <p className="text-gray-600 text-lg leading-relaxed mb-8">{get("demo_body")}</p>
+            </FadeUp>
+            <FadeUp delay={140}>
+              <div className="rounded-2xl border p-6 mb-8" style={{ borderColor: "rgba(37,99,235,0.2)", background: "rgba(37,99,235,0.03)" }}>
+                <p className="text-xs font-black uppercase tracking-widest mb-2" style={{ color: "#2563EB" }}>Demo Mode</p>
+                <p className="text-sm text-gray-600">This environment contains fictional demonstration data. No production information is displayed. Changes are not saved.</p>
               </div>
             </FadeUp>
+            {get("demo_cta") && (
+              <FadeUp delay={180}>
+                <Button asChild size="lg" className="h-12 px-8 text-base font-semibold" style={{ background: "#2563EB", color: "white" }}>
+                  <a href={get("demo_destination") || "#"} target="_blank" rel="noreferrer">
+                    {get("demo_cta")} <ArrowRight className="ml-2 h-5 w-5" />
+                  </a>
+                </Button>
+              </FadeUp>
+            )}
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
-      {/* ─── 8. PDF Preview ──────────────────────────────── */}
+      {/* ─── 13. Transformation Resources (L2L) ───────────── */}
+      {get("resources_heading") && resources.length > 0 && (
+        <section className="py-20 md:py-28" style={{ background: "#F3F4F6" }}>
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>Resources</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("resources_heading")}</h2>
+            </FadeUp>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {resources.map((r, i) => (
+                <FadeUp key={i} delay={i * 80}>
+                  <div className="flex flex-col p-7 rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all">
+                    <div className="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style={{ background: "rgba(37,99,235,0.08)" }}>
+                      <FileText className="h-6 w-6" style={{ color: "#2563EB" }} />
+                    </div>
+                    <h3 className="font-black text-gray-900 mb-4 flex-1">{r.label}</h3>
+                    {r.url ? (
+                      <a
+                        href={r.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 text-sm font-semibold mt-auto"
+                        style={{ color: "#2563EB" }}
+                      >
+                        <Download className="h-4 w-4" />
+                        Download PDF
+                      </a>
+                    ) : (
+                      <span className="text-xs text-gray-400 mt-auto">Coming soon</span>
+                    )}
+                  </div>
+                </FadeUp>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 14. Roadmap (L2L) ────────────────────────────── */}
+      {get("roadmap_heading") && roadmapPhases.length > 0 && (
+        <section className="py-20 md:py-28 bg-white">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <FadeUp>
+              <span className="text-xs font-bold uppercase tracking-widest mb-3 block" style={{ color: "#2563EB" }}>What's Next</span>
+              <h2 className="text-3xl md:text-4xl font-black text-gray-900 mb-12">{get("roadmap_heading")}</h2>
+            </FadeUp>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {roadmapPhases.map((phase, i) => {
+                const isComplete = phase.status.toLowerCase() === "complete";
+                const isReady = phase.status.toLowerCase() === "ready";
+                const statusColor = isComplete ? "#16A34A" : isReady ? "#2563EB" : "#6B7280";
+                const statusBg = isComplete ? "rgba(22,163,74,0.08)" : isReady ? "rgba(37,99,235,0.08)" : "rgba(107,114,128,0.08)";
+                return (
+                  <FadeUp key={i} delay={i * 60}>
+                    <div className="p-6 rounded-2xl border border-gray-100 bg-white shadow-sm hover:shadow-md transition-all">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className="text-3xl font-black" style={{ color: "rgba(37,99,235,0.15)" }}>{phase.num}</span>
+                        <span className="px-3 py-1 rounded-full text-xs font-bold" style={{ background: statusBg, color: statusColor }}>
+                          {isComplete ? "✓ " : ""}{phase.status}
+                        </span>
+                      </div>
+                      <h3 className="font-black text-gray-900">{phase.label}</h3>
+                    </div>
+                  </FadeUp>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ─── 15. PDF Preview ──────────────────────────────── */}
       {downloadUrl && slidesHeading && (
         <section className="py-20 md:py-28 bg-white">
           <div className="container mx-auto px-6 max-w-5xl">
@@ -326,13 +703,7 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
                 />
                 <div className="flex items-center justify-between px-5 py-3" style={{ background: "#0F172A" }}>
                   <span className="text-gray-400 text-sm">{get("download_heading") || "Full Case Study"}</span>
-                  <a
-                    href={downloadUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-1.5 text-sm font-semibold hover:text-white transition-colors"
-                    style={{ color: "#60A5FA" }}
-                  >
+                  <a href={downloadUrl} target="_blank" rel="noreferrer" className="flex items-center gap-1.5 text-sm font-semibold hover:text-white transition-colors" style={{ color: "#60A5FA" }}>
                     <Download className="h-4 w-4" />
                     Open / Download
                   </a>
@@ -343,7 +714,7 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
         </section>
       )}
 
-      {/* ─── 9. Bottom CTA ───────────────────────────────── */}
+      {/* ─── 16. Bottom CTA ───────────────────────────────── */}
       <section className="py-24 md:py-32 relative overflow-hidden" style={{ background: "#111827" }}>
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] rounded-full opacity-10" style={{ background: "radial-gradient(circle,#2563EB,transparent)" }} />
@@ -352,9 +723,15 @@ export function CaseStudyPage({ prefix }: CaseStudyPageProps) {
           <FadeUp>
             <h2 className="text-3xl md:text-4xl font-black text-white mb-6">{get("cta_heading") || "Ready to transform how your organization operates?"}</h2>
           </FadeUp>
-          <FadeUp delay={80}>
-            <p className="text-gray-400 text-lg mb-10 leading-relaxed">{get("cta_body")}</p>
-          </FadeUp>
+          {ctaBodyParas.length > 0 && (
+            <FadeUp delay={80}>
+              <div className="mb-10 space-y-3">
+                {ctaBodyParas.map((para, i) => (
+                  <p key={i} className="text-gray-400 text-lg leading-relaxed">{para}</p>
+                ))}
+              </div>
+            </FadeUp>
+          )}
           <FadeUp delay={160}>
             <Button asChild size="lg" className="h-12 px-8 text-base font-semibold" style={{ background: "#2563EB", color: "white" }}>
               <Link href="/contact">{get("cta_button") || "Schedule a Free Strategy Call"} <ArrowRight className="ml-2 h-5 w-5" /></Link>

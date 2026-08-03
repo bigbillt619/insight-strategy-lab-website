@@ -18,6 +18,7 @@ import Diagnostic from "@/pages/public/Diagnostic";
 import Privacy from "@/pages/public/Privacy";
 import VehicleQrLanding from "@/pages/public/VehicleQrLanding";
 import TrainerToolsHub from "@/pages/public/TrainerToolsHub";
+import LivingToLive from "@/pages/public/LivingToLive";
 
 import Login from "@/pages/admin/Login";
 import ResetPassword from "@/pages/admin/ResetPassword";
@@ -77,6 +78,7 @@ function Router() {
           <Switch>
             <Route path="/" component={Home} />
             <Route path="/apps" component={Apps} />
+            <Route path="/solutions/living-2-live" component={LivingToLive} />
             <Route path="/solutions/trainer-tools-hub" component={TrainerToolsHub} />
             <Route path="/services" component={Services} />
             <Route path="/about" component={About} />
