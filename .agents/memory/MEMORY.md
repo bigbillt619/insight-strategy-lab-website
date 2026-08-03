@@ -3,3 +3,4 @@
 - [Secret propagation restart race](secret-propagation-restart-race.md) — restart workflows only AFTER the secret-added confirmation; restarts fired before it run with stale env.
 - [Wouter nested routes](wouter-nested-routes.md) — setLocation inside a `<Route nest>` (admin shell) needs the `~` prefix to escape the nested base, else blank/redirect loop.
 - [BOS maturity diagnostic](bos-maturity-diagnostic.md) — /diagnostic is a scored 6-pillar assessment now; don't reintroduce a DB-driven recommendation_map pattern.
+- [Static PDF hosting in Vite public dir](static-pdf-hosting.md) — Supabase storage RLS blocks shell uploads; PDFs that can't go through the admin UI go in public/pdfs/ and are set in content_blocks via psql.
