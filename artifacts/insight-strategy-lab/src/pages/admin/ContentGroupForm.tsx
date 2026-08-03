@@ -117,12 +117,12 @@ function FileField({
         <input
           ref={inputRef}
           type="file"
-          accept="application/pdf,.pdf"
+          accept="application/pdf,.pdf,image/jpeg,image/png,.jpg,.jpeg,.png"
           className="hidden"
           onChange={(e) => handleFile(e.target.files?.[0])}
         />
         <Button type="button" variant="outline" size="sm" disabled={uploading} onClick={() => inputRef.current?.click()}>
-          {uploading ? "Uploading…" : "Upload PDF"}
+          {uploading ? "Uploading…" : "Upload PDF / Image"}
         </Button>
         {value && (
           <>
