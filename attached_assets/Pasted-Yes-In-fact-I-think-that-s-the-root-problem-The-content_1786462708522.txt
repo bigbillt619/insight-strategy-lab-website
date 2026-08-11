@@ -1,0 +1,139 @@
+Yes. In fact, I think that's the root problem.
+
+The content isn't weak.
+
+The canvas orientation is wrong.
+
+Right now you're trying to force an executive consulting story onto an 8.5 x 11 portrait page, which naturally creates:
+
+Tall vertical layouts
+Large white gaps
+Tiny diagrams
+Underutilized space
+
+For ISL, I'd switch to:
+
+Landscape Letter (11" × 8.5")
+
+This immediately gives you room for a true consulting layout.
+
+Example
+┌──────────────────────────────────────┐
+│ Logo  |  Headline                    │
+├──────────────────────────────────────┤
+│ Problem   | BOS Framework | Outcomes │
+├──────────────────────────────────────┤
+│ Before    | After         | Results  │
+├──────────────────────────────────────┤
+│ Living 2 Live | RDF | CTA           │
+└──────────────────────────────────────┘
+
+
+Now every inch of space is working.
+
+My Recommendation
+One-Pager #1 (BOS Guide)
+
+Landscape.
+
+Three-column executive layout.
+
+Problem
+     →
+Business Operating System
+     →
+Outcomes
+
+
+Very visual.
+
+Very little text.
+
+One-Pager #2 (Living 2 Live)
+
+Landscape.
+
+Much stronger.
+
+Challenge
+       ↓
+
+Transformation
+
+       ↓
+
+Results
+
+       ↓
+
+Impact
+
+
+Across the page rather than down the page.
+
+This allows:
+
+Larger metrics
+Larger BOS framework
+Better screenshots
+Less whitespace
+One-Pager #3 (Assessment)
+
+Landscape.
+
+Make it almost entirely CTA-focused.
+
+Assessment
+
+6 Pillars
+
+What You Receive
+
+QR Code
+
+
+This could be extremely clean.
+
+Even Better
+
+Instead of trying to fit everything on a sheet, use a consulting placemat style layout.
+
+Think:
+
+Deloitte Executive Summary
+
+not
+
+Marketing Flyer
+
+
+Large:
+
+Headline
+Framework
+Results
+CTA
+
+Minimal paragraphs.
+
+What I'd Tell Replit
+
+Add this requirement:
+
+All three one-pagers must use
+11" × 8.5" landscape orientation.
+
+Design goal:
+
+Fill 85-95% of the printable page area.
+
+Avoid large empty whitespace.
+
+The visual hierarchy should resemble
+an executive consulting placemat rather
+than a traditional portrait brochure.
+
+Each page must remain a single printed page.
+
+
+Honestly, I suspect simply rotating to landscape will improve these assets more than another five rounds of content tweaking. The content is already solid. The layout is what's holding them back.
