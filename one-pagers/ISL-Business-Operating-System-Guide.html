@@ -5,337 +5,317 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ISL Business Operating System Guide</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="print.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
-    --navy: #0a1628;
-    --blue: #2563eb;
-    --blue-mid: #1d4ed8;
-    --blue-pale: #eff6ff;
-    --blue-border: #bfdbfe;
-    --text: #1e293b;
-    --muted: #475569;
-    --border: #e2e8f0;
-    --white: #ffffff;
-  }
+:root {
+  --navy: #0a1628;
+  --navy-mid: #0f2244;
+  --blue: #2563eb;
+  --blue-mid: #1d4ed8;
+  --blue-pale: #eff6ff;
+  --blue-border: #bfdbfe;
+  --text: #1e293b;
+  --muted: #475569;
+  --white: #ffffff;
+}
 
-  body {
-    font-family: 'Inter', system-ui, sans-serif;
-    font-size: 10.5px;
-    color: var(--text);
-    background: #f1f5f9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 24px 16px 40px;
-    line-height: 1.45;
-  }
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background: #cbd5e1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 16px 36px;
+  line-height: 1.4;
+}
 
-  /* ── Print button ── */
-  .print-btn {
-    margin-bottom: 16px;
-    padding: 8px 20px;
-    background: var(--blue);
-    color: #fff;
-    border: none;
-    border-radius: 6px;
-    font-family: inherit;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    letter-spacing: 0.01em;
-  }
-  .print-btn:hover { background: var(--blue-mid); }
+.print-btn {
+  margin-bottom: 14px;
+  padding: 8px 22px;
+  background: var(--blue);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+}
+.print-btn:hover { background: var(--blue-mid); }
 
-  /* ── Page shell ── */
-  .page {
-    width: 7.5in;
-    min-height: 10in;
-    background: var(--white);
-    box-shadow: 0 4px 32px rgba(0,0,0,0.14);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
+/* ── Page shell: landscape 10.2in × 7.7in (11 - 0.4×2 = 10.2; 8.5 - 0.4×2 = 7.7) ── */
+.page {
+  width: 10.2in;
+  height: 7.7in;
+  background: var(--white);
+  box-shadow: 0 6px 40px rgba(0,0,0,0.22);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
 
-  /* ── Header ── */
-  .header {
-    background: var(--navy);
-    color: var(--white);
-    padding: 14px 24px 12px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-  .header-left { display: flex; flex-direction: column; gap: 2px; }
-  .header-logo {
-    font-size: 15px;
-    font-weight: 800;
-    letter-spacing: 0.04em;
-    color: var(--white);
-  }
-  .header-tagline {
-    font-size: 9px;
-    font-weight: 500;
-    color: #93c5fd;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .header-hook {
-    font-size: 12.5px;
-    font-weight: 700;
-    color: var(--white);
-    text-align: right;
-    line-height: 1.3;
-    max-width: 3.2in;
-  }
-  .header-hook em {
-    display: block;
-    font-style: normal;
-    font-size: 10px;
-    font-weight: 400;
-    color: #93c5fd;
-    margin-top: 2px;
-  }
+/* ── Header ── */
+.header {
+  background: var(--navy);
+  padding: 10px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.header-brand { display: flex; flex-direction: column; gap: 1px; }
+.header-logo { font-size: 14px; font-weight: 900; color: var(--white); letter-spacing: 0.06em; }
+.header-tagline { font-size: 8px; font-weight: 500; color: #93c5fd; letter-spacing: 0.1em; text-transform: uppercase; }
+.header-hook {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  text-align: center;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.header-hook em { display: block; font-style: normal; font-size: 9.5px; font-weight: 400; color: #93c5fd; margin-top: 2px; letter-spacing: 0.01em; }
+.header-step { font-size: 8.5px; color: #64748b; letter-spacing: 0.08em; text-transform: uppercase; text-align: right; }
+.header-step strong { color: #93c5fd; }
 
-  /* ── Body content ── */
-  .body { flex: 1; padding: 16px 24px 12px; display: flex; flex-direction: column; gap: 12px; }
+/* ── Body: 3-column grid ── */
+.body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.05fr 1.2fr 1fr;
+  overflow: hidden;
+}
 
-  /* ── Section labels ── */
-  .section-label {
-    font-size: 8px;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: var(--blue);
-    margin-bottom: 5px;
-  }
+/* ── Column shared ── */
+.col {
+  display: flex;
+  flex-direction: column;
+  padding: 16px 18px;
+  overflow: hidden;
+}
+.col-navy { background: var(--navy); color: var(--white); }
+.col-white { background: var(--white); border-left: 1px solid #e2e8f0; border-right: 1px solid #e2e8f0; }
+.col-pale { background: var(--blue-pale); }
 
-  /* ── Row 1: Problem + Framework ── */
-  .row-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  .row-3col { display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: 14px; }
+.section-label {
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 10px;
+}
+.col-navy .section-label { color: #60a5fa; }
 
-  .panel {
-    background: var(--blue-pale);
-    border: 1px solid var(--blue-border);
-    border-radius: 6px;
-    padding: 11px 13px;
-  }
+/* ── Col 1: Problem ── */
+.problem-callout {
+  background: rgba(255,255,255,0.08);
+  border-left: 3px solid #60a5fa;
+  border-radius: 0 5px 5px 0;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+.problem-callout p {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.35;
+}
+.problem-callout p em { font-style: normal; color: #93c5fd; }
 
-  .problem-intro {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1.3;
-    margin-bottom: 7px;
-  }
-  .problem-intro em {
-    font-style: normal;
-    color: var(--blue);
-  }
+.cost-list { list-style: none; display: flex; flex-direction: column; gap: 7px; }
+.cost-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 10.5px;
+  color: #cbd5e1;
+  line-height: 1.4;
+}
+.cost-list li::before {
+  content: '▸';
+  color: #60a5fa;
+  font-size: 9px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
 
-  .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
-  .bullet-list li {
-    display: flex;
-    align-items: flex-start;
-    gap: 6px;
-    font-size: 9.5px;
-    color: var(--text);
-    line-height: 1.4;
-  }
-  .bullet-list li::before {
-    content: '▸';
-    color: var(--blue);
-    font-size: 8px;
-    flex-shrink: 0;
-    margin-top: 1px;
-  }
+/* ── Col 2: BOS Framework ── */
+.bos-hub {
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  justify-items: center;
+  gap: 4px;
+  margin: 6px 0 10px;
+  flex-shrink: 0;
+}
+.bos-circle {
+  grid-row: 2;
+  grid-column: 2;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  background: var(--blue);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  box-shadow: 0 0 0 7px #bfdbfe, 0 0 0 14px #dbeafe55;
+  z-index: 2;
+  flex-shrink: 0;
+}
+.bos-circle span { font-size: 7.5px; font-weight: 500; color: #93c5fd; letter-spacing: 0.08em; margin-top: 1px; }
 
-  /* ── BOS Diagram ── */
-  .bos-diagram {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-    padding: 8px 0 6px;
-  }
-  .bos-ring {
-    width: 68px;
-    height: 68px;
-    border-radius: 50%;
-    background: var(--blue);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: var(--white);
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.03em;
-    box-shadow: 0 0 0 5px #bfdbfe, 0 0 0 10px #dbeafe;
-    position: relative;
-    z-index: 1;
-  }
-  .bos-ring span { font-size: 7.5px; font-weight: 500; letter-spacing: 0.05em; color: #93c5fd; }
-  .bos-spokes {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    align-items: center;
-    gap: 6px;
-    width: 100%;
-  }
-  .spoke { font-size: 9px; font-weight: 600; color: var(--navy); text-align: center; }
-  .spoke-arrow { font-size: 11px; color: var(--blue); }
-  .bos-top, .bos-bottom {
-    font-size: 9px;
-    font-weight: 600;
-    color: var(--navy);
-    text-align: center;
-  }
-  .bos-connector { font-size: 10px; color: #94a3b8; }
+.spoke-node {
+  background: var(--navy);
+  color: var(--white);
+  padding: 5px 11px;
+  border-radius: 4px;
+  font-size: 9.5px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.02em;
+  border: 1px solid #1e3a6e;
+}
+.spoke-top { grid-row: 1; grid-column: 2; }
+.spoke-left { grid-row: 2; grid-column: 1; justify-self: end; }
+.spoke-right { grid-row: 2; grid-column: 3; justify-self: start; }
+.spoke-bl { grid-row: 3; grid-column: 1; justify-self: end; }
+.spoke-br { grid-row: 3; grid-column: 3; justify-self: start; }
+.spoke-connector { font-size: 12px; color: var(--blue); line-height: 1; }
+.spoke-conn-top { grid-row: 1; grid-column: 2; align-self: end; display: none; }
+.h-connector { color: #94a3b8; font-size: 14px; }
 
-  .framework-desc {
-    font-size: 9px;
-    color: var(--muted);
-    line-height: 1.5;
-    margin-top: 6px;
-    text-align: center;
-  }
+.bos-desc {
+  font-size: 9.5px;
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.5;
+  margin-bottom: 12px;
+}
+.bos-desc strong { color: var(--navy); }
 
-  .aligns-list {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    margin-top: 7px;
-  }
-  .align-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 9.5px;
-    font-weight: 600;
-    color: var(--navy);
-  }
-  .align-check {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--blue);
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 7.5px;
-    flex-shrink: 0;
-  }
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  flex-shrink: 0;
+}
+.ba-col { padding: 9px 11px; }
+.ba-col.before { background: #fef2f2; border-right: 1px solid #fecaca; }
+.ba-col.after { background: #f0fdf4; }
+.ba-label {
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.before .ba-label { color: #b91c1c; }
+.after .ba-label { color: #15803d; }
+.ba-list { list-style: none; display: flex; flex-direction: column; gap: 4px; }
+.ba-list li {
+  font-size: 9px;
+  color: var(--text);
+  padding-left: 13px;
+  position: relative;
+  line-height: 1.35;
+}
+.before .ba-list li::before { content: '✕'; position: absolute; left: 0; color: #ef4444; font-size: 8px; }
+.after .ba-list li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-size: 8px; }
 
-  /* ── Before / After ── */
-  .before-after { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
-  .before-col { background: #fef2f2; padding: 10px 13px; border-right: 1px solid #fecaca; }
-  .after-col { background: #f0fdf4; padding: 10px 13px; }
-  .ba-label {
-    font-size: 8.5px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .before-col .ba-label { color: #b91c1c; }
-  .after-col .ba-label { color: #15803d; }
-  .ba-list { list-style: none; display: flex; flex-direction: column; gap: 3.5px; }
-  .ba-list li {
-    font-size: 9.5px;
-    color: var(--text);
-    padding-left: 13px;
-    position: relative;
-    line-height: 1.35;
-  }
-  .before-col .ba-list li::before { content: '✕'; position: absolute; left: 0; color: #ef4444; font-size: 8px; top: 1px; }
-  .after-col .ba-list li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-size: 8px; top: 1px; }
+/* ── Col 3: Gains + CTA ── */
+.gains-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+.gain-card {
+  background: var(--navy);
+  color: var(--white);
+  border-radius: 5px;
+  padding: 8px 7px;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1.25;
+}
 
-  /* ── Gains grid ── */
-  .gains-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 6px;
-  }
-  .gain-card {
-    background: var(--navy);
-    color: var(--white);
-    border-radius: 5px;
-    padding: 7px 5px;
-    text-align: center;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    line-height: 1.3;
-  }
+.story-cards { display: flex; flex-direction: column; gap: 5px; margin-bottom: 10px; }
+.story-card {
+  background: var(--white);
+  border: 1px solid var(--blue-border);
+  border-radius: 5px;
+  padding: 7px 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.story-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  flex-shrink: 0;
+}
+.story-info { flex: 1; }
+.story-name { font-size: 9px; font-weight: 700; color: var(--navy); }
+.story-sub { font-size: 8px; color: var(--muted); }
 
-  /* ── CTA row ── */
-  .cta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .cta-box {
-    border-radius: 7px;
-    padding: 10px 12px;
-    display: flex;
-    align-items: center;
-    gap: 11px;
-  }
-  .cta-primary { background: var(--blue); color: var(--white); }
-  .cta-secondary { background: var(--navy); color: var(--white); }
-  .cta-qr {
-    width: 56px;
-    height: 56px;
-    flex-shrink: 0;
-    background: #fff;
-    border-radius: 4px;
-    padding: 2px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .cta-qr svg { width: 50px; height: 50px; display: block; }
-  .cta-text { flex: 1; }
-  .cta-action {
-    font-size: 10.5px;
-    font-weight: 700;
-    line-height: 1.3;
-    margin-bottom: 2px;
-  }
-  .cta-desc {
-    font-size: 8.5px;
-    opacity: 0.82;
-    line-height: 1.4;
-    margin-bottom: 3px;
-  }
-  .cta-url {
-    font-size: 8px;
-    font-weight: 600;
-    opacity: 0.75;
-    letter-spacing: 0.01em;
-  }
+.cta-stack { display: flex; flex-direction: column; gap: 6px; }
+.cta-box {
+  border-radius: 6px;
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.cta-primary { background: var(--blue); color: var(--white); }
+.cta-secondary { background: var(--navy); color: var(--white); }
+.cta-qr {
+  width: 46px;
+  height: 46px;
+  background: #fff;
+  border-radius: 3px;
+  padding: 2px;
+  flex-shrink: 0;
+}
+.cta-qr svg { width: 40px; height: 40px; display: block; }
+.cta-info { flex: 1; }
+.cta-title { font-size: 9.5px; font-weight: 700; line-height: 1.25; margin-bottom: 1px; }
+.cta-url { font-size: 7.5px; opacity: 0.75; font-weight: 600; }
 
-  /* ── Footer ── */
-  .footer {
-    background: var(--navy);
-    color: #93c5fd;
-    padding: 7px 24px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-size: 8.5px;
-  }
-  .footer strong { color: var(--white); font-weight: 700; }
-  .footer-pillars { color: #64748b; font-size: 8px; letter-spacing: 0.05em; }
+/* ── Footer ── */
+.footer {
+  background: var(--navy);
+  padding: 6px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8px;
+  color: #64748b;
+  flex-shrink: 0;
+}
+.footer strong { color: var(--white); }
+.footer-pillars { color: #475569; letter-spacing: 0.04em; }
 
-  @media print {
-    body { background: none; padding: 0; }
-    .page { width: 100%; min-height: auto; box-shadow: none; }
-    .print-btn { display: none !important; }
-  }
+@media print {
+  body { background: none; padding: 0; }
+  .print-btn { display: none !important; }
+}
 </style>
 </head>
 <body>
@@ -345,8 +325,8 @@
 <div class="page">
 
   <!-- HEADER -->
-  <div class="header no-break">
-    <div class="header-left">
+  <div class="header">
+    <div class="header-brand">
       <div class="header-logo">INSIGHT STRATEGY LAB</div>
       <div class="header-tagline">Architecting Business Operating Systems</div>
     </div>
@@ -354,61 +334,61 @@
       Is Organizational Complexity Slowing Growth?
       <em>Most organizations don't have a technology problem. They have an operating system problem.</em>
     </div>
+    <div class="header-step">Asset 1 of 3<br><strong>Educate</strong></div>
   </div>
 
+  <!-- 3-COLUMN BODY -->
   <div class="body">
 
-    <!-- ROW 1: Problem + BOS Framework -->
-    <div class="row-2col">
+    <!-- COL 1: THE PROBLEM (dark navy) -->
+    <div class="col col-navy">
+      <div class="section-label">The Hidden Cost of Operational Complexity</div>
 
-      <!-- Problem -->
-      <div class="panel no-break">
-        <div class="section-label">The Hidden Cost of Operational Complexity</div>
-        <p class="problem-intro">When your people, processes, technology, data, and AI aren't <em>working as one system</em>, growth creates friction instead of scale.</p>
-        <ul class="bullet-list" style="margin-top:7px;">
-          <li>Information lives in disconnected systems</li>
-          <li>Critical processes depend on specific people</li>
-          <li>Manual work slows execution and decision-making</li>
-          <li>Leaders lack real-time visibility into operations</li>
-          <li>Data is difficult to trust and act on</li>
-          <li>Growth creates friction instead of scale</li>
-        </ul>
+      <div class="problem-callout">
+        <p>When your people, processes, technology, data, and AI aren't <em>aligned as one system</em> — growth creates friction instead of scale.</p>
       </div>
 
-      <!-- BOS Framework -->
-      <div class="panel no-break">
-        <div class="section-label">The Business Operating System Framework</div>
-        <div class="bos-diagram">
-          <div class="bos-top">People</div>
-          <div class="bos-connector">↕</div>
-          <div class="bos-spokes">
-            <div class="spoke">Processes</div>
-            <div class="bos-ring">BOS<span>Framework</span></div>
-            <div class="spoke">Technology</div>
-          </div>
-          <div class="bos-connector">↕</div>
-          <div class="bos-bottom">Data &nbsp;·&nbsp; AI</div>
-        </div>
-        <div class="aligns-list">
-          <div style="font-size:9px;color:var(--muted);margin-bottom:4px;">A Business Operating System aligns:</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;">
-            <div class="align-item"><div class="align-check">✓</div>People</div>
-            <div class="align-item"><div class="align-check">✓</div>Processes</div>
-            <div class="align-item"><div class="align-check">✓</div>Technology</div>
-            <div class="align-item"><div class="align-check">✓</div>Data</div>
-            <div class="align-item"><div class="align-check">✓</div>AI</div>
-          </div>
-          <div style="font-size:9px;color:var(--muted);margin-top:3px;">…into one unified operational framework.</div>
-        </div>
-      </div>
-
+      <ul class="cost-list">
+        <li>Information lives in disconnected systems</li>
+        <li>Critical processes depend on specific people</li>
+        <li>Manual work slows execution and decision-making</li>
+        <li>Leaders lack real-time visibility into operations</li>
+        <li>Data is difficult to trust and act on</li>
+        <li>Growth creates friction instead of scale</li>
+      </ul>
     </div>
 
-    <!-- ROW 2: Before / After -->
-    <div class="no-break">
-      <div class="section-label" style="margin-bottom:6px;">From Complexity to Clarity</div>
+    <!-- COL 2: BOS FRAMEWORK (white) -->
+    <div class="col col-white">
+      <div class="section-label">The Business Operating System Framework</div>
+
+      <!-- Hub and Spoke Diagram -->
+      <div style="display:flex;flex-direction:column;align-items:center;gap:3px;margin:6px 0 10px;flex-shrink:0;">
+        <!-- Top: People -->
+        <div class="spoke-node">People</div>
+        <div style="font-size:13px;color:var(--blue);line-height:1;">↕</div>
+        <!-- Middle row -->
+        <div style="display:flex;align-items:center;gap:10px;">
+          <div class="spoke-node">Processes</div>
+          <div style="font-size:18px;color:#94a3b8;">—</div>
+          <div class="bos-circle">BOS<span>Framework</span></div>
+          <div style="font-size:18px;color:#94a3b8;">—</div>
+          <div class="spoke-node">Technology</div>
+        </div>
+        <div style="font-size:13px;color:var(--blue);line-height:1;">↕</div>
+        <!-- Bottom row -->
+        <div style="display:flex;align-items:center;gap:14px;">
+          <div class="spoke-node">Data</div>
+          <div class="spoke-node">AI</div>
+        </div>
+      </div>
+
+      <p class="bos-desc">A Business Operating System unifies <strong>People, Processes, Technology, Data, and AI</strong> into a single operational framework — creating clarity, accountability, and scalable growth.</p>
+
+      <!-- Before / After -->
+      <div class="section-label">From Complexity to Clarity</div>
       <div class="before-after">
-        <div class="before-col">
+        <div class="ba-col before">
           <div class="ba-label">Before</div>
           <ul class="ba-list">
             <li>Founder-dependent operations</li>
@@ -418,7 +398,7 @@
             <li>Reactive decision-making</li>
           </ul>
         </div>
-        <div class="after-col">
+        <div class="ba-col after">
           <div class="ba-label">After</div>
           <ul class="ba-list">
             <li>Integrated, team-driven operations</li>
@@ -431,41 +411,55 @@
       </div>
     </div>
 
-    <!-- ROW 3: What Organizations Gain -->
-    <div class="no-break">
-      <div class="section-label" style="margin-bottom:6px;">What Organizations Gain</div>
+    <!-- COL 3: GAINS + STORIES + CTAs (pale blue) -->
+    <div class="col col-pale">
+      <div class="section-label">What Organizations Gain</div>
       <div class="gains-grid">
         <div class="gain-card">Clarity</div>
-        <div class="gain-card">Account&shy;ability</div>
+        <div class="gain-card">Accountability</div>
         <div class="gain-card">Efficiency</div>
         <div class="gain-card">Governance</div>
         <div class="gain-card">Scalability</div>
         <div class="gain-card">Sustainable Growth</div>
       </div>
-    </div>
 
-    <!-- CTA Row -->
-    <div class="cta-row no-break">
-      <!-- CTA 1: Assessment -->
-      <div class="cta-box cta-primary">
-        <div class="cta-qr">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m3 0h1m2 0h1m2 0h2m1 0h2m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h4m2 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h4m2 0h1m4 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h6m1 0h2m3 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h5m1 0h1m1 0h1m1 0h1m1 0h1M1 9.5h1m1 0h5m2 0h2m1 0h4m1 0h1m4 0h5M2 10.5h2m1 0h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h7m3 0h1M2 11.5h1m4 0h4m1 0h2m1 0h3m1 0h1m4 0h2M1 12.5h1m2 0h3m1 0h1m1 0h4m2 0h1m4 0h1m1 0h1m2 0h1m1 0h1M2 13.5h2m3 0h1m3 0h2m1 0h3m1 0h1m2 0h1m4 0h2M8 14.5h1m3 0h1m1 0h1m2 0h1m1 0h7m3 0h1M1 15.5h5m1 0h4m1 0h1m3 0h4m1 0h4m1 0h2M2 16.5h1m2 0h1m2 0h2m3 0h1m1 0h2m2 0h1m2 0h1m2 0h1m2 0h1M1 17.5h1m1 0h2m2 0h1m1 0h3m2 0h2m2 0h2m4 0h1m1 0h2M1 18.5h2m2 0h2m2 0h5m3 0h5m1 0h3m1 0h1m1 0h1M1 19.5h1m2 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m8 0h1M1 20.5h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m3 0h1M1 21.5h1m2 0h1m1 0h2m1 0h3m1 0h1m2 0h1m1 0h1m2 0h5m1 0h3M9 22.5h2m1 0h3m2 0h1m1 0h3m3 0h5M1 23.5h7m2 0h2m1 0h9m1 0h1m1 0h3M1 24.5h1m5 0h1m1 0h1m3 0h2m2 0h1m2 0h2m3 0h1M1 25.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m2 0h1m2 0h5m1 0h3M1 26.5h1m1 0h3m1 0h1m1 0h2m1 0h2m4 0h2m6 0h4M1 27.5h1m1 0h3m1 0h1m1 0h1m1 0h1m4 0h3m1 0h1m2 0h6M1 28.5h1m5 0h1m6 0h4m2 0h3m1 0h3m1 0h1M1 29.5h7m1 0h3m6 0h1m1 0h1m2 0h1m3 0h1"/></svg>
+      <div class="section-label">Proven Transformations</div>
+      <div class="story-cards">
+        <div class="story-card">
+          <div class="story-dot"></div>
+          <div class="story-info">
+            <div class="story-name">Living 2 Live Operations Hub</div>
+            <div class="story-sub">Organizational Operating System Transformation</div>
+          </div>
         </div>
-        <div class="cta-text">
-          <div class="cta-action">Take the BOS Assessment</div>
-          <div class="cta-desc">Identify operational gaps and discover opportunities for improved performance.</div>
-          <div class="cta-url">insightstrategylab.com/diagnostic</div>
+        <div class="story-card">
+          <div class="story-dot"></div>
+          <div class="story-info">
+            <div class="story-name">Trainer Tools Hub</div>
+            <div class="story-sub">Small Business Digital Transformation</div>
+          </div>
         </div>
       </div>
-      <!-- CTA 2: Strategy Call -->
-      <div class="cta-box cta-secondary">
-        <div class="cta-qr">
-          <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m2 0h1m1 0h1m4 0h2m1 0h2m1 0h7M1 2.5h1m5 0h1m2 0h2m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h3m1 0h1m4 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h3m1 0h1m1 0h2m4 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h3m4 0h2m1 0h1m1 0h1M1 9.5h1m1 0h5m3 0h1m1 0h1m2 0h3m4 0h5M1 10.5h1m2 0h1m1 0h1m3 0h5m2 0h1m1 0h7m3 0h1M5 11.5h3m1 0h1m1 0h1m1 0h4m2 0h1m4 0h2M3 12.5h1m5 0h1m2 0h1m1 0h1m2 0h1m3 0h1m1 0h1m2 0h1m1 0h1M4 13.5h2m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m4 0h2M3 14.5h2m4 0h2m6 0h1m1 0h7m3 0h1M1 15.5h1m5 0h1m2 0h1m1 0h2m2 0h4m1 0h4m1 0h2M1 16.5h1m3 0h2m1 0h2m2 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1M1 17.5h1m3 0h3m1 0h1m2 0h1m5 0h2m4 0h1m1 0h2M1 18.5h4m3 0h3m3 0h2m1 0h5m1 0h3m1 0h1m1 0h1M1 19.5h1m5 0h1m3 0h2m1 0h5m8 0h1M1 20.5h1m1 0h3m3 0h1m4 0h1m4 0h2m1 0h1m1 0h1m3 0h1M1 21.5h1m3 0h3m7 0h2m1 0h1m2 0h5m1 0h3M9 22.5h2m1 0h1m4 0h1m1 0h3m3 0h5M1 23.5h7m3 0h3m2 0h6m1 0h1m1 0h3M1 24.5h1m5 0h1m1 0h3m3 0h1m1 0h1m2 0h2m3 0h1m2 0h2M1 25.5h1m1 0h3m1 0h1m1 0h1m1 0h2m5 0h1m2 0h5m1 0h1M1 26.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h1m2 0h2m6 0h4M1 27.5h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h3m1 0h1m2 0h6M1 28.5h1m5 0h1m6 0h1m1 0h2m2 0h3m1 0h3m1 0h1M1 29.5h7m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m3 0h1"/></svg>
+
+      <div class="section-label">Next Steps</div>
+      <div class="cta-stack">
+        <div class="cta-box cta-primary">
+          <div class="cta-qr">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m3 0h1m2 0h1m2 0h2m1 0h2m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h4m2 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h4m2 0h1m4 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h6m1 0h2m3 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h5m1 0h1m1 0h1m1 0h1m1 0h1M1 9.5h1m1 0h5m2 0h2m1 0h4m1 0h1m4 0h5M2 10.5h2m1 0h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h7m3 0h1M2 11.5h1m4 0h4m1 0h2m1 0h3m1 0h1m4 0h2M1 12.5h1m2 0h3m1 0h1m1 0h4m2 0h1m4 0h1m1 0h1m2 0h1m1 0h1M2 13.5h2m3 0h1m3 0h2m1 0h3m1 0h1m2 0h1m4 0h2M8 14.5h1m3 0h1m1 0h1m2 0h1m1 0h7m3 0h1M1 15.5h5m1 0h4m1 0h1m3 0h4m1 0h4m1 0h2M2 16.5h1m2 0h1m2 0h2m3 0h1m1 0h2m2 0h1m2 0h1m2 0h1m2 0h1M1 17.5h1m1 0h2m2 0h1m1 0h3m2 0h2m2 0h2m4 0h1m1 0h2M1 18.5h2m2 0h2m2 0h5m3 0h5m1 0h3m1 0h1m1 0h1M1 19.5h1m2 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m8 0h1M1 20.5h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m3 0h1M1 21.5h1m2 0h1m1 0h2m1 0h3m1 0h1m2 0h1m1 0h1m2 0h5m1 0h3M9 22.5h2m1 0h3m2 0h1m1 0h3m3 0h5M1 23.5h7m2 0h2m1 0h9m1 0h1m1 0h3M1 24.5h1m5 0h1m1 0h1m3 0h2m2 0h1m2 0h2m3 0h1M1 25.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m2 0h1m2 0h5m1 0h3M1 26.5h1m1 0h3m1 0h1m1 0h2m1 0h2m4 0h2m6 0h4M1 27.5h1m1 0h3m1 0h1m1 0h1m1 0h1m4 0h3m1 0h1m2 0h6M1 28.5h1m5 0h1m6 0h4m2 0h3m1 0h3m1 0h1M1 29.5h7m1 0h3m6 0h1m1 0h1m2 0h1m3 0h1"/></svg>
+          </div>
+          <div class="cta-info">
+            <div class="cta-title">Take the BOS Assessment</div>
+            <div class="cta-url">insightstrategylab.com/diagnostic</div>
+          </div>
         </div>
-        <div class="cta-text">
-          <div class="cta-action">Schedule a BOS Review</div>
-          <div class="cta-desc">Discuss your organization's challenges and future growth opportunities.</div>
-          <div class="cta-url">insightstrategylab.com/contact</div>
+        <div class="cta-box cta-secondary">
+          <div class="cta-qr">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m2 0h1m1 0h1m4 0h2m1 0h2m1 0h7M1 2.5h1m5 0h1m2 0h2m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h3m1 0h1m4 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h3m1 0h1m1 0h2m4 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h3m4 0h2m1 0h1m1 0h1M1 9.5h1m1 0h5m3 0h1m1 0h1m2 0h3m4 0h5M1 10.5h1m2 0h1m1 0h1m3 0h5m2 0h1m1 0h7m3 0h1M5 11.5h3m1 0h1m1 0h1m1 0h4m2 0h1m4 0h2M3 12.5h1m5 0h1m2 0h1m1 0h1m2 0h1m3 0h1m1 0h1m2 0h1m1 0h1M4 13.5h2m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m4 0h2M3 14.5h2m4 0h2m6 0h1m1 0h7m3 0h1M1 15.5h1m5 0h1m2 0h1m1 0h2m2 0h4m1 0h4m1 0h2M1 16.5h1m3 0h2m1 0h2m2 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1M1 17.5h1m3 0h3m1 0h1m2 0h1m5 0h2m4 0h1m1 0h2M1 18.5h4m3 0h3m3 0h2m1 0h5m1 0h3m1 0h1m1 0h1M1 19.5h1m5 0h1m3 0h2m1 0h5m8 0h1M1 20.5h1m1 0h3m3 0h1m4 0h1m4 0h2m1 0h1m1 0h1m3 0h1M1 21.5h1m3 0h3m7 0h2m1 0h1m2 0h5m1 0h3M9 22.5h2m1 0h1m4 0h1m1 0h3m3 0h5M1 23.5h7m3 0h3m2 0h6m1 0h1m1 0h3M1 24.5h1m5 0h1m1 0h3m3 0h1m1 0h1m2 0h2m3 0h1m2 0h2M1 25.5h1m1 0h3m1 0h1m1 0h1m1 0h2m5 0h1m2 0h5m1 0h1M1 26.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h1m2 0h2m6 0h4M1 27.5h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h3m1 0h1m2 0h6M1 28.5h1m5 0h1m6 0h1m1 0h2m2 0h3m1 0h3m1 0h1M1 29.5h7m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m3 0h1"/></svg>
+          </div>
+          <div class="cta-info">
+            <div class="cta-title">Schedule a BOS Review</div>
+            <div class="cta-url">insightstrategylab.com/contact</div>
+          </div>
         </div>
       </div>
     </div>
@@ -480,6 +474,5 @@
   </div>
 
 </div><!-- /page -->
-
 </body>
 </html>
