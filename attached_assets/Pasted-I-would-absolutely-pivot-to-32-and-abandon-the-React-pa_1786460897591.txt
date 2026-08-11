@@ -1,0 +1,169 @@
+I would absolutely pivot to #32 and abandon the React page idea.
+
+My Recommendation
+
+✅ Approve #32
+
+❌ Cancel the /one-pager React page
+
+Why
+
+You're trying to create:
+
+Proposal inserts
+Conference handouts
+LinkedIn documents
+Leave-behinds
+Downloadable PDFs
+
+For those use cases, a self-contained HTML file is actually the better architecture.
+
+Benefits:
+
+Open in Browser
+        ↓
+Print to PDF
+        ↓
+Attach Anywhere
+
+
+No:
+
+routing
+CMS fields
+React components
+schema maintenance
+admin interfaces
+One Change I'd Make
+
+Rename the files slightly:
+
+Instead of
+ISL-Business-Operating-Systems.html
+
+
+Use
+
+ISL-Business-Operating-System-Guide.html
+
+
+Reason:
+
+It sounds more like a professional deliverable.
+
+Keep
+L2L-Transformation-Story.html
+
+
+Perfect.
+
+Keep
+BOS-Assessment-One-Pager.html
+
+
+Perfect.
+
+One Additional Deliverable
+
+Add:
+
+print.css
+
+
+shared across all three documents.
+
+Benefits:
+
+identical branding
+consistent spacing
+consistent PDF output
+easier maintenance
+Content Recommendation
+One-Pager #1
+
+Not sales-heavy.
+
+Goal:
+
+Educate
+
+
+Question:
+
+What is a Business Operating System?
+
+One-Pager #2
+
+Proof.
+
+Goal:
+
+Demonstrate
+
+
+Question:
+
+Has this worked before?
+
+
+Answer:
+
+Living 2 Live
+
+One-Pager #3
+
+Conversion.
+
+Goal:
+
+Engage
+
+
+Question:
+
+Where do I start?
+
+
+Answer:
+
+Take the BOS Assessment
+
+Best Part of #32
+
+The sequence becomes:
+
+Asset 1
+Business Operating System Guide
+
+
+↓
+
+Asset 2
+Living 2 Live Transformation Story
+
+
+↓
+
+Asset 3
+Business Operating System Assessment
+
+
+That's actually a complete consulting sales toolkit.
+
+One Small Addition to the Ticket
+
+I'd add:
+
+Each page must fit on a single
+8.5 x 11 page when printed from Chrome.
+
+No content may spill to a second page.
+
+
+That's the only requirement I think is missing.
+
+Otherwise, I'd tell Replit:
+
+Proceed exactly as written.
+
+This is one of the cleanest and highest-value deliverables you've proposed recently because it leverages all the BOS positioning work, the Living 2 Live story, and the BOS Assessment without creating additional website complexity.

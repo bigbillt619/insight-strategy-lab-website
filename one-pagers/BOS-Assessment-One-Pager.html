@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BOS Assessment | Insight Strategy Lab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="print.css">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a1628;
+    --blue: #2563eb;
+    --blue-mid: #1d4ed8;
+    --blue-pale: #eff6ff;
+    --blue-border: #bfdbfe;
+    --text: #1e293b;
+    --muted: #475569;
+    --border: #e2e8f0;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 10.5px;
+    color: var(--text);
+    background: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 40px;
+    line-height: 1.45;
+  }
+
+  .print-btn {
+    margin-bottom: 16px;
+    padding: 8px 20px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .print-btn:hover { background: var(--blue-mid); }
+
+  .page {
+    width: 7.5in;
+    min-height: 10in;
+    background: var(--white);
+    box-shadow: 0 4px 32px rgba(0,0,0,0.14);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: var(--navy);
+    color: var(--white);
+    padding: 12px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left { display: flex; flex-direction: column; gap: 2px; }
+  .header-logo { font-size: 14px; font-weight: 800; letter-spacing: 0.04em; }
+  .header-tagline { font-size: 8.5px; font-weight: 500; color: #93c5fd; letter-spacing: 0.08em; text-transform: uppercase; }
+  .header-right { text-align: right; }
+  .header-step {
+    font-size: 8px;
+    color: #64748b;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .header-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--white);
+  }
+
+  /* ── Hero band ── */
+  .hero {
+    background: linear-gradient(135deg, #0f2244 0%, #1a3560 100%);
+    padding: 18px 24px 16px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-size: 9px;
+    font-weight: 700;
+    color: #93c5fd;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+  .hero-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 7px;
+  }
+  .hero-subtitle {
+    font-size: 11px;
+    color: #cbd5e1;
+    line-height: 1.5;
+    max-width: 5.2in;
+    margin: 0 auto;
+  }
+
+  /* ── Body ── */
+  .body { flex: 1; padding: 14px 24px 10px; display: flex; flex-direction: column; gap: 11px; }
+
+  .section-label {
+    font-size: 7.5px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 5px;
+  }
+
+  /* ── Two column ── */
+  .row-2col { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 12px; }
+
+  /* ── Pillars ── */
+  .pillars-list { display: flex; flex-direction: column; gap: 5px; }
+  .pillar-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 6px 8px;
+    background: var(--blue-pale);
+    border: 1px solid var(--blue-border);
+    border-radius: 5px;
+  }
+  .pillar-icon {
+    width: 22px;
+    height: 22px;
+    background: var(--blue);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+    font-size: 9px;
+    font-weight: 800;
+  }
+  .pillar-info { flex: 1; }
+  .pillar-name { font-size: 9.5px; font-weight: 700; color: var(--navy); line-height: 1.2; }
+  .pillar-desc { font-size: 8.5px; color: var(--muted); line-height: 1.35; margin-top: 1px; }
+
+  /* ── Deliverables ── */
+  .deliverables-list { display: flex; flex-direction: column; gap: 7px; }
+  .deliverable {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 7px 9px;
+    background: var(--navy);
+    border-radius: 5px;
+    color: var(--white);
+  }
+  .deliverable-num {
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--blue);
+    line-height: 1;
+    flex-shrink: 0;
+    width: 16px;
+    text-align: center;
+    margin-top: 1px;
+  }
+  .deliverable-info { flex: 1; }
+  .deliverable-title { font-size: 9.5px; font-weight: 700; line-height: 1.2; }
+  .deliverable-desc { font-size: 8.5px; color: #93c5fd; line-height: 1.35; margin-top: 1px; }
+
+  /* ── Audience ── */
+  .audience-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; }
+  .audience-card {
+    border: 1.5px solid var(--blue-border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+  }
+  .audience-icon { font-size: 16px; margin-bottom: 3px; }
+  .audience-title { font-size: 9.5px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .audience-desc { font-size: 8.5px; color: var(--muted); line-height: 1.35; }
+
+  /* ── Primary CTA ── */
+  .primary-cta {
+    background: var(--blue);
+    border-radius: 8px;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    color: var(--white);
+  }
+  .primary-cta-qr {
+    width: 72px;
+    height: 72px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 3px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .primary-cta-qr svg { width: 64px; height: 64px; display: block; }
+  .primary-cta-body { flex: 1; }
+  .primary-cta-label {
+    font-size: 8.5px;
+    font-weight: 600;
+    color: #93c5fd;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .primary-cta-title {
+    font-size: 17px;
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .primary-cta-desc {
+    font-size: 9.5px;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.45;
+    margin-bottom: 5px;
+  }
+  .primary-cta-url { font-size: 9px; font-weight: 700; color: #bfdbfe; letter-spacing: 0.01em; }
+
+  /* ── Secondary CTA ── */
+  .secondary-cta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--navy);
+    border-radius: 7px;
+    padding: 9px 14px;
+    color: var(--white);
+  }
+  .secondary-cta-qr {
+    width: 46px;
+    height: 46px;
+    background: #fff;
+    border-radius: 4px;
+    padding: 2px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .secondary-cta-qr svg { width: 40px; height: 40px; display: block; }
+  .secondary-cta-text { flex: 1; }
+  .secondary-cta-action { font-size: 10.5px; font-weight: 700; margin-bottom: 2px; }
+  .secondary-cta-desc { font-size: 8.5px; color: #93c5fd; line-height: 1.35; }
+  .secondary-cta-url { font-size: 8px; color: #64748b; margin-top: 2px; }
+
+  /* ── Footer ── */
+  .footer {
+    background: var(--navy);
+    color: #93c5fd;
+    padding: 7px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 8.5px;
+  }
+  .footer strong { color: var(--white); font-weight: 700; }
+
+  @media print {
+    body { background: none; padding: 0; }
+    .page { width: 100%; min-height: auto; box-shadow: none; }
+    .print-btn { display: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<button class="print-btn no-print" onclick="window.print()">🖨 Print / Save as PDF</button>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header no-break">
+    <div class="header-left">
+      <div class="header-logo">INSIGHT STRATEGY LAB</div>
+      <div class="header-tagline">Architecting Business Operating Systems</div>
+    </div>
+    <div class="header-right">
+      <div class="header-step">Step 3 — Engage</div>
+      <div class="header-title">Business Operating System Assessment</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero no-break">
+    <div class="hero-eyebrow">Free Assessment · Takes 10 Minutes</div>
+    <div class="hero-title">How well is your operating system performing?</div>
+    <div class="hero-subtitle">The Business Operating System Assessment evaluates six core pillars of organizational performance — and delivers a scored report with prioritized recommendations you can act on immediately.</div>
+  </div>
+
+  <div class="body">
+
+    <!-- Pillars + Deliverables -->
+    <div class="row-2col no-break">
+
+      <div>
+        <div class="section-label">What the Assessment Evaluates</div>
+        <div class="pillars-list">
+          <div class="pillar-row">
+            <div class="pillar-icon">P</div>
+            <div class="pillar-info">
+              <div class="pillar-name">People</div>
+              <div class="pillar-desc">Roles, accountability, onboarding, and leadership clarity</div>
+            </div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">Pr</div>
+            <div class="pillar-info">
+              <div class="pillar-name">Processes</div>
+              <div class="pillar-desc">Documentation, standardization, and process maturity</div>
+            </div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">T</div>
+            <div class="pillar-info">
+              <div class="pillar-name">Technology</div>
+              <div class="pillar-desc">Tool integration, adoption, and operational leverage</div>
+            </div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">D</div>
+            <div class="pillar-info">
+              <div class="pillar-name">Data</div>
+              <div class="pillar-desc">Data quality, visibility, and decision-making capability</div>
+            </div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">AI</div>
+            <div class="pillar-info">
+              <div class="pillar-name">AI Readiness</div>
+              <div class="pillar-desc">Automation maturity and intelligent workflow opportunity</div>
+            </div>
+          </div>
+          <div class="pillar-row">
+            <div class="pillar-icon">G</div>
+            <div class="pillar-info">
+              <div class="pillar-name">Governance</div>
+              <div class="pillar-desc">Oversight, reporting, compliance, and accountability systems</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="section-label">What You Receive</div>
+        <div class="deliverables-list">
+          <div class="deliverable">
+            <div class="deliverable-num">1</div>
+            <div class="deliverable-info">
+              <div class="deliverable-title">Scored Maturity Report</div>
+              <div class="deliverable-desc">BOS maturity score across all six pillars with benchmarks</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num">2</div>
+            <div class="deliverable-info">
+              <div class="deliverable-title">Gap Analysis</div>
+              <div class="deliverable-desc">Clear identification of where operational friction is costing you</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num">3</div>
+            <div class="deliverable-info">
+              <div class="deliverable-title">Priority Recommendations</div>
+              <div class="deliverable-desc">Ranked action items based on your specific responses</div>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num">4</div>
+            <div class="deliverable-info">
+              <div class="deliverable-title">Transformation Roadmap Overview</div>
+              <div class="deliverable-desc">Phased BOS implementation path tailored to your organization</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Who it's for -->
+    <div class="no-break">
+      <div class="section-label">Who It's For</div>
+      <div class="audience-row">
+        <div class="audience-card">
+          <div class="audience-icon">🏢</div>
+          <div class="audience-title">Small Businesses</div>
+          <div class="audience-desc">Ready to scale beyond founder-dependent operations</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🌱</div>
+          <div class="audience-title">Nonprofits</div>
+          <div class="audience-desc">Seeking operational clarity and governance confidence</div>
+        </div>
+        <div class="audience-card">
+          <div class="audience-icon">🎯</div>
+          <div class="audience-title">Mission-Driven Orgs</div>
+          <div class="audience-desc">Aligning people, programs, and resources for sustainable impact</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Primary CTA -->
+    <div class="primary-cta no-break">
+      <div class="primary-cta-qr">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m3 0h1m2 0h1m2 0h2m1 0h2m1 0h7M1 2.5h1m5 0h1m3 0h1m1 0h4m2 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h1m1 0h1m2 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m2 0h4m2 0h1m4 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h6m1 0h2m3 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h5m1 0h1m1 0h1m1 0h1m1 0h1M1 9.5h1m1 0h5m2 0h2m1 0h4m1 0h1m4 0h5M2 10.5h2m1 0h1m2 0h1m3 0h2m1 0h1m1 0h1m1 0h7m3 0h1M2 11.5h1m4 0h4m1 0h2m1 0h3m1 0h1m4 0h2M1 12.5h1m2 0h3m1 0h1m1 0h4m2 0h1m4 0h1m1 0h1m2 0h1m1 0h1M2 13.5h2m3 0h1m3 0h2m1 0h3m1 0h1m2 0h1m4 0h2M8 14.5h1m3 0h1m1 0h1m2 0h1m1 0h7m3 0h1M1 15.5h5m1 0h4m1 0h1m3 0h4m1 0h4m1 0h2M2 16.5h1m2 0h1m2 0h2m3 0h1m1 0h2m2 0h1m2 0h1m2 0h1m2 0h1M1 17.5h1m1 0h2m2 0h1m1 0h3m2 0h2m2 0h2m4 0h1m1 0h2M1 18.5h2m2 0h2m2 0h5m3 0h5m1 0h3m1 0h1m1 0h1M1 19.5h1m2 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m8 0h1M1 20.5h1m1 0h2m3 0h1m2 0h1m1 0h1m1 0h3m1 0h2m1 0h1m1 0h1m3 0h1M1 21.5h1m2 0h1m1 0h2m1 0h3m1 0h1m2 0h1m1 0h1m2 0h5m1 0h3M9 22.5h2m1 0h3m2 0h1m1 0h3m3 0h5M1 23.5h7m2 0h2m1 0h9m1 0h1m1 0h3M1 24.5h1m5 0h1m1 0h1m3 0h2m2 0h1m2 0h2m3 0h1M1 25.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h1m2 0h1m2 0h5m1 0h3M1 26.5h1m1 0h3m1 0h1m1 0h2m1 0h2m4 0h2m6 0h4M1 27.5h1m1 0h3m1 0h1m1 0h1m1 0h1m4 0h3m1 0h1m2 0h6M1 28.5h1m5 0h1m6 0h4m2 0h3m1 0h3m1 0h1M1 29.5h7m1 0h3m6 0h1m1 0h1m2 0h1m3 0h1"/></svg>
+      </div>
+      <div class="primary-cta-body">
+        <div class="primary-cta-label">Free · No Obligation · 10 Minutes</div>
+        <div class="primary-cta-title">Take the BOS Assessment</div>
+        <div class="primary-cta-desc">Scan the QR code or visit the URL below to identify your operational gaps, score your BOS maturity across six pillars, and receive a prioritized transformation roadmap — free.</div>
+        <div class="primary-cta-url">insightstrategylab.com/diagnostic</div>
+      </div>
+    </div>
+
+    <!-- Secondary CTA -->
+    <div class="secondary-cta no-break">
+      <div class="secondary-cta-qr">
+        <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 31 31" shape-rendering="crispEdges"><path fill="#ffffff" d="M0 0h31v31H0z"/><path stroke="#000000" d="M1 1.5h7m2 0h1m1 0h1m4 0h2m1 0h2m1 0h7M1 2.5h1m5 0h1m2 0h2m2 0h1m1 0h2m1 0h1m1 0h1m1 0h1m5 0h1M1 3.5h1m1 0h3m1 0h1m1 0h2m2 0h1m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1M1 4.5h1m1 0h3m1 0h1m1 0h1m1 0h2m1 0h3m1 0h1m4 0h1m1 0h3m1 0h1M1 5.5h1m1 0h3m1 0h1m1 0h1m1 0h3m1 0h1m1 0h5m1 0h1m1 0h3m1 0h1M1 6.5h1m5 0h1m1 0h3m1 0h1m1 0h2m4 0h1m1 0h1m5 0h1M1 7.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M9 8.5h3m4 0h2m1 0h1m1 0h1M1 9.5h1m1 0h5m3 0h1m1 0h1m2 0h3m4 0h5M1 10.5h1m2 0h1m1 0h1m3 0h5m2 0h1m1 0h7m3 0h1M5 11.5h3m1 0h1m1 0h1m1 0h4m2 0h1m4 0h2M3 12.5h1m5 0h1m2 0h1m1 0h1m2 0h1m3 0h1m1 0h1m2 0h1m1 0h1M4 13.5h2m1 0h2m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1m4 0h2M3 14.5h2m4 0h2m6 0h1m1 0h7m3 0h1M1 15.5h1m5 0h1m2 0h1m1 0h2m2 0h4m1 0h4m1 0h2M1 16.5h1m3 0h2m1 0h2m2 0h2m1 0h1m1 0h1m1 0h1m2 0h1m2 0h1m2 0h1M1 17.5h1m3 0h3m1 0h1m2 0h1m5 0h2m4 0h1m1 0h2M1 18.5h4m3 0h3m3 0h2m1 0h5m1 0h3m1 0h1m1 0h1M1 19.5h1m5 0h1m3 0h2m1 0h5m8 0h1M1 20.5h1m1 0h3m3 0h1m4 0h1m4 0h2m1 0h1m1 0h1m3 0h1M1 21.5h1m3 0h3m7 0h2m1 0h1m2 0h5m1 0h3M9 22.5h2m1 0h1m4 0h1m1 0h3m3 0h5M1 23.5h7m3 0h3m2 0h6m1 0h1m1 0h3M1 24.5h1m5 0h1m1 0h3m3 0h1m1 0h1m2 0h2m3 0h1m2 0h2M1 25.5h1m1 0h3m1 0h1m1 0h1m1 0h2m5 0h1m2 0h5m1 0h1M1 26.5h1m1 0h3m1 0h1m1 0h1m3 0h1m1 0h1m2 0h2m6 0h4M1 27.5h1m1 0h3m1 0h1m1 0h2m1 0h2m2 0h3m1 0h1m2 0h6M1 28.5h1m5 0h1m6 0h1m1 0h2m2 0h3m1 0h3m1 0h1M1 29.5h7m1 0h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h1m3 0h1"/></svg>
+      </div>
+      <div class="secondary-cta-text">
+        <div class="secondary-cta-action">Schedule a Business Operating System Review</div>
+        <div class="secondary-cta-desc">Prefer a conversation? Discuss your organization's challenges and growth opportunities directly with our team. No pitch — just a focused, strategic conversation about your operating system.</div>
+        <div class="secondary-cta-url">insightstrategylab.com/contact</div>
+      </div>
+    </div>
+
+  </div><!-- /body -->
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div><strong>Insight Strategy Lab</strong> &nbsp;·&nbsp; insightstrategylab.com</div>
+    <div>People &nbsp;·&nbsp; Processes &nbsp;·&nbsp; Technology &nbsp;·&nbsp; Data &nbsp;·&nbsp; AI</div>
+    <div>Veteran-Owned &nbsp;·&nbsp; SHRM-CP &nbsp;·&nbsp; AI Business Strategy</div>
+  </div>
+
+</div><!-- /page -->
+
+</body>
+</html>

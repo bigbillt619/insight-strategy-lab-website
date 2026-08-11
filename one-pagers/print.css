@@ -1,0 +1,39 @@
+/* =========================================================
+   print.css — Shared print reset for ISL one-pagers
+   Keep this file in the same folder as the HTML files.
+   ========================================================= */
+
+@media print {
+  @page {
+    size: letter portrait;
+    margin: 0.45in 0.5in;
+  }
+
+  /* Force background colors and images to print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Hide interactive chrome */
+  .no-print {
+    display: none !important;
+  }
+
+  /* Prevent orphaned headings and broken cards */
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .no-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  /* Hard stop — nothing beyond one page */
+  body {
+    overflow: hidden;
+  }
+}
